@@ -30,6 +30,8 @@ class ControlPanel(QWidget):
     """
 
     send_command = pyqtSignal(str)
+    ntp_sync_requested = pyqtSignal()        # E1: NTP time sync button clicked
+    weather_fetch_requested = pyqtSignal()   # E2: weather fetch button clicked
 
     def __init__(self, parent: QWidget = None) -> None:
         """Initialize the control panel.
@@ -221,6 +223,26 @@ class ControlPanel(QWidget):
         mode_layout.addStretch()
         set_layout.addLayout(mode_layout)
 
+        # --- E1/E2 extended features row ---
+        ext_layout = QHBoxLayout()
+        self.btn_ntp_sync = QPushButton("⏱ NTP 对时")
+        self.btn_ntp_sync.setFixedWidth(120)
+        self.btn_ntp_sync.setToolTip("从互联网NTP服务器获取精确时间并下发至S800板")
+        self.btn_ntp_sync.clicked.connect(self._on_ntp_sync)
+        ext_layout.addWidget(self.btn_ntp_sync)
+
+        self.btn_weather = QPushButton("🌤 获取天气")
+        self.btn_weather.setFixedWidth(120)
+        self.btn_weather.setToolTip("从天气API获取实时天气数据")
+        self.btn_weather.clicked.connect(self._on_weather_fetch)
+        ext_layout.addWidget(self.btn_weather)
+
+        self.lbl_weather_age = QLabel("")
+        self.lbl_weather_age.setStyleSheet("color: #888888; font-size: 11px;")
+        ext_layout.addWidget(self.lbl_weather_age)
+        ext_layout.addStretch()
+        set_layout.addLayout(ext_layout)
+
         # General commands row
         gen_layout = QHBoxLayout()
         self.btn_rst = QPushButton("复位")
@@ -382,6 +404,40 @@ class ControlPanel(QWidget):
         m = f"{self.spin_min.value():02d}"
         s = f"{self.spin_sec.value():02d}"
         self.send_command.emit(f"*SeT:TiMe HoUr {h} MiNuTe {m} SeCoNd {s}\r\n")
+
+    # --- E1/E2 extension handlers ---
+
+    def _on_ntp_sync(self) -> None:
+        """Emit NTP sync request signal (handled by MainWindow)."""
+        self.ntp_sync_requested.emit()
+
+    def _on_weather_fetch(self) -> None:
+        """Emit weather fetch request signal (handled by MainWindow)."""
+        self.weather_fetch_requested.emit()
+
+    def set_ntp_enabled(self, enabled: bool) -> None:
+        """Enable or disable the NTP sync button.
+
+        Args:
+            enabled: True to enable, False to disable (gray out).
+        """
+        self.btn_ntp_sync.setEnabled(enabled)
+
+    def set_weather_enabled(self, enabled: bool) -> None:
+        """Enable or disable the weather fetch button.
+
+        Args:
+            enabled: True to enable, False to disable (gray out).
+        """
+        self.btn_weather.setEnabled(enabled)
+
+    def set_weather_age(self, age_text: str) -> None:
+        """Update the weather cache age label.
+
+        Args:
+            age_text: Human-readable age string (e.g. '12分钟前').
+        """
+        self.lbl_weather_age.setText(age_text)
 
     # --- GET handlers ---
 

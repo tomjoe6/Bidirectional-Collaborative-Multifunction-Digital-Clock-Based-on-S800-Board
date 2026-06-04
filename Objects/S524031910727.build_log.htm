@@ -21,17 +21,22 @@ Target DLL:      lmidk-agdi.dll V???
 Dialog DLL:      TCM.DLL V1.21.0.0
  
 <h2>Project:</h2>
-C:\S800\EXP1\S524031910727.uvprojx
+X:\coding\github\Bidirectional-Collaborative-Multifunction-Digital-Clock-Based-on-S800-Board\S524031910727.uvprojx
 Project File Date:  05/22/2026
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 4 (build 422)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Target 1'
-compiling exp2.c...
+compiling protocol.c...
+firmware\protocol.c(27): warning:  #550-D: variable "g_line_ready"  was set but never used
+  static uint8_t g_line_ready;
+firmware\protocol.c(134): warning:  #177-D: function "StrToUpper"  was declared but never referenced
+  static void StrToUpper(char *str)
+firmware\protocol.c: 2 warnings, 0 errors
 linking...
-Program Size: Code=7148 RO-data=2308 RW-data=140 ZI-data=996  
+Program Size: Code=15690 RO-data=2414 RW-data=184 ZI-data=2184  
 FromELF: creating hex file...
-".\Objects\S524031910727.axf" - 0 Error(s), 0 Warning(s).
+".\Objects\S524031910727.axf" - 0 Error(s), 2 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -42,15 +47,15 @@ Package Vendor: Keil
    * Component: Startup Version: 1.0.0
 
 <h2>Collection of Component include folders:</h2>
-  C:\S800\EXP1\RTE\_Target_1
+  X:\coding\github\Bidirectional-Collaborative-Multifunction-Digital-Clock-Based-on-S800-Board\RTE\_Target_1
   C:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C129
 
 <h2>Collection of Component Files used:</h2>
 
    * Component: Keil::Device:Startup:1.0.0
+      Include file:  Device\Include\TM4C129\TM4C129.h
       Source file:   Device\Source\ARM\startup_TM4C129.s
       Source file:   Device\Source\system_TM4C129.c
-      Include file:  Device\Include\TM4C129\TM4C129.h
 Build Time Elapsed:  00:00:01
 </pre>
 </body>

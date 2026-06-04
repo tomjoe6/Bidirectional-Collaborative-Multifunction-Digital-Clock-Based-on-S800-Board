@@ -8,7 +8,7 @@
 
 ```
 ├── PRD.md                          # 产品需求规格文档
-├── exp2.c                          # 原始硬件验证代码（参考）
+├── PROJECT.md                      # 完整项目文档（中文，强烈推荐阅读）
 ├── firmware/                       # 板端固件（C 语言 / TivaWare DriverLib）
 │   ├── hw_config.h                 # 硬件引脚/I2C/UART/SysTick 定义
 │   ├── clock.h / clock.c           # 时钟状态管理（闰年/月末进位）
@@ -29,6 +29,8 @@
 │   ├── serial_worker.py            # 后台串口线程（QThread）
 │   ├── twin_state.py               # 数字孪生状态镜像
 │   ├── heartbeat.py                # 心跳超时监控
+│   ├── ntp_client.py               # [E1] NTP 时间同步客户端
+│   ├── weather_client.py           # [E2] 天气 API 客户端
 │   └── widgets/
 │       ├── seven_seg.py            # 自绘 7 段数码管组件
 │       ├── led_indicator.py        # LED 指示灯组件
@@ -154,7 +156,7 @@ MainWindow (UI Thread)
 | 端 | 技术 |
 |:---|:---|
 | 板端 | TM4C129 + TivaWare DriverLib + C89 |
-| PC 端 | Python 3.11 + PyQt5 + pyserial + python-dotenv |
+| PC 端 | Python 3.11 + PyQt5 + pyserial + python-dotenv + ntplib + requests |
 
 ## 开发说明
 
@@ -163,3 +165,7 @@ MainWindow (UI Thread)
 - 固件不使用动态内存分配（无 malloc/free）
 - PC 端使用信号槽机制保证线程安全
 - 串口通信在独立 QThread 中进行，不阻塞 UI
+
+## 扩展阅读
+
+- **[PROJECT.md](PROJECT.md)** — 最详细的中文项目文档：每个文件的用途、功能使用指南、完整协议参考、E1/E2 扩展功能、故障排查

@@ -24,7 +24,6 @@ static volatile uint8_t  g_ring_overflow;
  *=========================================================================*/
 static char    g_line_buf[PROTO_LINE_SIZE];
 static uint8_t g_line_idx;
-static uint8_t g_line_ready;
 
 /*=========================================================================
  * Response buffer (used for building command responses)
@@ -126,19 +125,6 @@ static uint8_t MatchAbbrev(const char *input, const char *pattern)
     }
 
     return 1;
-}
-
-/*=========================================================================
- * Convert a string to uppercase in place.
- *=========================================================================*/
-static void StrToUpper(char *str)
-{
-    while (*str) {
-        if (*str >= 'a' && *str <= 'z') {
-            *str = (char)(*str - 32);
-        }
-        str++;
-    }
 }
 
 /*=========================================================================
@@ -861,7 +847,6 @@ static void Protocol_ParseLine(char *line)
             } else {
                 Protocol_SendResponse("ERROR\r\n");
             }
-        }
         return;
     }
 
@@ -913,12 +898,10 @@ void Protocol_Process(void)
 
             if (g_line_idx > 0) {
                 g_line_buf[g_line_idx] = '\0';
-                g_line_ready = 1;
                 g_line_idx = 0;
 
                 /* Parse the line immediately */
                 Protocol_ParseLine(g_line_buf);
-                g_line_ready = 0;
             }
         } else {
             /* Regular character: add to line buffer */

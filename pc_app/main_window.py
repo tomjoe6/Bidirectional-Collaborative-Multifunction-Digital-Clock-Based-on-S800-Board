@@ -33,11 +33,16 @@ from .config import (
     DEFAULT_TIMEOUT,
     COLOR_ERR,
     COLOR_OK,
+    NTP_LED_D6_MASK,
+    NTP_LED_DURATION_MS,
+    NTP_STATUS_DISPLAY_MS,
 )
 from .heartbeat import HeartbeatMonitor
+from .ntp_client import NTPClient
 from .protocol import ProtocolParser
 from .serial_worker import SerialWorker
 from .twin_state import TwinStateManager
+from .weather_client import WeatherClient
 from .widgets import ControlPanel, LEDBarWidget, LogPanel, SevenSegWidget
 
 
@@ -62,6 +67,15 @@ class MainWindow(QMainWindow):
         self._twin_state = TwinStateManager(self)
         self._heartbeat = HeartbeatMonitor(self)
         self._serial_worker: Optional[SerialWorker] = None
+
+        # E1: NTP time sync client
+        self._ntp_client = NTPClient()
+        self._ntp_pending: bool = False
+        self._ntp_ok_count: int = 0
+        self._ntp_check_timer: Optional[QTimer] = None
+
+        # E2: Weather client
+        self._weather_client = WeatherClient()
 
         # Timer for auto-refreshing COM ports
         self._port_timer = QTimer(self)
@@ -231,6 +245,8 @@ class MainWindow(QMainWindow):
 
         # Control panel -> send command
         self.control_panel.send_command.connect(self._on_send_command)
+        self.control_panel.ntp_sync_requested.connect(self._on_ntp_sync)
+        self.control_panel.weather_fetch_requested.connect(self._on_weather_fetch)
 
         # Heartbeat
         self._heartbeat.timeout.connect(self._on_heartbeat_timeout)
@@ -321,6 +337,7 @@ class MainWindow(QMainWindow):
             self._update_connection_ui(True, f"已连接: {message}")
             self._twin_state.set_connected(True)
             self._heartbeat.start()
+            self._update_weather_button_state()
             self.log_panel.addEntry("OK", f"串口 {message} 连接成功")
         else:
             self.btn_connect.setText("连接")
@@ -358,6 +375,12 @@ class MainWindow(QMainWindow):
             if ftype == "pong":
                 self._heartbeat.record_pong_received()
 
+            # Track NTP OK responses
+            if self._ntp_pending and ftype == "ok":
+                self._ntp_ok_count += 1
+            elif self._ntp_pending and ftype == "error":
+                self.log_panel.addEntry("ERR", f"NTP命令返回错误: {frame.get('raw', '')}")
+
             # Process into twin state
             self._twin_state.process_frame(frame)
 
@@ -373,6 +396,9 @@ class MainWindow(QMainWindow):
         self._update_connection_ui(False, "未连接")
         self._twin_state.set_connected(False)
         self._twin_state.reset()
+        # Reset NTP state
+        self._ntp_pending = False
+        self._ntp_ok_count = 0
 
     def _on_send_command(self, cmd: str) -> None:
         """Send a command string over the serial port.
@@ -408,6 +434,176 @@ class MainWindow(QMainWindow):
         from .protocol import ProtocolParser
         cmd = ProtocolParser.format_command("SET", "KEY", [key_name])
         self._on_send_command(cmd + "\r\n")
+
+    # ------------------------------------------------------------------
+    # E1: NTP Time Synchronization
+    # ------------------------------------------------------------------
+
+    def _on_ntp_sync(self) -> None:
+        """Handle NTP sync button click (E1).
+
+        Fetches network time, sends *SET:DATE and *SET:TIME commands,
+        and controls LED D6 to indicate success/failure.
+        """
+        if not self._serial_worker or not self._serial_worker.is_connected():
+            QMessageBox.warning(self, "NTP 对时", "请先连接串口。")
+            return
+
+        if self._ntp_pending:
+            return  # Already in progress
+
+        # Disable button during request
+        self.control_panel.set_ntp_enabled(False)
+        self.lbl_status.setText("NTP 对时中...")
+        self.lbl_status.setStyleSheet("color: #FFAA00; font-weight: bold;")
+
+        # Perform NTP request (may block briefly - use QTimer to keep UI responsive)
+        result = self._ntp_client.fetch_time()
+
+        if not result.success:
+            # NTP request failed
+            self.control_panel.set_ntp_enabled(True)
+            self._update_connection_ui(
+                self._serial_worker and self._serial_worker.is_connected(),
+                "NTP 失败"
+            )
+            self.log_panel.addError(f"NTP对时失败: {result.error_msg}")
+            QMessageBox.warning(self, "NTP 对时失败", result.error_msg)
+            return
+
+        # NTP succeeded — send DATE and TIME commands
+        self._ntp_pending = True
+        self._ntp_ok_count = 0
+
+        date_cmd = self._ntp_client.get_date_command(result)
+        time_cmd = self._ntp_client.get_time_command(result)
+
+        self.log_panel.addEntry("TX", f"NTP对时: {date_cmd.strip()}")
+        self._on_send_command(date_cmd)
+
+        self.log_panel.addEntry("TX", f"NTP对时: {time_cmd.strip()}")
+        self._on_send_command(time_cmd)
+
+        # Schedule result check in 1.5s (allow time for both responses)
+        self._ntp_check_timer = QTimer(self)
+        self._ntp_check_timer.setSingleShot(True)
+        self._ntp_check_timer.timeout.connect(self._on_ntp_check_responses)
+        self._ntp_check_timer.start(1500)
+
+    def _on_ntp_check_responses(self) -> None:
+        """Check NTP command responses and control LED D6 accordingly."""
+        self._ntp_pending = False
+
+        if self._ntp_ok_count >= 2:
+            # Both DATE and TIME succeeded → light D6
+            self.log_panel.addEntry("OK", "NTP对时成功 ✓")
+            self.lbl_status.setText("NTP ✓")
+            self.lbl_status.setStyleSheet(
+                "color: #00AA00; font-weight: bold;"
+            )
+
+            # Send LED command to light D6
+            led_cmd = f"*SET:LED {NTP_LED_D6_MASK:02X}\r\n"
+            self.log_panel.addEntry("TX", f"NTP LED D6: {led_cmd.strip()}")
+            if self._serial_worker and self._serial_worker.is_connected():
+                try:
+                    self._serial_worker.send(led_cmd.encode("ascii"))
+                except Exception:
+                    pass
+
+            # Schedule LED D6 off after duration
+            QTimer.singleShot(NTP_LED_DURATION_MS, self._on_ntp_led_off)
+
+            # Schedule status label reset
+            QTimer.singleShot(NTP_STATUS_DISPLAY_MS, self._on_ntp_status_reset)
+        else:
+            # Not enough OK responses
+            self.log_panel.addError(
+                f"NTP对时: 板端响应不足 (收到{self._ntp_ok_count}个OK，预期2个)"
+            )
+            self._on_ntp_status_reset()
+
+        # Re-enable NTP button
+        self.control_panel.set_ntp_enabled(True)
+
+    def _on_ntp_led_off(self) -> None:
+        """Turn off LED D6 after NTP success indication duration."""
+        led_cmd = "*SET:LED 00\r\n"
+        if self._serial_worker and self._serial_worker.is_connected():
+            try:
+                self._serial_worker.send(led_cmd.encode("ascii"))
+            except Exception:
+                pass
+
+    def _on_ntp_status_reset(self) -> None:
+        """Reset status label after NTP success display expires."""
+        self._update_status_text()
+
+    # ------------------------------------------------------------------
+    # E2: Weather Fetch and USER2 Response
+    # ------------------------------------------------------------------
+
+    def _on_weather_fetch(self) -> None:
+        """Handle weather fetch button click (E2).
+
+        Fetches weather data from the configured API and updates the cache.
+        """
+        # Disable button during fetch
+        self.control_panel.set_weather_enabled(False)
+        self.lbl_status.setText("获取天气中...")
+        self.lbl_status.setStyleSheet("color: #FFAA00; font-weight: bold;")
+
+        result = self._weather_client.fetch()
+
+        if result.success:
+            self.log_panel.addEntry(
+                "OK",
+                f"天气获取成功: {result.display_text}"
+            )
+            self.control_panel.set_weather_age(
+                self._weather_client.cache.age_text()
+            )
+        else:
+            self.log_panel.addError(
+                f"天气获取失败: {result.error_msg}"
+            )
+            QMessageBox.warning(self, "天气获取失败", result.error_msg)
+            # Keep old cache age if available
+            if self._weather_client.cache.result is not None:
+                self.control_panel.set_weather_age(
+                    self._weather_client.cache.age_text() + " (过期)"
+                )
+
+        # Re-enable button and restore status
+        self.control_panel.set_weather_enabled(True)
+        self._update_status_text()
+
+    def _send_weather_to_board(self) -> None:
+        """Send cached weather data to the S800 board via *SET:MSG.
+
+        Called when USER2 key event is received from the board.
+        """
+        if not self._serial_worker or not self._serial_worker.is_connected():
+            return
+
+        display_text = self._weather_client.get_display_text()
+        cmd = f"*SET:MSG {display_text}\r\n"
+        self.log_panel.addEntry("TX", f"天气下发(USER2): {cmd.strip()}")
+        try:
+            self._serial_worker.send(cmd.encode("ascii"))
+        except Exception as e:
+            self.log_panel.addError(f"天气下发失败: {e}")
+
+    def _update_weather_button_state(self) -> None:
+        """Update weather button state based on API key availability."""
+        if self._weather_client.has_api_key:
+            self.control_panel.set_weather_enabled(True)
+            self.control_panel.btn_weather.setToolTip("从天气API获取实时天气数据")
+        else:
+            self.control_panel.set_weather_enabled(False)
+            self.control_panel.btn_weather.setToolTip(
+                "未配置 WEATHER_API_KEY，请在 .env 中设置后重启程序"
+            )
 
     # ------------------------------------------------------------------
     # Heartbeat handlers
@@ -471,8 +667,15 @@ class MainWindow(QMainWindow):
         self._update_status_text()
 
     def _on_key_event(self, key_name: str) -> None:
-        """Log key events (UI state already handled by display)."""
-        pass  # Key events are displayed via seg/led changes
+        """Handle key events from the board.
+
+        USER2 triggers automatic weather data delivery (E2).
+        Other keys are purely informational (UI state already updated
+        via seg/led change events).
+        """
+        if key_name == "USER2":
+            self.log_panel.addEntry("EVT", "USER2: 板端请求天气数据")
+            self._send_weather_to_board()
 
     def _on_edit_event(self, edit_type: str, edit_value: str) -> None:
         """Log edit events."""
@@ -494,12 +697,14 @@ class MainWindow(QMainWindow):
             self.lbl_status.setStyleSheet(
                 "color: #009933; font-weight: bold;"
             )
+            self.control_panel.set_ntp_enabled(True)
         else:
             self.lbl_status.setStyleSheet(
                 "color: #CC0000; font-weight: bold;"
             )
             self.lbl_latency.setText("延迟: --ms")
             self.lbl_latency.setStyleSheet("color: #888888;")
+            self.control_panel.set_ntp_enabled(False)
 
     def _update_status_text(self) -> None:
         """Refresh the status label with current format and alarm state."""
@@ -521,6 +726,9 @@ class MainWindow(QMainWindow):
     def closeEvent(self, event) -> None:
         """Handle window close: stop serial worker and heartbeat."""
         self._heartbeat.stop()
+        self._ntp_pending = False  # cancel any pending NTP
+        if self._ntp_check_timer is not None:
+            self._ntp_check_timer.stop()
         if self._serial_worker:
             self._serial_worker.stop()
             self._serial_worker.wait(2000)  # Wait up to 2s for thread to finish

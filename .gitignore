@@ -1,0 +1,29 @@
+# Python virtual environment
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+
+# Keil MDK build outputs
+Objects/
+Listings/
+
+# Keil MDK per-user settings (must stay on its own — contains window positions, etc.)
+*.uvguix.*
+
+# IDE files (other than Keil project file)
+*.uvoptx
+
+# Driver libraries (prebuilt — not from this project's source)
+driverlib/ccs/Debug/
+driverlib/ewarm/Exe/
+driverlib/gcc/
+driverlib/rvmdk/
+
+# OS junk
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Environment secrets (keep the .example version)
+.env
