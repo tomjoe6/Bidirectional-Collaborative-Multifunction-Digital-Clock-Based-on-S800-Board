@@ -119,7 +119,7 @@ I (firmware\buzzer.h)(0x6A2173BF)
 I (firmware\led.h)(0x6A2173C7)
 I (firmware\protocol.h)(0x6A217404)
 I (firmware\events.h)(0x6A2173E4)
-F (.\firmware\protocol.c)(0x6A218965)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork --split_sections -I .\inc -I .\driverlib-IX:\coding\github\Bidirectional-Collaborative-Multifunction-Digital-Clock-Based-on-S800-Board\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C129-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="522" -D_RTE_ -DTM4C1294NCPDT -DPART_TM4C1294NCPDT-o .\objects\protocol.o --omf_browse .\objects\protocol.crf --depend .\objects\protocol.d)
+F (.\firmware\protocol.c)(0x6A218E53)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork --split_sections -I .\inc -I .\driverlib-IX:\coding\github\Bidirectional-Collaborative-Multifunction-Digital-Clock-Based-on-S800-Board\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C129-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="522" -D_RTE_ -DTM4C1294NCPDT -DPART_TM4C1294NCPDT-o .\objects\protocol.o --omf_browse .\objects\protocol.crf --depend .\objects\protocol.d)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x57F606B8)
 I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)

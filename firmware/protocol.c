@@ -50,7 +50,6 @@ void Protocol_Init(void)
     g_ring_overflow = 0;
 
     g_line_idx   = 0;
-    g_line_ready = 0;
     g_line_buf[0] = '\0';
     g_resp_buf[0] = '\0';
 }
