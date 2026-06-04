@@ -35,7 +35,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\S800\EXP1\.venv"
+VIRTUAL_ENV="X:\coding\github\Bidirectional-Collaborative-Multifunction-Digital-Clock-Based-on-S800-Board\.venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

@@ -1,0 +1,401 @@
+"""Control panel widget for sending commands to the S800 board.
+
+Provides grouped controls for SET, GET, and demo commands.
+All buttons emit formatted command strings via the send_command signal.
+"""
+
+from __future__ import annotations
+
+import re
+
+from PyQt5.QtCore import pyqtSignal
+from PyQt5.QtWidgets import (
+    QComboBox,
+    QGroupBox,
+    QHBoxLayout,
+    QLabel,
+    QLineEdit,
+    QPushButton,
+    QSpinBox,
+    QVBoxLayout,
+    QWidget,
+)
+
+
+class ControlPanel(QWidget):
+    """Control panel for sending protocol commands to the S800 board.
+
+    Organized into three groups: 控制面板 (SET commands), 演示 (demo),
+    and 查询 (GET commands).
+    """
+
+    send_command = pyqtSignal(str)
+
+    def __init__(self, parent: QWidget = None) -> None:
+        """Initialize the control panel.
+
+        Args:
+            parent: Optional parent widget.
+        """
+        super().__init__(parent)
+        self._setup_ui()
+
+    def _setup_ui(self) -> None:
+        """Build the complete control panel layout."""
+        main_layout = QVBoxLayout(self)
+        main_layout.setSpacing(8)
+
+        # --- Group 1: 控制面板 (SET commands) ---
+        self.grp_set = QGroupBox("控制面板")
+        set_layout = QVBoxLayout(self.grp_set)
+        set_layout.setSpacing(4)
+
+        # Date row
+        date_layout = QHBoxLayout()
+        date_layout.addWidget(QLabel("日期预设:"))
+        self.cmb_date_preset = QComboBox()
+        self.cmb_date_preset.addItem("-- 选择 --", "")
+        self.cmb_date_preset.addItem("2024-06-04", "24 06 04")
+        self.cmb_date_preset.addItem("2024-01-01", "24 01 01")
+        self.cmb_date_preset.addItem("2024-12-25", "24 12 25")
+        self.cmb_date_preset.currentIndexChanged.connect(self._on_date_preset)
+        date_layout.addWidget(self.cmb_date_preset)
+
+        date_layout.addWidget(QLabel("年:"))
+        self.spin_year = QSpinBox()
+        self.spin_year.setRange(0, 99)
+        self.spin_year.setValue(24)
+        self.spin_year.setPrefix("20")
+        date_layout.addWidget(self.spin_year)
+
+        date_layout.addWidget(QLabel("月:"))
+        self.spin_month = QSpinBox()
+        self.spin_month.setRange(1, 12)
+        self.spin_month.setValue(6)
+        date_layout.addWidget(self.spin_month)
+
+        date_layout.addWidget(QLabel("日:"))
+        self.spin_day = QSpinBox()
+        self.spin_day.setRange(1, 31)
+        self.spin_day.setValue(4)
+        date_layout.addWidget(self.spin_day)
+
+        self.btn_set_date = QPushButton("设置日期")
+        self.btn_set_date.clicked.connect(self._on_set_date)
+        date_layout.addWidget(self.btn_set_date)
+        set_layout.addLayout(date_layout)
+
+        # Time row
+        time_layout = QHBoxLayout()
+        time_layout.addWidget(QLabel("时间:"))
+        self.spin_hour = QSpinBox()
+        self.spin_hour.setRange(0, 23)
+        self.spin_hour.setValue(12)
+        time_layout.addWidget(self.spin_hour)
+
+        time_layout.addWidget(QLabel("分:"))
+        self.spin_min = QSpinBox()
+        self.spin_min.setRange(0, 59)
+        self.spin_min.setValue(0)
+        time_layout.addWidget(self.spin_min)
+
+        time_layout.addWidget(QLabel("秒:"))
+        self.spin_sec = QSpinBox()
+        self.spin_sec.setRange(0, 59)
+        self.spin_sec.setValue(0)
+        time_layout.addWidget(self.spin_sec)
+
+        self.btn_set_time = QPushButton("设置时间")
+        self.btn_set_time.clicked.connect(self._on_set_time)
+        time_layout.addWidget(self.btn_set_time)
+        set_layout.addLayout(time_layout)
+
+        # Alarm row
+        alarm_layout = QHBoxLayout()
+        alarm_layout.addWidget(QLabel("闹钟:"))
+        self.spin_alm_hour = QSpinBox()
+        self.spin_alm_hour.setRange(0, 23)
+        self.spin_alm_hour.setValue(7)
+        alarm_layout.addWidget(self.spin_alm_hour)
+
+        alarm_layout.addWidget(QLabel("分:"))
+        self.spin_alm_min = QSpinBox()
+        self.spin_alm_min.setRange(0, 59)
+        self.spin_alm_min.setValue(0)
+        alarm_layout.addWidget(self.spin_alm_min)
+
+        alarm_layout.addWidget(QLabel("秒:"))
+        self.spin_alm_sec = QSpinBox()
+        self.spin_alm_sec.setRange(0, 59)
+        self.spin_alm_sec.setValue(0)
+        alarm_layout.addWidget(self.spin_alm_sec)
+
+        self.btn_set_alarm = QPushButton("设置闹钟")
+        self.btn_set_alarm.clicked.connect(self._on_set_alarm)
+        alarm_layout.addWidget(self.btn_set_alarm)
+
+        self.btn_alarm_off = QPushButton("关闭闹钟")
+        self.btn_alarm_off.clicked.connect(self._on_alarm_off)
+        alarm_layout.addWidget(self.btn_alarm_off)
+        set_layout.addLayout(alarm_layout)
+
+        # Display row
+        disp_layout = QHBoxLayout()
+        disp_layout.addWidget(QLabel("显示:"))
+        self.btn_disp_on = QPushButton("开启")
+        self.btn_disp_on.clicked.connect(self._on_disp_on)
+        disp_layout.addWidget(self.btn_disp_on)
+
+        self.btn_disp_off = QPushButton("关闭")
+        self.btn_disp_off.clicked.connect(self._on_disp_off)
+        disp_layout.addWidget(self.btn_disp_off)
+        disp_layout.addStretch()
+        set_layout.addLayout(disp_layout)
+
+        # Format row
+        fmt_layout = QHBoxLayout()
+        fmt_layout.addWidget(QLabel("格式:"))
+        self.btn_format_left = QPushButton("左对齐")
+        self.btn_format_left.clicked.connect(self._on_format_left)
+        fmt_layout.addWidget(self.btn_format_left)
+
+        self.btn_format_right = QPushButton("右对齐")
+        self.btn_format_right.clicked.connect(self._on_format_right)
+        fmt_layout.addWidget(self.btn_format_right)
+        fmt_layout.addStretch()
+        set_layout.addLayout(fmt_layout)
+
+        # Message row
+        msg_layout = QHBoxLayout()
+        msg_layout.addWidget(QLabel("消息:"))
+        self.txt_msg = QLineEdit()
+        self.txt_msg.setMaxLength(32)
+        self.txt_msg.setPlaceholderText("最多32个字符")
+        msg_layout.addWidget(self.txt_msg)
+
+        self.btn_send_msg = QPushButton("发送消息")
+        self.btn_send_msg.clicked.connect(self._on_send_msg)
+        msg_layout.addWidget(self.btn_send_msg)
+        set_layout.addLayout(msg_layout)
+
+        # Beep row
+        beep_layout = QHBoxLayout()
+        beep_layout.addWidget(QLabel("蜂鸣:"))
+        self.spin_beep_ms = QSpinBox()
+        self.spin_beep_ms.setRange(10, 5000)
+        self.spin_beep_ms.setValue(500)
+        self.spin_beep_ms.setSuffix(" ms")
+        beep_layout.addWidget(self.spin_beep_ms)
+
+        self.btn_beep = QPushButton("蜂鸣")
+        self.btn_beep.clicked.connect(self._on_beep)
+        beep_layout.addWidget(self.btn_beep)
+        beep_layout.addStretch()
+        set_layout.addLayout(beep_layout)
+
+        # LED hex row
+        led_layout = QHBoxLayout()
+        led_layout.addWidget(QLabel("LED值:"))
+        self.txt_led_hex = QLineEdit()
+        self.txt_led_hex.setMaxLength(2)
+        self.txt_led_hex.setPlaceholderText("00-FF")
+        self.txt_led_hex.setFixedWidth(50)
+        led_layout.addWidget(self.txt_led_hex)
+
+        self.btn_set_led = QPushButton("设置 LED")
+        self.btn_set_led.clicked.connect(self._on_set_led)
+        led_layout.addWidget(self.btn_set_led)
+        led_layout.addStretch()
+        set_layout.addLayout(led_layout)
+
+        # Mode row
+        mode_layout = QHBoxLayout()
+        mode_layout.addWidget(QLabel("模式:"))
+        self.btn_mode_day = QPushButton("白天模式")
+        self.btn_mode_day.clicked.connect(self._on_mode_day)
+        mode_layout.addWidget(self.btn_mode_day)
+
+        self.btn_mode_night = QPushButton("夜间模式")
+        self.btn_mode_night.clicked.connect(self._on_mode_night)
+        mode_layout.addWidget(self.btn_mode_night)
+        mode_layout.addStretch()
+        set_layout.addLayout(mode_layout)
+
+        # General commands row
+        gen_layout = QHBoxLayout()
+        self.btn_rst = QPushButton("复位")
+        self.btn_rst.setStyleSheet("QPushButton { background-color: #8B0000; color: white; }")
+        self.btn_rst.clicked.connect(self._on_rst)
+        gen_layout.addWidget(self.btn_rst)
+
+        self.btn_ping = QPushButton("PING")
+        self.btn_ping.clicked.connect(self._on_ping)
+        gen_layout.addWidget(self.btn_ping)
+        gen_layout.addStretch()
+        set_layout.addLayout(gen_layout)
+
+        main_layout.addWidget(self.grp_set)
+
+        # --- Group 2: 演示 (Demo) ---
+        self.grp_demo = QGroupBox("演示")
+        demo_layout = QHBoxLayout(self.grp_demo)
+
+        self.btn_abbrev_demo = QPushButton("缩写命令演示")
+        self.btn_abbrev_demo.setToolTip(
+            "发送缩写命令(如 *s:d 24 06 04)演示命令缩写容错"
+        )
+        self.btn_abbrev_demo.clicked.connect(self._on_abbrev_demo)
+        demo_layout.addWidget(self.btn_abbrev_demo)
+
+        self.btn_case_demo = QPushButton("大小写混合演示")
+        self.btn_case_demo.setToolTip(
+            "发送混合大小写命令(如 *SeT:DaTe 24 06 04)演示大小写容错"
+        )
+        self.btn_case_demo.clicked.connect(self._on_case_demo)
+        demo_layout.addWidget(self.btn_case_demo)
+
+        demo_layout.addStretch()
+        main_layout.addWidget(self.grp_demo)
+
+        # --- Group 3: 查询 (GET commands) ---
+        self.grp_get = QGroupBox("查询")
+        get_layout = QHBoxLayout(self.grp_get)
+
+        self.btn_get_date = QPushButton("获取日期")
+        self.btn_get_date.clicked.connect(self._on_get_date)
+        get_layout.addWidget(self.btn_get_date)
+
+        self.btn_get_time = QPushButton("获取时间")
+        self.btn_get_time.clicked.connect(self._on_get_time)
+        get_layout.addWidget(self.btn_get_time)
+
+        self.btn_get_alarm = QPushButton("获取闹钟")
+        self.btn_get_alarm.clicked.connect(self._on_get_alarm)
+        get_layout.addWidget(self.btn_get_alarm)
+
+        self.btn_get_disp = QPushButton("获取显示")
+        self.btn_get_disp.clicked.connect(self._on_get_disp)
+        get_layout.addWidget(self.btn_get_disp)
+
+        self.btn_get_format = QPushButton("获取格式")
+        self.btn_get_format.clicked.connect(self._on_get_format)
+        get_layout.addWidget(self.btn_get_format)
+
+        get_layout.addStretch()
+        main_layout.addWidget(self.grp_get)
+
+        main_layout.addStretch()
+
+    # --- Command formatting helpers ---
+
+    def _fmt(self, cmd: str, sub: str = None, params: list = None) -> str:
+        """Format a protocol command string."""
+        from ..protocol import ProtocolParser
+        return ProtocolParser.format_command(cmd, sub, params)
+
+    def _emit_cmd(self, cmd_str: str) -> None:
+        """Emit a command and append CRLF."""
+        self.send_command.emit(cmd_str + "\r\n")
+
+    # --- Button handlers ---
+
+    def _on_date_preset(self) -> None:
+        """Apply date preset to spin boxes."""
+        val = self.cmb_date_preset.currentData()
+        if val:
+            parts = val.split()
+            if len(parts) == 3:
+                self.spin_year.setValue(int(parts[0]))
+                self.spin_month.setValue(int(parts[1]))
+                self.spin_day.setValue(int(parts[2]))
+
+    def _on_set_date(self) -> None:
+        y = f"{self.spin_year.value():02d}"
+        m = f"{self.spin_month.value():02d}"
+        d = f"{self.spin_day.value():02d}"
+        self._emit_cmd(self._fmt("SET", "DATE", ["YEAR", y, "MONTH", m, "DATE", d]))
+
+    def _on_set_time(self) -> None:
+        h = f"{self.spin_hour.value():02d}"
+        m = f"{self.spin_min.value():02d}"
+        s = f"{self.spin_sec.value():02d}"
+        self._emit_cmd(self._fmt("SET", "TIME", ["HOUR", h, "MIN", m, "SEC", s]))
+
+    def _on_set_alarm(self) -> None:
+        h = f"{self.spin_alm_hour.value():02d}"
+        m = f"{self.spin_alm_min.value():02d}"
+        s = f"{self.spin_alm_sec.value():02d}"
+        self._emit_cmd(self._fmt("SET", "ALARM", ["HOUR", h, "MIN", m, "SEC", s]))
+
+    def _on_alarm_off(self) -> None:
+        self._emit_cmd(self._fmt("SET", "ALARM", ["OFF"]))
+
+    def _on_disp_on(self) -> None:
+        self._emit_cmd(self._fmt("SET", "DISP", ["ON"]))
+
+    def _on_disp_off(self) -> None:
+        self._emit_cmd(self._fmt("SET", "DISP", ["OFF"]))
+
+    def _on_format_left(self) -> None:
+        self._emit_cmd(self._fmt("SET", "FORMAT", ["LEFT"]))
+
+    def _on_format_right(self) -> None:
+        self._emit_cmd(self._fmt("SET", "FORMAT", ["RIGHT"]))
+
+    def _on_send_msg(self) -> None:
+        msg = self.txt_msg.text().strip()
+        if msg:
+            self._emit_cmd(self._fmt("SET", "MSG", [msg]))
+
+    def _on_beep(self) -> None:
+        ms = str(self.spin_beep_ms.value())
+        self._emit_cmd(self._fmt("SET", "BEEP", [ms]))
+
+    def _on_set_led(self) -> None:
+        val = self.txt_led_hex.text().strip().upper()
+        if val and re.match(r"^[0-9A-F]{1,2}$", val):
+            self._emit_cmd(self._fmt("SET", "LED", [val]))
+
+    def _on_mode_day(self) -> None:
+        self._emit_cmd(self._fmt("SET", "MODE", ["DAY"]))
+
+    def _on_mode_night(self) -> None:
+        self._emit_cmd(self._fmt("SET", "MODE", ["NIGHT"]))
+
+    def _on_rst(self) -> None:
+        self._emit_cmd(self._fmt("RST"))
+
+    def _on_ping(self) -> None:
+        self._emit_cmd(self._fmt("PING"))
+
+    def _on_abbrev_demo(self) -> None:
+        """Send abbreviated commands demonstrating MIN->MINute, SEC->SECond tolerance."""
+        h = f"{self.spin_hour.value():02d}"
+        m = f"{self.spin_min.value():02d}"
+        s = f"{self.spin_sec.value():02d}"
+        # Use abbreviated forms: MIN for MINute, SEC for SECond
+        self.send_command.emit(f"*SET:TIME HOUR {h} MIN {m} SEC {s}\r\n")
+
+    def _on_case_demo(self) -> None:
+        """Send mixed-case command demonstrating case insensitivity."""
+        h = f"{self.spin_hour.value():02d}"
+        m = f"{self.spin_min.value():02d}"
+        s = f"{self.spin_sec.value():02d}"
+        self.send_command.emit(f"*SeT:TiMe HoUr {h} MiNuTe {m} SeCoNd {s}\r\n")
+
+    # --- GET handlers ---
+
+    def _on_get_date(self) -> None:
+        self._emit_cmd(self._fmt("GET", "DATE"))
+
+    def _on_get_time(self) -> None:
+        self._emit_cmd(self._fmt("GET", "TIME"))
+
+    def _on_get_alarm(self) -> None:
+        self._emit_cmd(self._fmt("GET", "ALARM"))
+
+    def _on_get_disp(self) -> None:
+        self._emit_cmd(self._fmt("GET", "DISP"))
+
+    def _on_get_format(self) -> None:
+        self._emit_cmd(self._fmt("GET", "FORMAT"))
