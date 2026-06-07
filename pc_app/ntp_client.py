@@ -8,6 +8,7 @@ from __future__ import annotations
 
 import os
 import socket
+import time as _time
 from dataclasses import dataclass
 from datetime import datetime, timezone
 
@@ -96,14 +97,17 @@ class NTPClient:
                 error_msg=f"网络错误: {exc}",
             )
 
-        # Convert NTP timestamp to local datetime.
-        # ntplib returns seconds since 1900-01-01; subtract NTP_DELTA
-        # (2208988800 = seconds 1900→1970) to get a Unix timestamp.
+        # ntplib >= 0.4.0 returns tx_time as a Unix timestamp (seconds
+        # since 1970-01-01), NOT as raw NTP time (seconds since 1900).
+        # Convert directly — NO epoch delta subtraction needed.
         try:
-            NTP_DELTA = 2208988800
-            unix_ts = response.tx_time - NTP_DELTA
-            # Use utcfromtimestamp + astimezone for Windows compatibility
-            dt_utc = datetime.utcfromtimestamp(unix_ts).replace(tzinfo=timezone.utc)
+            unix_ts = int(response.tx_time)
+            tm = _time.gmtime(unix_ts)
+            dt_utc = datetime(
+                tm.tm_year, tm.tm_mon, tm.tm_mday,
+                tm.tm_hour, tm.tm_min, tm.tm_sec,
+                tzinfo=timezone.utc,
+            )
             dt_local = dt_utc.astimezone()
         except (ValueError, OSError, OverflowError) as exc:
             return NTPResult(

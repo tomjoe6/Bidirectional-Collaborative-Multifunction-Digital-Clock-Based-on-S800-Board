@@ -103,9 +103,11 @@
 #define LED_DAYNIGHT            7   /* D7: Day/Night (1=DAY,0=NIGHT)  */
 
 /*=========================================================================
- * Buzzer Bit (shared with PCA9557 P07 / LED D7)
+ * Buzzer — PF3 GPIO toggle (verified PWM7 from schematic)
+ * We drive PF3 as a plain GPIO, toggled at audio rate by SysTick.
  *=========================================================================*/
-#define BUZZER_BIT              7
+#define BUZZER_PORT             GPIO_PORTF_BASE
+#define BUZZER_PIN              GPIO_PIN_3
 
 /*=========================================================================
  * Display Modes

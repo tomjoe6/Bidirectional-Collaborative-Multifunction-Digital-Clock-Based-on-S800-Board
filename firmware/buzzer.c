@@ -1,27 +1,28 @@
 #include "buzzer.h"
 #include "alarm.h"
 #include "hw_config.h"
+#include "gpio.h"
+#include "sysctl.h"
+#include "timer.h"
+#include "interrupt.h"
+#include "hw_ints.h"
 
 /*=========================================================================
  * Buzzer state
- * g_buzzer_on: 1 = buzzer output active
- * g_buzzer_ringing: 1 = alarm rhythm active
- * g_buzzer_rhythm_counter: counts 100ms ticks for rhythm pattern
- * g_buzzer_ring_duration: total ringing time in 100ms ticks (max 10s = 100)
  *=========================================================================*/
 static uint8_t  g_buzzer_on;
 static uint8_t  g_buzzer_ringing;
 static uint8_t  g_buzzer_rhythm_counter;
 static uint8_t  g_buzzer_ring_duration;
 
-/* Forward declaration of LED_Write for combined PCA9557 output */
-/* LED_Write is in led.c; we need to coordinate PCA9557 writes.
- * We use I2C0_WriteByte directly here since buzzer bit 7 is shared
- * with LED D7. The main loop coordinates the write order. */
-extern uint8_t g_led_state;
+/* Timer base for buzzer tone generation on PF3 */
+#define BUZZER_TIMER_BASE   TIMER0_BASE
+#define BUZZER_TIMER        TIMER_A
+#define BUZZER_TIMER_PERIPH SYSCTL_PERIPH_TIMER0
 
 /*=========================================================================
- * Initialize buzzer to off state.
+ * Initialize buzzer: PF3 GPIO output driven by Timer0A at 4 kHz.
+ * SysClk=20MHz → timer clk=20MHz → period=20M/4000=5000 → match=2500
  *=========================================================================*/
 void Buzzer_Init(void)
 {
@@ -29,22 +30,47 @@ void Buzzer_Init(void)
     g_buzzer_ringing        = 0;
     g_buzzer_rhythm_counter = 0;
     g_buzzer_ring_duration  = 0;
+
+    /* Enable Timer0 */
+    SysCtlPeripheralEnable(BUZZER_TIMER_PERIPH);
+    while (!SysCtlPeripheralReady(BUZZER_TIMER_PERIPH));
+
+    /* Configure PF3 as GPIO output, start LOW */
+    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
+    while (!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOF));
+    GPIOPinTypeGPIOOutput(BUZZER_PORT, BUZZER_PIN);
+    GPIOPinWrite(BUZZER_PORT, BUZZER_PIN, 0);
+
+    /* Timer0A periodic: toggles PF3 in ISR @ 4 kHz (common piezo resonance).
+     * SysClk = 20 MHz = timer clock (no prescale).
+     * 4 kHz → 250 µs period → Load = 20M/4000 = 5000.
+     * 50 % duty → Match = 2500. */
+    TimerConfigure(BUZZER_TIMER_BASE, TIMER_CFG_PERIODIC);
+    TimerLoadSet(BUZZER_TIMER_BASE, BUZZER_TIMER, 5000 - 1);
+    TimerMatchSet(BUZZER_TIMER_BASE, BUZZER_TIMER, 2500 - 1);
+
+    TimerIntEnable(BUZZER_TIMER_BASE, TIMER_TIMA_TIMEOUT);
+    IntEnable(INT_TIMER0A);
+    /* Leave timer disabled until Buzzer_On() is called */
 }
 
 /*=========================================================================
- * Turn buzzer on (PCA9557 P07 = 0, active low).
+ * Turn buzzer on: start timer toggling PF3.
  *=========================================================================*/
 void Buzzer_On(void)
 {
     g_buzzer_on = 1;
+    TimerEnable(BUZZER_TIMER_BASE, BUZZER_TIMER);
 }
 
 /*=========================================================================
- * Turn buzzer off (PCA9557 P07 = 1).
+ * Turn buzzer off: stop timer, pull PF3 low.
  *=========================================================================*/
 void Buzzer_Off(void)
 {
     g_buzzer_on = 0;
+    TimerDisable(BUZZER_TIMER_BASE, BUZZER_TIMER);
+    GPIOPinWrite(BUZZER_PORT, BUZZER_PIN, 0);
 }
 
 /*=========================================================================
@@ -52,58 +78,41 @@ void Buzzer_Off(void)
  *=========================================================================*/
 void Buzzer_Toggle(void)
 {
-    g_buzzer_on = (uint8_t)(!g_buzzer_on);
+    if (g_buzzer_on) {
+        Buzzer_Off();
+    } else {
+        Buzzer_On();
+    }
 }
 
 /*=========================================================================
- * Write the actual PCA9557 output, combining LED state and buzzer state.
- * Bit 7 = buzzer (active low: 0=on, 1=off)
- * All bits: 0=turns on LED/buzzer, 1=turns off.
+ * No-op: buzzer is independent of PCA9557.
  *=========================================================================*/
 void Buzzer_WriteOutput(void)
 {
-    uint8_t output_byte;
-    uint8_t result;
-
-    /* Start with LED state inverted (active low) */
-    output_byte = (uint8_t)(~g_led_state);
-
-    /* Overlay buzzer on bit 7: 0=buzzer ON, 1=buzzer OFF */
-    if (g_buzzer_on) {
-        output_byte &= (uint8_t)(~(1 << BUZZER_BIT));  /* clear bit 7 → buzzer on */
-    } else {
-        output_byte |= (uint8_t)(1 << BUZZER_BIT);     /* set bit 7 → buzzer off */
-    }
-
-    result = I2C0_WriteByte(PCA9557_I2CADDR, PCA9557_OUTPUT, output_byte);
-    (void)result;
+    (void)0;
 }
 
 /*=========================================================================
  * Rhythm handler: called every 10ms from main loop.
- * Creates an ON-OFF-ON-OFF... pattern for the alarm buzzer.
- * Pattern: ON for 200ms (20 ticks), OFF for 200ms (20 ticks).
- * Auto-stops after 10 seconds (1000 ticks * 10ms).
+ * ON 200ms, OFF 200ms, auto-stop after 10 seconds.
  *=========================================================================*/
 void Buzzer_RhythmHandler(void)
 {
-    /* If not ringing, ensure buzzer is off */
     if (!g_buzzer_ringing) {
-        g_buzzer_on = 0;
+        Buzzer_Off();
         return;
     }
 
     g_buzzer_rhythm_counter++;
     g_buzzer_ring_duration++;
 
-    /* Auto-stop after 10 seconds (1000 * 10ms) */
     if (g_buzzer_ring_duration >= 1000) {
         Alarm_Stop();
         Buzzer_StopRing();
         return;
     }
 
-    /* Rhythm: 20 ticks ON (200ms), 20 ticks OFF (200ms) = 40 tick cycle */
     if ((g_buzzer_rhythm_counter % 40) < 20) {
         Buzzer_On();
     } else {
@@ -130,7 +139,7 @@ void Buzzer_StopRing(void)
     g_buzzer_ringing        = 0;
     g_buzzer_rhythm_counter = 0;
     g_buzzer_ring_duration  = 0;
-    g_buzzer_on             = 0;
+    Buzzer_Off();
 }
 
 /*=========================================================================
@@ -139,4 +148,18 @@ void Buzzer_StopRing(void)
 uint8_t Buzzer_IsRinging(void)
 {
     return g_buzzer_ringing;
+}
+
+/*=========================================================================
+ * Timer0A ISR: toggle PF3 to create square wave.
+ *=========================================================================*/
+void TIMER0A_Handler(void)
+{
+    TimerIntClear(BUZZER_TIMER_BASE, TIMER_TIMA_TIMEOUT);
+    /* Toggle PF3 */
+    if (GPIOPinRead(BUZZER_PORT, BUZZER_PIN)) {
+        GPIOPinWrite(BUZZER_PORT, BUZZER_PIN, 0);
+    } else {
+        GPIOPinWrite(BUZZER_PORT, BUZZER_PIN, BUZZER_PIN);
+    }
 }

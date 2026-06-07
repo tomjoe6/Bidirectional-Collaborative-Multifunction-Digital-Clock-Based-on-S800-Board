@@ -150,17 +150,16 @@ void Display_FillFromBuffer(void)
 
     str_len = (uint8_t)strlen(g_disp_buffer);
 
-    /* Copy chars with circular wrapping: when vpos exceeds the
-     * buffer, wrap back to the beginning for seamless scrolling. */
+    /* Copy chars. In FULL (flow) mode, wrap circularly so the
+     * display loops seamlessly. In clock modes, pad with spaces. */
     temp_fill = 0;
     for (i = 0; i < (int16_t)TEMP_BUF_SIZE; i++) {
         vpos = g_flow_position + i;
-        /* Wrap around the buffer length for circular display */
-        if (str_len > 0) {
+        if (g_disp_mode == DISP_MODE_FULL && str_len > 0) {
             while (vpos >= str_len) vpos -= str_len;
             while (vpos < 0)      vpos += str_len;
         }
-        if (str_len > 0 && vpos < str_len) {
+        if (vpos >= 0 && vpos < str_len && str_len > 0) {
             temp[i] = g_disp_buffer[vpos];
             temp_fill = (uint8_t)(i + 1);
         } else {

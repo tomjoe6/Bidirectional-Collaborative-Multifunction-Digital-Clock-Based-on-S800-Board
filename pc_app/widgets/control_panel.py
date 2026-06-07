@@ -260,21 +260,34 @@ class ControlPanel(QWidget):
 
         # --- Group 2: 演示 (Demo) ---
         self.grp_demo = QGroupBox("演示")
-        demo_layout = QHBoxLayout(self.grp_demo)
+        demo_layout = QVBoxLayout(self.grp_demo)
+        demo_layout.setSpacing(2)
 
+        # Small annotation explaining what these demo buttons test
+        lbl_demo_hint = QLabel("验证协议容错三件套：缩写规则 / 大小写不敏感")
+        lbl_demo_hint.setStyleSheet(
+            "color: #888888; font-size: 10px; padding: 0px;"
+        )
+        demo_layout.addWidget(lbl_demo_hint)
+
+        btn_row = QHBoxLayout()
         self.btn_abbrev_demo = QPushButton("缩写命令演示")
         self.btn_abbrev_demo.setToolTip(
-            "发送缩写命令(如 *s:d 24 06 04)演示命令缩写容错"
+            "发送 *SET:TIME ... MIN 00 SEC 00\n"
+            "MIN→MINute 缩写，只大写必输"
         )
         self.btn_abbrev_demo.clicked.connect(self._on_abbrev_demo)
-        demo_layout.addWidget(self.btn_abbrev_demo)
+        btn_row.addWidget(self.btn_abbrev_demo)
 
         self.btn_case_demo = QPushButton("大小写混合演示")
         self.btn_case_demo.setToolTip(
-            "发送混合大小写命令(如 *SeT:DaTe 24 06 04)演示大小写容错"
+            "发送 *SeT:TiMe ... MiNuTe ... SeCoNd\n"
+            "验证命令大小写不敏感"
         )
         self.btn_case_demo.clicked.connect(self._on_case_demo)
-        demo_layout.addWidget(self.btn_case_demo)
+        btn_row.addWidget(self.btn_case_demo)
+        btn_row.addStretch()
+        demo_layout.addLayout(btn_row)
 
         demo_layout.addStretch()
         main_layout.addWidget(self.grp_demo)

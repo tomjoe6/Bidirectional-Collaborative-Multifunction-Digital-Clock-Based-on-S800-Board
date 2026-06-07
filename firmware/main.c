@@ -225,6 +225,7 @@ static void System_Init(void)
     g_cnt_1000ms   = 9;
     g_uptime_seconds = 0;
     g_beep_timeout = 0;
+    g_msg_timeout  = 0;
 
     /* Initialize hardware */
     S800_GPIO_Init();
@@ -674,9 +675,13 @@ int main(void)
                     }
                 }
 
-                /* Write combined LED+buzzer output to PCA9557 at 10ms rate
-                 * so buzzer rhythm and LED flashes are responsive. */
-                Buzzer_WriteOutput();
+                /* Write LED state to PCA9557 at 10ms rate.
+                 * Buzzer is now on its own PF3 PWM pin, independent. */
+                {
+                    uint8_t led_out;
+                    led_out = (uint8_t)(~g_led_state);  /* active-low */
+                    I2C0_WriteByte(PCA9557_I2CADDR, PCA9557_OUTPUT, led_out);
+                }
 
                 /* LED flash timeout */
                 LED_UpdateFlashTimeout();
@@ -692,6 +697,13 @@ int main(void)
                     if (g_flow_counter >= g_flow_delay) {
                         g_flow_counter = 0;
                         Display_FlowAdvance();
+                        /* Report new flow window to PC immediately */
+                        {
+                            char fd[9]; uint8_t fj;
+                            for (fj = 0; fj < 8; fj++) fd[fj] = g_disp_chars[fj];
+                            fd[8] = '\0';
+                            Events_ReportDisp(fd, g_dp_mask);
+                        }
                     }
                 }
 
@@ -766,16 +778,6 @@ int main(void)
                     Display_UpdateFromClock(&clock_now);
                 }
                 /* Else: edit display already updated in 10ms handler */
-
-                /* Weather/msg auto-revert: after 5s in FULL mode,
-                 * switch back to clock display. */
-                if (g_msg_timeout > 0) {
-                    g_msg_timeout--;
-                    if (g_msg_timeout == 0) {
-                        g_disp_mode = DISP_MODE_TIME;
-                        Display_UpdateFromClock(&g_clock);
-                    }
-                }
 
                 /* Event heartbeats (DISP + LED every 1s) */
                 {

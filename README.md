@@ -49,7 +49,7 @@
 - TCA6424 I2C GPIO 扩展器 (0x22)
 - PCA9557 I2C GPIO 扩展器 (0x18)
 - 8 位共阴数码管
-- 8 个扩展按键 (K5-K8 + USER1/USER2)
+- 8 个扩展按键 (K1-K8 + USER1/USER2)
 - 蜂鸣器 (PCA9557 P07)
 - USB 转串口 (UART0, PA0/PA1)
 

@@ -485,6 +485,18 @@ static void Cmd_SET_DISPLAY(char *params)
     } else if (MatchAbbrev(token, "OFF")) {
         g_disp_on = 0;
         Protocol_SendResponse("OK\r\n");
+    } else if (MatchAbbrev(token, "TIME")) {
+        g_disp_mode = DISP_MODE_TIME;
+        Display_UpdateFromClock(&g_clock);
+        Protocol_SendResponse("OK\r\n");
+    } else if (MatchAbbrev(token, "DATE")) {
+        g_disp_mode = DISP_MODE_DATE;
+        Display_UpdateFromClock(&g_clock);
+        Protocol_SendResponse("OK\r\n");
+    } else if (MatchAbbrev(token, "YEAR")) {
+        g_disp_mode = DISP_MODE_YEAR;
+        Display_UpdateFromClock(&g_clock);
+        Protocol_SendResponse("OK\r\n");
     } else {
         Protocol_SendResponse("ERROR\r\n");
     }
@@ -536,7 +548,8 @@ static void Cmd_SET_MSG(char *params)
     }
 
     Display_SetBuffer(text);
-    g_msg_timeout = 5;  /* auto-revert to clock after 5 seconds */
+    /* Weather auto-revert is handled by PC sending *SET:MODE TIME
+     * after 5s.  Manual *SET:MSG stays until user changes display. */
     Protocol_SendResponse("OK\r\n");
 }
 

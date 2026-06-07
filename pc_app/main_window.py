@@ -187,8 +187,7 @@ class MainWindow(QMainWindow):
         key_names = [
             ("K1", "FUNC"), ("K2", "SHIFT"), ("K3", "ADD"),
             ("K4", "SAVE"), ("K5", "DISP"), ("K6", "SPEED"),
-            ("K7", "FORMAT"), ("K8", "EXT"), ("U1", "USER1"),
-            ("U2", "USER2"),
+            ("K7", "FORMAT"), ("K8", "EXT"),
         ]
         for i, (label, cmd_name) in enumerate(key_names):
             btn = QPushButton(label)
@@ -201,6 +200,24 @@ class MainWindow(QMainWindow):
             col = i % 5
             key_layout.addWidget(btn, row, col)
             self._key_buttons[cmd_name] = btn
+
+        # U1 → NTP sync directly (no board round-trip)
+        btn_u1 = QPushButton("U1")
+        btn_u1.setFixedSize(50, 30)
+        btn_u1.setToolTip("NTP一键对时")
+        btn_u1.clicked.connect(self._on_ntp_sync)
+        row = 8 // 5; col = 8 % 5
+        key_layout.addWidget(btn_u1, row, col)
+        self._key_buttons["USER1"] = btn_u1
+
+        # U2 → send weather to board directly
+        btn_u2 = QPushButton("U2")
+        btn_u2.setFixedSize(50, 30)
+        btn_u2.setToolTip("下发天气到数码管")
+        btn_u2.clicked.connect(self._send_weather_to_board)
+        row = 9 // 5; col = 9 % 5
+        key_layout.addWidget(btn_u2, row, col)
+        self._key_buttons["USER2"] = btn_u2
 
         grp_layout.addWidget(key_grp)
 
@@ -563,6 +580,8 @@ class MainWindow(QMainWindow):
             self.control_panel.set_weather_age(
                 self._weather_client.cache.age_text()
             )
+            # Auto-send to board so user sees weather immediately
+            self._send_weather_to_board()
         else:
             self.log_panel.addError(
                 f"天气获取失败: {result.error_msg}"
@@ -579,20 +598,32 @@ class MainWindow(QMainWindow):
         self._update_status_text()
 
     def _send_weather_to_board(self) -> None:
-        """Send cached weather data to the S800 board via *SET:MSG.
-
-        Called when USER2 key event is received from the board.
-        """
+        """Send cached weather data to the S800 board via *SET:MSG,
+        then restore clock display after 5 seconds."""
         if not self._serial_worker or not self._serial_worker.is_connected():
             return
 
         display_text = self._weather_client.get_display_text()
         cmd = f"*SET:MSG {display_text}\r\n"
-        self.log_panel.addEntry("TX", f"天气下发(USER2): {cmd.strip()}")
+        self.log_panel.addEntry("TX", f"天气下发: {cmd.strip()}")
         try:
             self._serial_worker.send(cmd.encode("ascii"))
         except Exception as e:
             self.log_panel.addError(f"天气下发失败: {e}")
+
+        # Auto-revert to clock after 5 seconds
+        QTimer.singleShot(5000, self._revert_to_clock)
+
+    def _revert_to_clock(self) -> None:
+        """Send *SET:DISP TIME to restore clock display."""
+        if not self._serial_worker or not self._serial_worker.is_connected():
+            return
+        cmd = "*SET:DISP TIME\r\n"
+        self.log_panel.addEntry("TX", "天气超时,恢复时钟")
+        try:
+            self._serial_worker.send(cmd.encode("ascii"))
+        except Exception:
+            pass
 
     def _update_weather_button_state(self) -> None:
         """Update weather button state based on API key availability."""
@@ -669,11 +700,13 @@ class MainWindow(QMainWindow):
     def _on_key_event(self, key_name: str) -> None:
         """Handle key events from the board.
 
+        USER1 triggers NTP time sync (E1).
         USER2 triggers automatic weather data delivery (E2).
-        Other keys are purely informational (UI state already updated
-        via seg/led change events).
         """
-        if key_name == "USER2":
+        if key_name == "USER1":
+            self.log_panel.addEntry("EVT", "USER1: 板端请求NTP对时")
+            self._on_ntp_sync()
+        elif key_name == "USER2":
             self.log_panel.addEntry("EVT", "USER2: 板端请求天气数据")
             self._send_weather_to_board()
 
