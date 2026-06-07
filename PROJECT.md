@@ -108,7 +108,7 @@
 | **`PROJECT.md`** | **本文件**——最详细的中文项目文档 | 开发、调试、交付时的主要参考 |
 | **`requirements.txt`** | PC 上位机的 Python 依赖：PyQt5、pyserial、python-dotenv、ntplib、requests | 首次配置 PC 环境时 `pip install -r requirements.txt` |
 | **`check.py`** | 独立串口调试脚本：扫描 COM 口、手动发指令、查看原始返回 | 调试串口通信、验证板端 UART 是否正常时使用 |
-| **`S524031910727.uvprojx`** | Keil MDK 工程文件，双击打开即可编译固件 | 编译/烧录固件时在 Keil 中打开 |
+| **`S.uvprojx`** | Keil MDK 工程文件，双击打开即可编译固件 | 编译/烧录固件时在 Keil 中打开 |
 
 ---
 
@@ -290,20 +290,24 @@ typedef struct {
 
 **作用**：10 个按键的扫描消抖、长短按检测、编辑状态机。
 
-**按键映射**：
+**按键映射**（物理按键 → 代码名称）：
 
-| 按键 | 来源 | 短按功能 | 长按功能 |
-|:---|:---|:---|:---|
-| K1 FUNC | PF0 (GPIO) | 编辑模式循环：日期→时间→闹钟→退出 | 保存并退出(同SAVE) |
-| K2 SHIFT | PJ0 (GPIO) | 编辑中切换字段 | — |
-| K3 ADD | PJ1 (GPIO) | 当前字段 +1 | 连加 ≥5Hz |
-| K4 SAVE | PN0 (GPIO) | 保存并退出编辑 | — |
-| K5 DISP | TCA6424 Port0.0 | 显示切换：TIME→DATE→YEAR | — |
-| K6 SPEED | TCA6424 Port0.1 | 流水速度 2 级切换 | — |
-| K7 FORMAT | TCA6424 Port0.2 | 流水方向 LEFT↔RIGHT | — |
-| K8 EXT | TCA6424 Port0.3 | 触发 EVT:KEY EXT (仅上报PC) | — |
-| USER1 | TCA6424 Port0.4 | 触发 EVT:KEY USER1 (请求PC对时) | — |
-| USER2 | TCA6424 Port0.5 | 触发 EVT:KEY USER2 (请求天气) | — |
+| 物理按键 | 位置 | 代码名 | 电气来源 | 短按功能 | 长按功能 |
+|:---|:---|:---|:---|:---|:---|
+| RESET | 主板 | — | 硬件 RST | MCU 硬件复位（不经过固件） | — |
+| WAKE | 主板 | — | 硬件 WAKE | 唤醒（不经过固件） | — |
+| USERSW1 | 主板 | USER1 | PJ0 (GPIO) | 请求 PC 对时（上报 EVT:KEY USER1） | — |
+| USERSW2 | 主板 | USER2 | PJ1 (GPIO) | 向 PC 请求天气，数码管短显 5 秒 | — |
+| SW1 | 扩展板 | K1 FUNC | TCA6424 P0.0 | 编辑模式循环 / 响铃中关闹钟 | 保存并退出 |
+| SW2 | 扩展板 | K2 SHIFT | TCA6424 P0.1 | 编辑中切换高亮字段 | — |
+| SW3 | 扩展板 | K3 ADD | TCA6424 P0.2 | 当前字段 +1 | **连加 ≥5Hz** |
+| SW4 | 扩展板 | K4 SAVE | TCA6424 P0.3 | 保存并退出编辑 | — |
+| SW5 | 扩展板 | K5 DISP | TCA6424 P0.4 | 显示切换：TIME→DATE→YEAR | — |
+| SW6 | 扩展板 | K6 SPEED | TCA6424 P0.5 | 流水速度 2 级切换 | — |
+| SW7 | 扩展板 | K7 FORMAT | TCA6424 P0.6 | 流水方向 LEFT↔RIGHT | — |
+| SW8 | 扩展板 | K8 EXT | TCA6424 P0.7 | 上报 EVT:KEY EXT 给 PC（无本地功能） | — |
+
+> **说明**：主板 RESET/WAKE 是硬件按钮，直接连 MCU 的复位/唤醒引脚，不经过固件按键模块。其余 10 键（USERSW1/USERSW2 + SW1~SW8）均为固件可读按键。
 
 **关键参数**：
 | 参数 | 值 | 说明 |

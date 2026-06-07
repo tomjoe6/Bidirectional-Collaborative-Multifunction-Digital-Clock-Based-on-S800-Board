@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <string.h>
 #include "keys.h"
 #include "clock.h"
@@ -17,7 +18,6 @@ static const char *g_key_names[NUM_KEYS] = {
  *=========================================================================*/
 static uint8_t  g_key_raw[NUM_KEYS];       /* raw reading (0=pressed, 1=released) */
 static uint8_t  g_key_state[NUM_KEYS];     /* stable debounced state */
-static uint8_t  g_key_prev[NUM_KEYS];      /* previous stable state */
 static uint8_t  g_key_dcnt[NUM_KEYS];      /* debounce counter */
 static uint16_t g_key_press_time[NUM_KEYS];/* how long pressed (10ms ticks) */
 static uint8_t  g_key_event[NUM_KEYS];     /* pending event type (0=none, 1=short, 2=long) */
@@ -44,25 +44,22 @@ static void Keys_ReadRaw(void)
     uint8_t port0_val;
     uint8_t result;
 
-    /* K1: PF0 */
-    g_key_raw[KEY_ID_FUNC]  = (GPIOPinRead(KEY1_PORT, KEY1_PIN) ? 1 : 0);
-    /* K2: PJ0 */
-    g_key_raw[KEY_ID_SHIFT] = (GPIOPinRead(KEY2_PORT, KEY2_PIN) ? 1 : 0);
-    /* K3: PJ1 */
-    g_key_raw[KEY_ID_ADD]   = (GPIOPinRead(KEY3_PORT, KEY3_PIN) ? 1 : 0);
-    /* K4: PN0 */
-    g_key_raw[KEY_ID_SAVE]  = (GPIOPinRead(KEY4_PORT, KEY4_PIN) ? 1 : 0);
+    /* USER1/USER2: main-board GPIO (PJ0, PJ1 per exp2.c) */
+    g_key_raw[KEY_ID_USER1] = (GPIOPinRead(USER1_GPIO_PORT, USER1_GPIO_PIN) ? 1 : 0);
+    g_key_raw[KEY_ID_USER2] = (GPIOPinRead(USER2_GPIO_PORT, USER2_GPIO_PIN) ? 1 : 0);
 
-    /* K5-K8, USER1, USER2: TCA6424 Port0 */
+    /* K1-K8: expansion-board TCA6424 Port0 (SW1~SW8) */
     port0_val = I2C0_ReadByte(TCA6424_I2CADDR, TCA6424_INPUT_PORT0);
-    result = port0_val; /* capture for potential error checking */
+    result = port0_val;
 
-    g_key_raw[KEY_ID_DISP]   = (port0_val & (1 << KEY5_BIT))  ? 1 : 0;
-    g_key_raw[KEY_ID_SPEED]  = (port0_val & (1 << KEY6_BIT))  ? 1 : 0;
-    g_key_raw[KEY_ID_FORMAT] = (port0_val & (1 << KEY7_BIT))  ? 1 : 0;
-    g_key_raw[KEY_ID_EXT]    = (port0_val & (1 << KEY8_BIT))  ? 1 : 0;
-    g_key_raw[KEY_ID_USER1]  = (port0_val & (1 << USER1_BIT)) ? 1 : 0;
-    g_key_raw[KEY_ID_USER2]  = (port0_val & (1 << USER2_BIT)) ? 1 : 0;
+    g_key_raw[KEY_ID_FUNC]   = (port0_val & (1 << KEY1_BIT)) ? 1 : 0;
+    g_key_raw[KEY_ID_SHIFT]  = (port0_val & (1 << KEY2_BIT)) ? 1 : 0;
+    g_key_raw[KEY_ID_ADD]    = (port0_val & (1 << KEY3_BIT)) ? 1 : 0;
+    g_key_raw[KEY_ID_SAVE]   = (port0_val & (1 << KEY4_BIT)) ? 1 : 0;
+    g_key_raw[KEY_ID_DISP]   = (port0_val & (1 << KEY5_BIT)) ? 1 : 0;
+    g_key_raw[KEY_ID_SPEED]  = (port0_val & (1 << KEY6_BIT)) ? 1 : 0;
+    g_key_raw[KEY_ID_FORMAT] = (port0_val & (1 << KEY7_BIT)) ? 1 : 0;
+    g_key_raw[KEY_ID_EXT]    = (port0_val & (1 << KEY8_BIT)) ? 1 : 0;
 
     (void)result;
 }
@@ -77,7 +74,6 @@ void Keys_Init(void)
     for (i = 0; i < NUM_KEYS; i++) {
         g_key_raw[i]        = 1;
         g_key_state[i]      = 1;
-        g_key_prev[i]       = 1;
         g_key_dcnt[i]       = 0;
         g_key_press_time[i] = 0;
         g_key_event[i]      = KEY_EVENT_NONE;

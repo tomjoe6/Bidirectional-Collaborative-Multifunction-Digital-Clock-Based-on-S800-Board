@@ -1,4 +1,5 @@
 #include "buzzer.h"
+#include "alarm.h"
 #include "hw_config.h"
 
 /*=========================================================================
@@ -79,10 +80,10 @@ void Buzzer_WriteOutput(void)
 }
 
 /*=========================================================================
- * Rhythm handler: called every 100ms.
+ * Rhythm handler: called every 10ms from main loop.
  * Creates an ON-OFF-ON-OFF... pattern for the alarm buzzer.
- * Pattern: ON for 200ms (2 ticks), OFF for 200ms (2 ticks).
- * Auto-stops after 10 seconds (100 ticks).
+ * Pattern: ON for 200ms (20 ticks), OFF for 200ms (20 ticks).
+ * Auto-stops after 10 seconds (1000 ticks * 10ms).
  *=========================================================================*/
 void Buzzer_RhythmHandler(void)
 {
@@ -95,15 +96,15 @@ void Buzzer_RhythmHandler(void)
     g_buzzer_rhythm_counter++;
     g_buzzer_ring_duration++;
 
-    /* Auto-stop after 10 seconds (100 * 100ms) */
-    if (g_buzzer_ring_duration >= 100) {
+    /* Auto-stop after 10 seconds (1000 * 10ms) */
+    if (g_buzzer_ring_duration >= 1000) {
+        Alarm_Stop();
         Buzzer_StopRing();
         return;
     }
 
-    /* Rhythm pattern: 100ms period → toggle every cycle for 200ms ON/OFF */
-    /* Counter mod 4: 0=ON, 1=ON, 2=OFF, 3=OFF → toggle every 2 cycles */
-    if ((g_buzzer_rhythm_counter % 4) < 2) {
+    /* Rhythm: 20 ticks ON (200ms), 20 ticks OFF (200ms) = 40 tick cycle */
+    if ((g_buzzer_rhythm_counter % 40) < 20) {
         Buzzer_On();
     } else {
         Buzzer_Off();

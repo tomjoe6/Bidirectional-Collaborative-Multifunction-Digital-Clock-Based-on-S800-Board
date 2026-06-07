@@ -133,8 +133,12 @@ class LogPanel(QWidget):
         )
         self._text_edit.appendHtml(html_line)
 
-        # Auto-scroll to bottom
-        self._text_edit.moveCursor(QTextCursor.End)
+        # Auto-scroll to bottom only if user is already at the bottom.
+        # If the user scrolled up to read history, stay at their position.
+        scrollbar = self._text_edit.verticalScrollBar()
+        at_bottom = scrollbar.value() >= scrollbar.maximum() - 4
+        if at_bottom:
+            self._text_edit.moveCursor(QTextCursor.End)
 
     def addError(self, content: str) -> None:
         """Add an error entry (convenience method).

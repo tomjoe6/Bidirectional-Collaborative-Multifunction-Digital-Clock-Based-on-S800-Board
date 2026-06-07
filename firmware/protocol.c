@@ -536,6 +536,7 @@ static void Cmd_SET_MSG(char *params)
     }
 
     Display_SetBuffer(text);
+    g_msg_timeout = 5;  /* auto-revert to clock after 5 seconds */
     Protocol_SendResponse("OK\r\n");
 }
 
@@ -782,37 +783,37 @@ static void Protocol_ParseLine(char *line)
     /* For SET and GET, need a subcommand after ':'.
      * The ':' may be attached to the command token (e.g., "SET:DATE")
      * or be a separate token (e.g., "SET" then ":DATE").
-     */
-    if (MatchAbbrev(cmd_str, "SET") || MatchAbbrev(cmd_str, "GET")) {
+     * Split the colon FIRST, then check the cleaned command against SET/GET. */
+    {
+        char   *colon_in_cmd;
         uint8_t is_set;
+        uint8_t is_get;
 
-        is_set = (uint8_t)(MatchAbbrev(cmd_str, "SET") ? 1 : 0);
-
-        /* Check if ':' is part of the command token (e.g., "SET:DATE") */
-        {
-            char *colon_in_cmd;
-            colon_in_cmd = strchr(cmd_str, ':');
-            if (colon_in_cmd != NULL) {
-                /* Colon is attached: split into command (before ':') and subcmd (after ':') */
-                *colon_in_cmd = '\0';  /* terminate command at ':' */
-                subcmd_str = colon_in_cmd + 1;  /* subcommand after ':' */
-                params = p;  /* remaining line after the token */
-            } else {
-                /* Colon is separate: next token should start with ':' */
-                subcmd_str = NextToken(&p);
-                if (subcmd_str == NULL || subcmd_str[0] != ':') {
-                    Protocol_SendResponse("ERROR\r\n");
-                    return;
-                }
-                /* Skip the ':' */
-                subcmd_str = subcmd_str + 1;
-                params = p;
+        /* Check if ':' is part of the command token */
+        colon_in_cmd = strchr(cmd_str, ':');
+        if (colon_in_cmd != NULL) {
+            /* Colon attached: "SET:KEY" → cmd="SET", subcmd="KEY" */
+            *colon_in_cmd = '\0';
+            subcmd_str = colon_in_cmd + 1;
+            params     = p;
+        } else {
+            /* Colon separate: next token is ":SUBCMD" */
+            subcmd_str = NextToken(&p);
+            if (subcmd_str == NULL || subcmd_str[0] != ':') {
+                Protocol_SendResponse("ERROR\r\n");
+                return;
             }
+            subcmd_str = subcmd_str + 1;  /* skip ':' */
+            params     = p;
         }
 
-        /* Now subcmd_str points to subcommand name, params to the rest */
+        /* Now cmd_str is clean ("SET" or "GET"), test it */
+        is_set = (uint8_t)MatchAbbrev(cmd_str, "SET");
+        is_get = (uint8_t)MatchAbbrev(cmd_str, "GET");
 
-            /* Check subcommand */
+        if (is_set || is_get) {
+
+            /* Dispatch subcommand */
             if (MatchAbbrev(subcmd_str, "DATE")) {
                 if (is_set) Cmd_SET_DATE(params);
                 else        Cmd_GET_DATE();
@@ -846,7 +847,8 @@ static void Protocol_ParseLine(char *line)
             } else {
                 Protocol_SendResponse("ERROR\r\n");
             }
-        return;
+            return;
+        }
     }
 
     /* Unknown command */

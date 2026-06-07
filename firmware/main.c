@@ -43,6 +43,7 @@ volatile uint32_t g_uptime_seconds;
 
 /* Beep timeout (in 10ms ticks), used by *SET:BEEP command */
 volatile uint16_t g_beep_timeout;
+volatile uint8_t  g_msg_timeout;   /* weather msg auto-revert timer (seconds) */
 
 /* Boot animation state */
 static uint8_t g_boot_phase;
@@ -107,23 +108,23 @@ uint8_t I2C0_WriteByte(uint8_t DevAddr, uint8_t RegAddr, uint8_t WriteData)
 
 uint8_t I2C0_ReadByte(uint8_t DevAddr, uint8_t RegAddr)
 {
-    uint8_t value, rop;
+    uint8_t value;
 
     while (I2CMasterBusy(I2C0_BASE)) {};
     I2CMasterSlaveAddrSet(I2C0_BASE, DevAddr, false);
     I2CMasterDataPut(I2C0_BASE, RegAddr);
-    I2CMasterControl(I2C0_BASE, I2C_MASTER_CMD_SINGLE_SEND);
-    while (I2CMasterBusBusy(I2C0_BASE));
-    rop = (uint8_t)I2CMasterErr(I2C0_BASE);
-    Delay(1);
+    /* BURST_SEND_START: sends START+addr+data WITHOUT STOP, keeping
+     * the bus active for a repeated START in read direction. */
+    I2CMasterControl(I2C0_BASE, I2C_MASTER_CMD_BURST_SEND_START);
+    while (I2CMasterBusy(I2C0_BASE)) {};
 
     I2CMasterSlaveAddrSet(I2C0_BASE, DevAddr, true);
-    I2CMasterControl(I2C0_BASE, I2C_MASTER_CMD_SINGLE_RECEIVE);
-    while (I2CMasterBusBusy(I2C0_BASE));
-    value = I2CMasterDataGet(I2C0_BASE);
-    Delay(1);
+    I2CMasterControl(I2C0_BASE, I2C_MASTER_CMD_BURST_RECEIVE_START);
+    while (I2CMasterBusy(I2C0_BASE)) {};
+    value = (uint8_t)I2CMasterDataGet(I2C0_BASE);
+    I2CMasterControl(I2C0_BASE, I2C_MASTER_CMD_BURST_RECEIVE_FINISH);
+    while (I2CMasterBusy(I2C0_BASE)) {};
 
-    (void)rop;
     return value;
 }
 
@@ -133,27 +134,14 @@ uint8_t I2C0_ReadByte(uint8_t DevAddr, uint8_t RegAddr)
 
 static void S800_GPIO_Init(void)
 {
-    /* Enable GPIO ports */
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
-    while (!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOF));
+    /* Enable GPIO port for USER key inputs (USERSW1=PJ0, USERSW2=PJ1).
+     * All K1-K8 are on TCA6424 Port0 via the expansion board. */
     SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOJ);
     while (!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOJ));
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPION);
-    while (!SysCtlPeripheralReady(SYSCTL_PERIPH_GPION));
 
-    /* K1: PF0 - input with pull-up */
-    GPIOPinTypeGPIOInput(KEY1_PORT, KEY1_PIN);
-    GPIOPadConfigSet(KEY1_PORT, KEY1_PIN,
-                     GPIO_STRENGTH_2MA, GPIO_PIN_TYPE_STD_WPU);
-
-    /* K2: PJ0, K3: PJ1 - input with pull-up */
-    GPIOPinTypeGPIOInput(KEY2_PORT, KEY2_PIN | KEY3_PIN);
-    GPIOPadConfigSet(KEY2_PORT, KEY2_PIN | KEY3_PIN,
-                     GPIO_STRENGTH_2MA, GPIO_PIN_TYPE_STD_WPU);
-
-    /* K4: PN0 - input with pull-up */
-    GPIOPinTypeGPIOInput(KEY4_PORT, KEY4_PIN);
-    GPIOPadConfigSet(KEY4_PORT, KEY4_PIN,
+    /* USER1=PJ0, USER2=PJ1: input with pull-up */
+    GPIOPinTypeGPIOInput(USER1_GPIO_PORT, USER1_GPIO_PIN | USER2_GPIO_PIN);
+    GPIOPadConfigSet(USER1_GPIO_PORT, USER1_GPIO_PIN | USER2_GPIO_PIN,
                      GPIO_STRENGTH_2MA, GPIO_PIN_TYPE_STD_WPU);
 }
 
@@ -181,6 +169,10 @@ static void S800_I2C0_Init(void)
     result  = I2C0_WriteByte(TCA6424_I2CADDR, TCA6424_CONFIG_PORT0, 0xFF);
     result |= I2C0_WriteByte(TCA6424_I2CADDR, TCA6424_CONFIG_PORT1, 0x00);
     result |= I2C0_WriteByte(TCA6424_I2CADDR, TCA6424_CONFIG_PORT2, 0x00);
+    /* Enable pull-ups on Port0 inputs so keys don't float.
+     * 0x46 = Pull-Up Enable Port0 (TCA6424A). If the chip does
+     * not support this register the write is safely ignored. */
+    result |= I2C0_WriteByte(TCA6424_I2CADDR, 0x46, 0xFF);
 
     /* Configure PCA9557: all outputs */
     result |= I2C0_WriteByte(PCA9557_I2CADDR, PCA9557_CONFIG, 0x00);
@@ -275,12 +267,12 @@ static void System_Init(void)
 
 #define BOOT_STUDENT_ID     "31910727"     /* Last 8 digits of student ID  */
 #define BOOT_NAME_PINYIN    "CUIJNTNG"     /* Name pinyin (<=8 chars)      */
-#define BOOT_VERSION        "VER1.0 "      /* Software version             */
+#define BOOT_VERSION        " 1.0.0  "     /* Software version (7seg-safe) */
 
-#define BOOT_FLASH_ON_MS    300
-#define BOOT_FLASH_OFF_MS   200
-#define BOOT_SHOW_MS        800
-#define BOOT_VERSION_MS     1200
+#define BOOT_FLASH_ON_MS    600             /* All-segments ON duration    */
+#define BOOT_FLASH_OFF_MS   400             /* Blank gap between phases    */
+#define BOOT_SHOW_MS        1500            /* Student ID / Name on time   */
+#define BOOT_VERSION_MS     2000            /* Version display >=1s        */
 
 static void BootAnimation_Init(void)
 {
@@ -449,18 +441,23 @@ static uint8_t BootAnimation_Run(void)
                     g_boot_timer = 0;
                     g_boot_phase = 7;
                     ver_shown = 0;
-                    /* Boot complete: reset LEDs except heartbeat/day */
+                    /* Blank display + LEDs for transition to clock */
+                    for (i = 0; i < DISP_DIGITS; i++) {
+                        g_disp_chars[i] = ' ';
+                    }
+                    g_dp_mask = 0x00;
                     g_led_state = 0x00;
-                    LED_Set(LED_DAYNIGHT, 1);
-                    /* Display will be updated by 1s handler */
+                    I2C0_WriteByte(PCA9557_I2CADDR, PCA9557_OUTPUT, 0xFF);
                 }
             }
         }
         break;
 
-    case 7: /* Boot complete */
-    default:
-        return 1; /* Boot done */
+    case 7: /* Post-version blank pause before clock */
+        if (g_boot_timer >= (BOOT_FLASH_OFF_MS / 10)) {
+            return 1; /* Boot done — main loop will init clock display */
+        }
+        break;
     }
 
     return 0; /* Boot still in progress */
@@ -553,6 +550,7 @@ int main(void)
     /* C89/C90: all variables declared at function start */
     uint8_t  scan_idx;
     uint8_t  boot_done;
+    uint16_t boot_guard;    /* post-boot mode/format lock (10ms ticks) */
     uint8_t  key_id;
     uint8_t  is_long;
     uint8_t  edit_state;
@@ -580,9 +578,11 @@ int main(void)
     while (1) {
 
         /*-----------------------------------------------------------------
-         * Process UART commands (any time)
+         * Process UART commands (only after boot completes)
          *-----------------------------------------------------------------*/
-        Protocol_Process();
+        if (boot_done) {
+            Protocol_Process();
+        }
 
         /*-----------------------------------------------------------------
          * 1ms Tasks: Display scan
@@ -618,6 +618,23 @@ int main(void)
                 while (Keys_GetEvent(&key_id, &is_long)) {
                     /* Report key event to PC */
                     Events_ReportKey(key_id);
+                }
+
+                /* Post-boot guard: force TIME+LEFT and re-render
+                 * immediately so any spurious FORMAT/DISP key events
+                 * are visually corrected within 10ms. Only active
+                 * when NOT editing (user edits have priority). */
+                /* Post-boot guard: suppress spurious key events
+                 * from floating TCA6424 by forcing TIME+LEFT
+                 * for the first 1.5s. Without this, K5/K7 floating
+                 * immediately corrupt mode/format after boot. */
+                if (boot_guard > 0) {
+                    boot_guard--;
+                    if (Keys_GetEditState() == EDIT_NONE) {
+                        g_disp_mode   = DISP_MODE_TIME;
+                        g_disp_format = FORMAT_LEFT;
+                        Display_UpdateFromClock(&g_clock);
+                    }
                 }
 
                 /* Edit state LED indicator */
@@ -682,7 +699,14 @@ int main(void)
                 /* Boot animation runs on 10ms ticks */
                 boot_done = BootAnimation_Run();
                 if (boot_done) {
-                    /* Transition to normal clock display */
+                    /* Transition to normal clock display:
+                     * Explicitly reset all display state to safe defaults,
+                     * then fill from clock. */
+                    g_disp_mode   = DISP_MODE_TIME;
+                    g_disp_format = FORMAT_LEFT;
+                    g_disp_night  = MODE_DAY;
+                    g_disp_on     = 1;
+                    boot_guard    = 150; /* lock format for 1.5s (150*10ms) */
                     Display_UpdateFromClock(&g_clock);
                     Keys_Init();
                 }
@@ -735,13 +759,23 @@ int main(void)
                 /* Heartbeat LED toggle */
                 LED_Heartbeat();
 
-                /* Update display from clock (if not in edit mode) */
-                if (!boot_done) {
-                    /* skip during boot */
-                } else if (Keys_GetEditState() == EDIT_NONE) {
+                /* Update display from clock (if not in edit mode).
+                 * Post-boot mode/format enforcement is handled by the
+                 * 10ms handler's boot_guard (300 ticks = 3 seconds). */
+                if (boot_done && Keys_GetEditState() == EDIT_NONE) {
                     Display_UpdateFromClock(&clock_now);
                 }
                 /* Else: edit display already updated in 10ms handler */
+
+                /* Weather/msg auto-revert: after 5s in FULL mode,
+                 * switch back to clock display. */
+                if (g_msg_timeout > 0) {
+                    g_msg_timeout--;
+                    if (g_msg_timeout == 0) {
+                        g_disp_mode = DISP_MODE_TIME;
+                        Display_UpdateFromClock(&g_clock);
+                    }
+                }
 
                 /* Event heartbeats (DISP + LED every 1s) */
                 {
@@ -763,8 +797,7 @@ int main(void)
         }
     }
 
-    /* Unreachable */
-    return 0;
+    /* main() never returns in embedded systems */
 }
 
 /*=========================================================================

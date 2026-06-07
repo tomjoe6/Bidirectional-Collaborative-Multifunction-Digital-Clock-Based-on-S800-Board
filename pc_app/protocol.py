@@ -23,7 +23,7 @@ class ProtocolParser:
         (re.compile(r"^\*EVT:ALARM\s+OFF", re.IGNORECASE), "evt_alarm"),
         (re.compile(r"^\*EVT:ALARM", re.IGNORECASE), "evt_alarm"),
         (re.compile(r"^\*EVT:EDIT\s+(\S+)\s+(.*)", re.IGNORECASE), "evt_edit"),
-        (re.compile(r"^\*EVT:DISP\s+(\S{8})\s+([0-9A-Fa-f]{1,2})", re.IGNORECASE), "evt_disp"),
+        (re.compile(r"^\*EVT:DISP\s+(.+?)\s+([0-9A-Fa-f]{1,2})$", re.IGNORECASE), "evt_disp"),
         (re.compile(r"^\*EVT:LED\s+([0-9A-Fa-f]{1,2})", re.IGNORECASE), "evt_led"),
         (re.compile(r"^\*EVT:MODE\s+(\S+)", re.IGNORECASE), "evt_mode"),
         (re.compile(r"^\*PONG\s+(\d+)", re.IGNORECASE), "pong"),
@@ -108,7 +108,7 @@ class ProtocolParser:
                 elif ftype == "pong":
                     frame["uptime_s"] = int(groups[0])
                 elif ftype == "ok":
-                    frame["data"] = groups[0].strip() if groups[0] else ""
+                    frame["data"] = groups[0].strip() if len(groups) > 0 and groups[0] else ""
                 elif ftype == "error":
                     pass  # no extra fields
 

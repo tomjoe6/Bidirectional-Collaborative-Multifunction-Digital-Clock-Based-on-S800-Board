@@ -156,12 +156,12 @@ class ControlPanel(QWidget):
 
         # Format row
         fmt_layout = QHBoxLayout()
-        fmt_layout.addWidget(QLabel("格式:"))
-        self.btn_format_left = QPushButton("左对齐")
+        fmt_layout.addWidget(QLabel("流水方向:"))
+        self.btn_format_left = QPushButton("从左到右")
         self.btn_format_left.clicked.connect(self._on_format_left)
         fmt_layout.addWidget(self.btn_format_left)
 
-        self.btn_format_right = QPushButton("右对齐")
+        self.btn_format_right = QPushButton("从右到左")
         self.btn_format_right.clicked.connect(self._on_format_right)
         fmt_layout.addWidget(self.btn_format_right)
         fmt_layout.addStretch()

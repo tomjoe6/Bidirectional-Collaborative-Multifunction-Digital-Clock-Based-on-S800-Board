@@ -96,15 +96,16 @@ class NTPClient:
                 error_msg=f"网络错误: {exc}",
             )
 
-        # Convert NTP timestamp to local datetime
-        # ntplib returns seconds since 1900-01-01; convert to Unix epoch
+        # Convert NTP timestamp to local datetime.
+        # ntplib returns seconds since 1900-01-01; subtract NTP_DELTA
+        # (2208988800 = seconds 1900→1970) to get a Unix timestamp.
         try:
-            # NTP epoch offset: 70 years (1900->1970) in seconds
-            NTP_DELTA = 2208988800  # seconds between 1900-01-01 and 1970-01-01
+            NTP_DELTA = 2208988800
             unix_ts = response.tx_time - NTP_DELTA
-            dt_utc = datetime.fromtimestamp(unix_ts, tz=timezone.utc)
+            # Use utcfromtimestamp + astimezone for Windows compatibility
+            dt_utc = datetime.utcfromtimestamp(unix_ts).replace(tzinfo=timezone.utc)
             dt_local = dt_utc.astimezone()
-        except (ValueError, OSError) as exc:
+        except (ValueError, OSError, OverflowError) as exc:
             return NTPResult(
                 success=False,
                 error_msg=f"时间转换失败: {exc}",

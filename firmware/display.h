@@ -47,5 +47,6 @@ void    Display_UpdateFromClock(ClockTime *now);
 void    Display_FlowAdvance(void);
 void    Display_SetNight(uint8_t night);
 uint8_t Display_GetSegCode(char c);
+void    Display_FillFromBuffer(void);
 
 #endif /* __DISPLAY_H__ */

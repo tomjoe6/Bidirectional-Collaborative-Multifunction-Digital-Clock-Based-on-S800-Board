@@ -54,26 +54,26 @@
 #define UART_CONFIG_VAL         (UART_CONFIG_WLEN_8 | UART_CONFIG_STOP_ONE | UART_CONFIG_PAR_NONE)
 
 /*=========================================================================
- * GPIO Key Pin Definitions (on-board keys, active low with pull-up)
+ * GPIO Key Pin Definitions
+ * USERSW1(PJ0) and USERSW2(PJ1) on main board — per exp2.c verification.
+ * All K1-K8 (SW1-SW8) are on TCA6424 Port0 via expansion board.
  *=========================================================================*/
-#define KEY1_PORT               GPIO_PORTF_BASE     /* K1: FUNC        */
-#define KEY1_PIN                GPIO_PIN_0
-#define KEY2_PORT               GPIO_PORTJ_BASE     /* K2: SHIFT       */
-#define KEY2_PIN                GPIO_PIN_0
-#define KEY3_PORT               GPIO_PORTJ_BASE     /* K3: ADD         */
-#define KEY3_PIN                GPIO_PIN_1
-#define KEY4_PORT               GPIO_PORTN_BASE     /* K4: SAVE        */
-#define KEY4_PIN                GPIO_PIN_0
+#define USER1_GPIO_PORT         GPIO_PORTJ_BASE     /* USERSW1: USER1  */
+#define USER1_GPIO_PIN          GPIO_PIN_0
+#define USER2_GPIO_PORT         GPIO_PORTJ_BASE     /* USERSW2: USER2  */
+#define USER2_GPIO_PIN          GPIO_PIN_1
 
 /*=========================================================================
- * Extended Key Bits (TCA6424 Port0 input)
+ * Extended Key Bits (TCA6424 Port0 input, 8 bits = K1~K8)
  *=========================================================================*/
-#define KEY5_BIT                0   /* K5: DISP      */
-#define KEY6_BIT                1   /* K6: SPEED     */
-#define KEY7_BIT                2   /* K7: FORMAT    */
-#define KEY8_BIT                3   /* K8: EXT       */
-#define USER1_BIT               4   /* USER1         */
-#define USER2_BIT               5   /* USER2         */
+#define KEY1_BIT                0   /* SW1: K1 FUNC      */
+#define KEY2_BIT                1   /* SW2: K2 SHIFT     */
+#define KEY3_BIT                2   /* SW3: K3 ADD       */
+#define KEY4_BIT                3   /* SW4: K4 SAVE      */
+#define KEY5_BIT                4   /* SW5: K5 DISP      */
+#define KEY6_BIT                5   /* SW6: K6 SPEED     */
+#define KEY7_BIT                6   /* SW7: K7 FORMAT    */
+#define KEY8_BIT                7   /* SW8: K8 EXT       */
 
 /* Total number of keys */
 #define NUM_KEYS                10
@@ -164,6 +164,7 @@ extern volatile uint8_t  g_flag_1000ms;
 extern volatile uint8_t  g_cnt_1000ms;
 extern volatile uint32_t g_uptime_seconds;
 extern volatile uint16_t g_beep_timeout;
+extern volatile uint8_t  g_msg_timeout;   /* weather msg auto-revert (seconds) */
 
 /*=========================================================================
  * Shared Utility Function Declarations (defined in main.c)

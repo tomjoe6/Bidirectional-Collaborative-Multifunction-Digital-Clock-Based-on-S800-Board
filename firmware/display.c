@@ -1,6 +1,7 @@
 #include <string.h>
 #include <stdio.h>
 #include "display.h"
+#include "clock.h"
 
 /*=========================================================================
  * 7-Segment Code Tables (from exp2.c)
@@ -43,6 +44,7 @@ uint8_t Display_GetSegCode(char c)
     if (c >= '0' && c <= '9') return g_seg_table_num[c - '0'];
     if (c >= 'A' && c <= 'Z') return g_seg_table_alpha[c - 'A'];
     if (c >= 'a' && c <= 'z') return g_seg_table_alpha[c - 'a'];
+    if (c == '.') return 0x80;  /* DP only — used by boot animation */
     if (c == '-') return 0x40;
     if (c == '_') return 0x08;
     if (c == '=') return 0x48;
@@ -133,20 +135,34 @@ void Display_Scan(uint8_t digit_idx)
  * If the buffer is shorter than 8 chars, pad with spaces.
  * Supports FORMAT RIGHT (reverse the visible window).
  *=========================================================================*/
-static void Display_FillFromBuffer(void)
+void Display_FillFromBuffer(void)
 {
     uint8_t str_len;
     int16_t vpos;        /* virtual position in buffer */
     int16_t i;
-    char temp[DISP_DIGITS];
+    /* Extra room: dots consume a slot but get removed, so the source
+     * buffer may need more chars than DISP_DIGITS to fill all 8 after
+     * DP processing (e.g. "2024.0607" = 9 chars → 8 after dot removal). */
+    #define TEMP_BUF_SIZE (DISP_DIGITS + 4)
+    char temp[TEMP_BUF_SIZE];
     uint8_t temp_dp;
+    uint8_t temp_fill;
 
     str_len = (uint8_t)strlen(g_disp_buffer);
 
-    for (i = 0; i < DISP_DIGITS; i++) {
+    /* Copy chars with circular wrapping: when vpos exceeds the
+     * buffer, wrap back to the beginning for seamless scrolling. */
+    temp_fill = 0;
+    for (i = 0; i < (int16_t)TEMP_BUF_SIZE; i++) {
         vpos = g_flow_position + i;
-        if (vpos >= 0 && vpos < str_len) {
+        /* Wrap around the buffer length for circular display */
+        if (str_len > 0) {
+            while (vpos >= str_len) vpos -= str_len;
+            while (vpos < 0)      vpos += str_len;
+        }
+        if (str_len > 0 && vpos < str_len) {
             temp[i] = g_disp_buffer[vpos];
+            temp_fill = (uint8_t)(i + 1);
         } else {
             temp[i] = ' ';
         }
@@ -155,7 +171,7 @@ static void Display_FillFromBuffer(void)
     /* Scan for '.' chars and convert them to DP on the PREVIOUS digit.
      * A '.' is not a character itself; it sets DP on the preceding char. */
     temp_dp = 0;
-    for (i = 0; i < DISP_DIGITS; i++) {
+    for (i = 0; i < (int16_t)temp_fill; i++) {
         if (temp[i] == '.') {
             if (i > 0) {
                 temp_dp |= (uint8_t)(1 << (i - 1));
@@ -163,54 +179,23 @@ static void Display_FillFromBuffer(void)
             /* Shift remaining chars left to fill the gap */
             {
                 uint8_t j;
-                for (j = (uint8_t)i; j < DISP_DIGITS - 1; j++) {
+                for (j = (uint8_t)i; j < TEMP_BUF_SIZE - 1; j++) {
                     temp[j] = temp[j + 1];
                 }
-                temp[DISP_DIGITS - 1] = ' ';
+                temp[TEMP_BUF_SIZE - 1] = ' ';
             }
         }
     }
 
-    /* Apply FORMAT RIGHT: reverse the display string and DP mask */
-    if (g_disp_format == FORMAT_RIGHT) {
-        char rev[DISP_DIGITS];
-        uint8_t rev_dp;
-        uint8_t k;
-
-        for (i = 0; i < DISP_DIGITS; i++) {
-            rev[i] = temp[DISP_DIGITS - 1 - i];
-        }
-        rev_dp = 0;
-        for (i = 0; i < DISP_DIGITS; i++) {
-            if (temp_dp & (1 << i)) {
-                k = DISP_DIGITS - 1 - (uint8_t)i;
-                /* DP follows the char in reverse direction:
-                 * Original: DP at digit i meaning dot AFTER char at i
-                 * Reversed: the char that was at i moves to (7-i).
-                 * The dot should appear at the digit BEFORE the moved char,
-                 * i.e., at position (7-i+1) if that's within bounds. */
-                if (k < DISP_DIGITS - 1) {
-                    rev_dp |= (uint8_t)(1 << (k + 1));
-                }
-            }
-        }
-
-        /* Copy reversed results back */
-        for (i = 0; i < DISP_DIGITS; i++) {
-            temp[i] = rev[i];
-        }
-        temp_dp = rev_dp;
-    }
+    /* FORMAT does NOT reverse characters — it only controls
+     * the scroll direction in flow mode (see Display_FlowAdvance).
+     * All display modes show characters in natural left-to-right order. */
 
     /* Copy to global display chars and DP mask */
     for (i = 0; i < DISP_DIGITS; i++) {
         g_disp_chars[i] = temp[i];
     }
     g_dp_mask = temp_dp;
-
-    /* Suppress leading zeros? No, show all digits as specified. */
-    /* In night mode we rely on Display_Scan to blank digits 4-7.
-     * But we still populate all 8 chars so events module sees them. */
 }
 
 /*=========================================================================
@@ -231,8 +216,8 @@ void Display_UpdateFromClock(ClockTime *now)
         sprintf(buf, "%02d.%02d.%02d",
                 now->year % 100, now->month, now->day);
     } else if (g_disp_mode == DISP_MODE_YEAR) {
-        /* Format: YYYYMMDD (8 digits, no dots) */
-        sprintf(buf, "%04d%02d%02d",
+        /* Format: YYYY.MMDD → dot handled as DP by FillFromBuffer */
+        sprintf(buf, "%04d.%02d%02d",
                 2000 + now->year, now->month, now->day);
     } else {
         /* FULL mode: use the message buffer as-is */
@@ -267,7 +252,8 @@ void Display_SetMode(uint8_t mode)
     if (mode <= DISP_MODE_FULL) {
         g_disp_mode = mode;
     }
-    /* Update will happen on next 1s tick or immediately in main */
+    /* Re-render immediately so DISP key feedback is instant */
+    Display_UpdateFromClock(&g_clock);
 }
 
 /*=========================================================================
@@ -276,9 +262,9 @@ void Display_SetMode(uint8_t mode)
 void Display_SetFormat(uint8_t format)
 {
     if (format == FORMAT_LEFT || format == FORMAT_RIGHT) {
-        g_disp_format = format;
+        g_disp_format   = format;
+        g_flow_direction = (format == FORMAT_LEFT) ? 1 : -1;
     }
-    /* Re-fill to apply new format */
     Display_FillFromBuffer();
 }
 
@@ -314,28 +300,24 @@ void Display_SetBuffer(const char *str)
 void Display_FlowAdvance(void)
 {
     int16_t str_len;
-    int16_t max_pos;
 
-    /* Only advance in FULL mode */
     if (g_disp_mode != DISP_MODE_FULL) {
         return;
     }
 
     str_len = (int16_t)strlen(g_disp_buffer);
-
-    /* If buffer fits in 8 digits, no scrolling needed */
     if (str_len <= DISP_DIGITS) {
         return;
     }
 
-    max_pos = str_len - DISP_DIGITS;
-
+    /* Circular scroll: advance by one position, wrap around the
+     * buffer length so content loops seamlessly (tail connects to head). */
     g_flow_position = g_flow_position + g_flow_direction;
 
-    if (g_flow_position > max_pos) {
+    if (g_flow_position >= str_len) {
         g_flow_position = 0;
     } else if (g_flow_position < 0) {
-        g_flow_position = max_pos;
+        g_flow_position = str_len - 1;
     }
 
     Display_FillFromBuffer();
