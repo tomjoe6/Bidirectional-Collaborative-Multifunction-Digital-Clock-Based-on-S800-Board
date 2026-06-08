@@ -138,63 +138,35 @@ void Display_Scan(uint8_t digit_idx)
 void Display_FillFromBuffer(void)
 {
     uint8_t str_len;
-    int16_t vpos;        /* virtual position in buffer */
-    int16_t i;
-    /* Extra room: dots consume a slot but get removed, so the source
-     * buffer may need more chars than DISP_DIGITS to fill all 8 after
-     * DP processing (e.g. "2024.0607" = 9 chars → 8 after dot removal). */
-    #define TEMP_BUF_SIZE (DISP_DIGITS + 4)
-    char temp[TEMP_BUF_SIZE];
-    uint8_t temp_dp;
-    uint8_t temp_fill;
+    int16_t vpos, i;
 
     str_len = (uint8_t)strlen(g_disp_buffer);
 
-    /* Copy chars. In FULL (flow) mode, wrap circularly so the
-     * display loops seamlessly. In clock modes, pad with spaces. */
-    temp_fill = 0;
-    for (i = 0; i < (int16_t)TEMP_BUF_SIZE; i++) {
+    /* '.' occupies its own digit (displays as DP-only segment via
+     * Display_GetSegCode). No DP processing needed. */
+    g_dp_mask = 0;
+    for (i = 0; i < DISP_DIGITS; i++) {
         vpos = g_flow_position + i;
-        if (g_disp_mode == DISP_MODE_FULL && str_len > 0) {
+        if ((g_disp_mode == DISP_MODE_FULL || g_disp_mode == DISP_MODE_YEAR)
+            && str_len > DISP_DIGITS) {
             while (vpos >= str_len) vpos -= str_len;
             while (vpos < 0)      vpos += str_len;
         }
-        if (vpos >= 0 && vpos < str_len && str_len > 0) {
-            temp[i] = g_disp_buffer[vpos];
-            temp_fill = (uint8_t)(i + 1);
+        if (str_len > 0 && vpos >= 0 && vpos < str_len) {
+            g_disp_chars[i] = g_disp_buffer[vpos];
         } else {
-            temp[i] = ' ';
+            g_disp_chars[i] = ' ';
         }
     }
 
-    /* Scan for '.' chars and convert them to DP on the PREVIOUS digit.
-     * A '.' is not a character itself; it sets DP on the preceding char. */
-    temp_dp = 0;
-    for (i = 0; i < (int16_t)temp_fill; i++) {
-        if (temp[i] == '.') {
-            if (i > 0) {
-                temp_dp |= (uint8_t)(1 << (i - 1));
-            }
-            /* Shift remaining chars left to fill the gap */
-            {
-                uint8_t j;
-                for (j = (uint8_t)i; j < TEMP_BUF_SIZE - 1; j++) {
-                    temp[j] = temp[j + 1];
-                }
-                temp[TEMP_BUF_SIZE - 1] = ' ';
-            }
-        }
+    /* FORMAT_RIGHT: reverse the 8-digit window */
+    if (g_disp_format == FORMAT_RIGHT) {
+        char rev[DISP_DIGITS];
+        for (i = 0; i < DISP_DIGITS; i++)
+            rev[i] = g_disp_chars[DISP_DIGITS - 1 - i];
+        for (i = 0; i < DISP_DIGITS; i++)
+            g_disp_chars[i] = rev[i];
     }
-
-    /* FORMAT does NOT reverse characters — it only controls
-     * the scroll direction in flow mode (see Display_FlowAdvance).
-     * All display modes show characters in natural left-to-right order. */
-
-    /* Copy to global display chars and DP mask */
-    for (i = 0; i < DISP_DIGITS; i++) {
-        g_disp_chars[i] = temp[i];
-    }
-    g_dp_mask = temp_dp;
 }
 
 /*=========================================================================
@@ -215,7 +187,7 @@ void Display_UpdateFromClock(ClockTime *now)
         sprintf(buf, "%02d.%02d.%02d",
                 now->year % 100, now->month, now->day);
     } else if (g_disp_mode == DISP_MODE_YEAR) {
-        /* Format: YYYY.MMDD → dot handled as DP by FillFromBuffer */
+        /* Format: YYYY.MMDD (9 chars) → flow-scrolls across 8 digits */
         sprintf(buf, "%04d.%02d%02d",
                 2000 + now->year, now->month, now->day);
     } else {
@@ -237,9 +209,12 @@ void Display_UpdateFromClock(ClockTime *now)
     }
     g_disp_buffer[DISP_BUF_SIZE - 1] = '\0';
 
-    g_flow_position = 0;
+    /* Only reset flow when NOT in YEAR/FULL (scrolling) modes,
+     * otherwise the flow position resets every second. */
+    if (g_disp_mode != DISP_MODE_YEAR && g_disp_mode != DISP_MODE_FULL) {
+        g_flow_position = 0;
+    }
 
-    /* Fill the 8 display chars from the buffer */
     Display_FillFromBuffer();
 }
 
@@ -300,7 +275,7 @@ void Display_FlowAdvance(void)
 {
     int16_t str_len;
 
-    if (g_disp_mode != DISP_MODE_FULL) {
+    if (g_disp_mode != DISP_MODE_FULL && g_disp_mode != DISP_MODE_YEAR) {
         return;
     }
 

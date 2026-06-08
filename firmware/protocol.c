@@ -170,58 +170,48 @@ static char* NextToken(char **pp)
 }
 
 /*=========================================================================
- * Send a response string over UART.
- * Applies FORMAT RIGHT reversal to the data portion (after "OK ").
- * Flashes TX LED.
+ * Send a response string over UART.  Flashes TX LED.
  *=========================================================================*/
 static void Protocol_SendResponse(const char *resp)
 {
-    uint8_t result;
-    uint8_t i;
+    while (*resp) {
+        UART0_SendChar(*resp++);
+    }
+    LED_TXFlash();
+}
+
+/*=========================================================================
+ * Send an "OK <data>" response with FORMAT_RIGHT reversal applied to
+ * the data portion.  Used for display-related GET commands (TIME,
+ * DATE, DISP) so the PC receives data in the same order as the 7-seg.
+ * GET:FORMAT and GET:ALARM use raw Protocol_SendResponse instead.
+ *=========================================================================*/
+static void Protocol_SendOKData(const char *data)
+{
+    char buf[64];
     uint8_t len;
-    char send_buf[PROTO_LINE_SIZE * 2];
+    uint8_t i;
+    char tmp;
 
-    len = (uint8_t)strlen(resp);
-    if (len >= sizeof(send_buf)) {
-        len = (uint8_t)(sizeof(send_buf) - 1);
-    }
+    len = (uint8_t)strlen(data);
+    if (len > 60) len = 60;
 
-    for (i = 0; i < len; i++) {
-        send_buf[i] = resp[i];
-    }
-    send_buf[len] = '\0';
+    buf[0] = 'O'; buf[1] = 'K'; buf[2] = ' ';
+    for (i = 0; i < len; i++) buf[3 + i] = data[i];
+    buf[3 + len] = '\r';
+    buf[4 + len] = '\n';
+    buf[5 + len] = '\0';
 
-    /* Apply FORMAT RIGHT reversal to data after "OK " */
-    if (g_disp_format == FORMAT_RIGHT) {
-        /* Check if response starts with "OK " */
-        if (len > 3 && send_buf[0] == 'O' && send_buf[1] == 'K' && send_buf[2] == ' ') {
-            /* Reverse the data portion (after "OK ") */
-            char *data_start;
-            uint8_t data_len;
-            uint8_t j;
-            char temp;
-
-            data_start = send_buf + 3;
-            data_len   = (uint8_t)strlen(data_start);
-
-            for (j = 0; j < data_len / 2; j++) {
-                temp = data_start[j];
-                data_start[j] = data_start[data_len - 1 - j];
-                data_start[data_len - 1 - j] = temp;
-            }
+    /* Reverse data portion if FORMAT_RIGHT */
+    if (g_disp_format == FORMAT_RIGHT && len > 0) {
+        for (i = 0; i < len / 2; i++) {
+            tmp = buf[3 + i];
+            buf[3 + i] = buf[3 + len - 1 - i];
+            buf[3 + len - 1 - i] = tmp;
         }
     }
 
-    /* Send over UART */
-    for (i = 0; i < len; i++) {
-        UART0_SendChar(send_buf[i]);
-    }
-
-    /* Flash TX LED */
-    LED_TXFlash();
-
-    result = len;
-    (void)result;
+    Protocol_SendResponse(buf);
 }
 
 /*=========================================================================
@@ -264,6 +254,13 @@ static uint8_t ParseHex2(const char *str, uint8_t *val)
  *=========================================================================*/
 static void Cmd_RST(void)
 {
+    /* Reset to default state: 2024-01-01 00:00:00, TIME mode, LEFT, display ON */
+    Clock_Init(24, 1, 1, 0, 0, 0);
+    g_disp_mode   = DISP_MODE_TIME;
+    g_disp_format = FORMAT_LEFT;
+    g_disp_night  = MODE_DAY;
+    g_disp_on     = 1;
+    Display_UpdateFromClock(&g_clock);
     Protocol_SendResponse("OK\r\n");
 }
 
@@ -602,6 +599,7 @@ static void Cmd_SET_LED(char *params)
     }
 
     g_led_state = val;
+    g_led_user_lock = 200;  /* user override for 2s (200*10ms) */
     Protocol_SendResponse("OK\r\n");
 }
 
@@ -670,9 +668,9 @@ static void Cmd_SET_MODE(char *params)
  *=========================================================================*/
 static void Cmd_GET_DATE(void)
 {
-    sprintf(g_resp_buf, "OK %02d.%02d.%02d\r\n",
+    sprintf(g_resp_buf, "%02d.%02d.%02d",
             g_clock.year % 100, g_clock.month, g_clock.day);
-    Protocol_SendResponse(g_resp_buf);
+    Protocol_SendOKData(g_resp_buf);
 }
 
 /*=========================================================================
@@ -681,9 +679,9 @@ static void Cmd_GET_DATE(void)
  *=========================================================================*/
 static void Cmd_GET_TIME(void)
 {
-    sprintf(g_resp_buf, "OK %02d.%02d.%02d\r\n",
+    sprintf(g_resp_buf, "%02d.%02d.%02d",
             g_clock.hour, g_clock.minute, g_clock.second);
-    Protocol_SendResponse(g_resp_buf);
+    Protocol_SendOKData(g_resp_buf);
 }
 
 /*=========================================================================

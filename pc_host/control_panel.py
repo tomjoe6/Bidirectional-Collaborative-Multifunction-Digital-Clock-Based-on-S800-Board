@@ -340,7 +340,7 @@ class ControlPanel(QWidget):
 
     def _fmt(self, cmd: str, sub: str = None, params: list = None) -> str:
         """Format a protocol command string."""
-        from ..protocol import ProtocolParser
+        from protocol import ProtocolParser
         return ProtocolParser.format_command(cmd, sub, params)
 
     def _emit_cmd(self, cmd_str: str) -> None:

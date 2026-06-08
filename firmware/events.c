@@ -209,10 +209,11 @@ void Events_SendNext(void)
     uint8_t i;
     char *pmsg;
 
-    /* Rate limiting: only send if at least 50ms since last send */
+    /* Rate limiting: 20ms between sends (50 events/sec max).
+     * At 115200 baud this uses <10% bandwidth, enough for flow. */
     g_event_rate_timer++;
-    if (g_event_rate_timer < 5) {
-        return; /* 5 * 10ms = 50ms not yet elapsed; called from 10ms handler context */
+    if (g_event_rate_timer < 2) {
+        return;
     }
     g_event_rate_timer = 0;
 

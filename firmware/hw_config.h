@@ -108,6 +108,9 @@
  *=========================================================================*/
 #define BUZZER_PORT             GPIO_PORTF_BASE
 #define BUZZER_PIN              GPIO_PIN_3
+#define BUZZER_TIMER_PERIPH     SYSCTL_PERIPH_TIMER0
+#define BUZZER_TIMER_BASE       TIMER0_BASE
+#define BUZZER_TIMER            TIMER_A
 
 /*=========================================================================
  * Display Modes
@@ -143,7 +146,7 @@
 #define FLOW_SPEED_SLOW         0
 #define FLOW_SPEED_FAST         1
 #define FLOW_DELAY_SLOW         50      /* 50 * 10ms = 500ms per step  */
-#define FLOW_DELAY_FAST         10      /* 10 * 10ms = 100ms per step  */
+#define FLOW_DELAY_FAST         25      /* 25 * 10ms = 250ms per step  */
 
 /*=========================================================================
  * Protocol Buffer Sizes
@@ -166,7 +169,7 @@ extern volatile uint8_t  g_flag_1000ms;
 extern volatile uint8_t  g_cnt_1000ms;
 extern volatile uint32_t g_uptime_seconds;
 extern volatile uint16_t g_beep_timeout;
-extern volatile uint8_t  g_msg_timeout;   /* weather msg auto-revert (seconds) */
+extern volatile uint8_t  g_led_user_lock;  /* SET LED user-override timeout (10ms) */
 
 /*=========================================================================
  * Shared Utility Function Declarations (defined in main.c)

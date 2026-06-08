@@ -26,7 +26,7 @@ from PyQt5.QtWidgets import (
     QWidget,
 )
 
-from .config import (
+from config import (
     APP_NAME,
     APP_VERSION,
     DEFAULT_BAUD,
@@ -37,13 +37,16 @@ from .config import (
     NTP_LED_DURATION_MS,
     NTP_STATUS_DISPLAY_MS,
 )
-from .heartbeat import HeartbeatMonitor
-from .ntp_client import NTPClient
-from .protocol import ProtocolParser
-from .serial_worker import SerialWorker
-from .twin_state import TwinStateManager
-from .weather_client import WeatherClient
-from .widgets import ControlPanel, LEDBarWidget, LogPanel, SevenSegWidget
+from heartbeat import HeartbeatMonitor
+from ntp_helper import NTPClient
+from protocol import ProtocolParser
+from serial_worker import SerialWorker
+from twin_panel import TwinStateManager
+from weather_helper import WeatherClient
+from control_panel import ControlPanel
+from led_indicator import LEDBarWidget
+from log_panel import LogPanel
+from seven_seg import SevenSegWidget
 
 
 class MainWindow(QMainWindow):
@@ -459,7 +462,7 @@ class MainWindow(QMainWindow):
             key_name: Key name (FUNC, SHIFT, ADD, SAVE, DISP, SPEED,
                       FORMAT, EXT, USER1, USER2).
         """
-        from .protocol import ProtocolParser
+        from protocol import ProtocolParser
         cmd = ProtocolParser.format_command("SET", "KEY", [key_name])
         self._on_send_command(cmd + "\r\n")
 

@@ -43,7 +43,7 @@ volatile uint32_t g_uptime_seconds;
 
 /* Beep timeout (in 10ms ticks), used by *SET:BEEP command */
 volatile uint16_t g_beep_timeout;
-volatile uint8_t  g_msg_timeout;   /* weather msg auto-revert timer (seconds) */
+volatile uint8_t  g_led_user_lock; /* *SET:LED user-override (10ms ticks) */
 
 /* Boot animation state */
 static uint8_t g_boot_phase;
@@ -225,7 +225,6 @@ static void System_Init(void)
     g_cnt_1000ms   = 9;
     g_uptime_seconds = 0;
     g_beep_timeout = 0;
-    g_msg_timeout  = 0;
 
     /* Initialize hardware */
     S800_GPIO_Init();
@@ -268,7 +267,7 @@ static void System_Init(void)
 
 #define BOOT_STUDENT_ID     "31910727"     /* Last 8 digits of student ID  */
 #define BOOT_NAME_PINYIN    "CUIJNTNG"     /* Name pinyin (<=8 chars)      */
-#define BOOT_VERSION        " 1.0.0  "     /* Software version (7seg-safe) */
+#define BOOT_VERSION        " V1.0   "     /* Software version */
 
 #define BOOT_FLASH_ON_MS    600             /* All-segments ON duration    */
 #define BOOT_FLASH_OFF_MS   400             /* Blank gap between phases    */
@@ -638,12 +637,10 @@ int main(void)
                     }
                 }
 
-                /* Edit state LED indicator */
+                /* Edit state LED indicator (skip during user LED lock) */
                 edit_state = Keys_GetEditState();
-                if (edit_state != EDIT_NONE) {
-                    LED_Set(LED_EDIT_ACTIVE, 1);
-                } else {
-                    LED_Set(LED_EDIT_ACTIVE, 0);
+                if (g_led_user_lock == 0) {
+                    LED_Set(LED_EDIT_ACTIVE, (uint8_t)(edit_state != EDIT_NONE ? 1 : 0));
                 }
 
                 /* Update edit display if in edit mode */
@@ -675,13 +672,14 @@ int main(void)
                     }
                 }
 
-                /* Write LED state to PCA9557 at 10ms rate.
-                 * Buzzer is now on its own PF3 PWM pin, independent. */
                 {
                     uint8_t led_out;
-                    led_out = (uint8_t)(~g_led_state);  /* active-low */
+                    led_out = (uint8_t)(~g_led_state);
                     I2C0_WriteByte(PCA9557_I2CADDR, PCA9557_OUTPUT, led_out);
                 }
+
+                /* User LED lock timeout */
+                if (g_led_user_lock > 0) g_led_user_lock--;
 
                 /* LED flash timeout */
                 LED_UpdateFlashTimeout();
@@ -692,7 +690,7 @@ int main(void)
                 }
 
                 /* Update flow counter for scroll */
-                if (g_disp_mode == DISP_MODE_FULL) {
+                if (g_disp_mode == DISP_MODE_FULL || g_disp_mode == DISP_MODE_YEAR) {
                     g_flow_counter++;
                     if (g_flow_counter >= g_flow_delay) {
                         g_flow_counter = 0;
@@ -756,20 +754,20 @@ int main(void)
                 /* Check alarm */
                 Alarm_Check(&clock_now);
 
-                /* Update alarm LED indicators */
-                if (g_alarm.enabled) {
-                    LED_Set(LED_ALARM_EN, 1);
-                } else {
-                    LED_Set(LED_ALARM_EN, 0);
+                /* System LED updates — skip when user has override lock */
+                if (g_led_user_lock == 0) {
+                    if (g_alarm.enabled) {
+                        LED_Set(LED_ALARM_EN, 1);
+                    } else {
+                        LED_Set(LED_ALARM_EN, 0);
+                    }
+                    if (Alarm_IsRinging()) {
+                        LED_Set(LED_ALARM_RING, 1);
+                    } else {
+                        LED_Set(LED_ALARM_RING, 0);
+                    }
+                    LED_Heartbeat();
                 }
-                if (Alarm_IsRinging()) {
-                    LED_Set(LED_ALARM_RING, 1);
-                } else {
-                    LED_Set(LED_ALARM_RING, 0);
-                }
-
-                /* Heartbeat LED toggle */
-                LED_Heartbeat();
 
                 /* Update display from clock (if not in edit mode).
                  * Post-boot mode/format enforcement is handled by the
@@ -783,8 +781,12 @@ int main(void)
                 {
                     char disp_str[9];
                     uint8_t j;
-                    for (j = 0; j < DISP_DIGITS; j++) {
-                        disp_str[j] = g_disp_chars[j];
+                    if (g_disp_on) {
+                        for (j = 0; j < DISP_DIGITS; j++)
+                            disp_str[j] = g_disp_chars[j];
+                    } else {
+                        for (j = 0; j < DISP_DIGITS; j++)
+                            disp_str[j] = ' ';
                     }
                     disp_str[8] = '\0';
                     Events_1HzHandler(&clock_now, g_led_state,

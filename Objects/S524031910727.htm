@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\S524031910727.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\S524031910727.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Mon Jun 08 00:57:11 2026
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Mon Jun 08 20:51:45 2026
 <BR><P>
 <H3>Maximum Stack Usage =        328 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1370,12 +1370,12 @@ Global Symbols
 <LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_ReportKey
 <LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_ReportDisp
 <LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_1HzHandler
-<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_UpdateFromClock
+<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_UpdateFromClock
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_PING
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_GET_TIME
 <LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_GET_DISP
-<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_GET_DATE
-<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_GET_ALARM
+<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_GET_DATE
+<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_GET_ALARM
 </UL>
 
 <P><STRONG><a name="[ab]"></a>_printf_pre_padding</STRONG> (Thumb, 44 bytes, Stack size 16 bytes, _printf_pad.o(.text))
@@ -1437,9 +1437,9 @@ Global Symbols
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_errno_addr
 </UL>
 <BR>[Called By]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_TIME
-<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DATE
-<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_BEEP
-<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_ALARM
+<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DATE
+<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_BEEP
+<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_ALARM
 </UL>
 
 <P><STRONG><a name="[b4]"></a>strtoul</STRONG> (Thumb, 114 bytes, Stack size 40 bytes, strtoul.o(.text))
@@ -1461,14 +1461,14 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UpdateEditDisplay
 <LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_Enqueue
-<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_UpdateFromClock
+<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_UpdateFromClock
 <LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_SetBuffer
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_FlowAdvance
 <LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_FillFromBuffer
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendOKData
 <LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
 <LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ParseHex2
-<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MatchAbbrev
+<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MatchAbbrev
 <LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_MSG
 </UL>
 
@@ -1626,54 +1626,53 @@ Global Symbols
 <LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_CycleFunc
 </UL>
 
-<P><STRONG><a name="[ce]"></a>Alarm_Stop</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, alarm.o(i.Alarm_Stop))
+<P><STRONG><a name="[cd]"></a>Alarm_Stop</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, alarm.o(i.Alarm_Stop))
 <BR><BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_CycleFunc
-<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_RhythmHandler
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_RhythmHandler
 </UL>
 
-<P><STRONG><a name="[bf]"></a>Buzzer_Init</STRONG> (Thumb, 122 bytes, Stack size 8 bytes, buzzer.o(i.Buzzer_Init))
+<P><STRONG><a name="[bf]"></a>Buzzer_Init</STRONG> (Thumb, 110 bytes, Stack size 8 bytes, buzzer.o(i.Buzzer_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 44<LI>Call Chain = Buzzer_Init &rArr; GPIOPinTypeGPIOOutput &rArr; GPIOPadConfigSet
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerMatchSet
-<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerLoadSet
-<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerIntEnable
+<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerLoadSet
+<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerIntEnable
 <LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerConfigure
 <LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysCtlPeripheralReady
 <LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysCtlPeripheralEnable
-<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IntEnable
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IntEnable
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinWrite
 <LI><a href="#[c2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinTypeGPIOOutput
 </UL>
 <BR>[Called By]<UL><LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;System_Init
 </UL>
 
-<P><STRONG><a name="[c9]"></a>Buzzer_Off</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, buzzer.o(i.Buzzer_Off))
+<P><STRONG><a name="[c8]"></a>Buzzer_Off</STRONG> (Thumb, 28 bytes, Stack size 8 bytes, buzzer.o(i.Buzzer_Off))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Buzzer_Off
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerDisable
+<BR>[Calls]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerDisable
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinWrite
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_StopRing
-<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_RhythmHandler
+<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_StopRing
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_RhythmHandler
 </UL>
 
-<P><STRONG><a name="[cb]"></a>Buzzer_On</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, buzzer.o(i.Buzzer_On))
+<P><STRONG><a name="[ca]"></a>Buzzer_On</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, buzzer.o(i.Buzzer_On))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = Buzzer_On
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerEnable
+<BR>[Calls]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerEnable
 </UL>
-<BR>[Called By]<UL><LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_RhythmHandler
-<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_BEEP
+<BR>[Called By]<UL><LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_RhythmHandler
+<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_BEEP
 </UL>
 
-<P><STRONG><a name="[cd]"></a>Buzzer_RhythmHandler</STRONG> (Thumb, 86 bytes, Stack size 8 bytes, buzzer.o(i.Buzzer_RhythmHandler))
+<P><STRONG><a name="[cc]"></a>Buzzer_RhythmHandler</STRONG> (Thumb, 88 bytes, Stack size 8 bytes, buzzer.o(i.Buzzer_RhythmHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = Buzzer_RhythmHandler &rArr; Buzzer_StopRing &rArr; Buzzer_Off
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_StopRing
-<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_On
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_Off
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Alarm_Stop
+<BR>[Calls]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_StopRing
+<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_On
+<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_Off
+<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Alarm_Stop
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1682,60 +1681,61 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[cf]"></a>Buzzer_StopRing</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, buzzer.o(i.Buzzer_StopRing))
+<P><STRONG><a name="[ce]"></a>Buzzer_StopRing</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, buzzer.o(i.Buzzer_StopRing))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = Buzzer_StopRing &rArr; Buzzer_Off
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_Off
+<BR>[Calls]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_Off
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_RhythmHandler
-<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_ALARM
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_RhythmHandler
+<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_ALARM
 </UL>
 
-<P><STRONG><a name="[d0]"></a>Clock_DaysInMonth</STRONG> (Thumb, 42 bytes, Stack size 16 bytes, clock.o(i.Clock_DaysInMonth))
+<P><STRONG><a name="[cf]"></a>Clock_DaysInMonth</STRONG> (Thumb, 42 bytes, Stack size 16 bytes, clock.o(i.Clock_DaysInMonth))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = Clock_DaysInMonth
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clock_IsLeapYear
+<BR>[Calls]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clock_IsLeapYear
 </UL>
 <BR>[Called By]<UL><LI><a href="#[11d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_GetFieldMax
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clock_Tick
-<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DATE
+<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clock_Tick
+<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DATE
 </UL>
 
-<P><STRONG><a name="[d2]"></a>Clock_Init</STRONG> (Thumb, 52 bytes, Stack size 32 bytes, clock.o(i.Clock_Init))
+<P><STRONG><a name="[d1]"></a>Clock_Init</STRONG> (Thumb, 52 bytes, Stack size 32 bytes, clock.o(i.Clock_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 52<LI>Call Chain = Clock_Init &rArr; Clock_ComputeDOW
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clock_ComputeDOW
+<BR>[Calls]<UL><LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clock_ComputeDOW
 </UL>
 <BR>[Called By]<UL><LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;System_Init
+<LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_RST
 </UL>
 
-<P><STRONG><a name="[d1]"></a>Clock_IsLeapYear</STRONG> (Thumb, 62 bytes, Stack size 0 bytes, clock.o(i.Clock_IsLeapYear))
-<BR><BR>[Called By]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clock_DaysInMonth
+<P><STRONG><a name="[d0]"></a>Clock_IsLeapYear</STRONG> (Thumb, 62 bytes, Stack size 0 bytes, clock.o(i.Clock_IsLeapYear))
+<BR><BR>[Called By]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clock_DaysInMonth
 </UL>
 
-<P><STRONG><a name="[d4]"></a>Clock_Tick</STRONG> (Thumb, 182 bytes, Stack size 8 bytes, clock.o(i.Clock_Tick))
+<P><STRONG><a name="[d3]"></a>Clock_Tick</STRONG> (Thumb, 182 bytes, Stack size 8 bytes, clock.o(i.Clock_Tick))
 <BR><BR>[Stack]<UL><LI>Max Depth = 28<LI>Call Chain = Clock_Tick &rArr; Clock_ComputeDOW
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clock_DaysInMonth
-<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clock_ComputeDOW
+<BR>[Calls]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clock_DaysInMonth
+<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clock_ComputeDOW
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[f4]"></a>Display_FillFromBuffer</STRONG> (Thumb, 196 bytes, Stack size 40 bytes, display.o(i.Display_FillFromBuffer))
-<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = Display_FillFromBuffer &rArr; strlen
+<P><STRONG><a name="[f4]"></a>Display_FillFromBuffer</STRONG> (Thumb, 160 bytes, Stack size 24 bytes, display.o(i.Display_FillFromBuffer))
+<BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = Display_FillFromBuffer &rArr; strlen
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_UpdateFromClock
+<BR>[Called By]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_UpdateFromClock
 <LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_SetFormat
 <LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_SetBuffer
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_FlowAdvance
 </UL>
 
-<P><STRONG><a name="[f5]"></a>Display_FlowAdvance</STRONG> (Thumb, 86 bytes, Stack size 8 bytes, display.o(i.Display_FlowAdvance))
-<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = Display_FlowAdvance &rArr; Display_FillFromBuffer &rArr; strlen
+<P><STRONG><a name="[f5]"></a>Display_FlowAdvance</STRONG> (Thumb, 94 bytes, Stack size 8 bytes, display.o(i.Display_FlowAdvance))
+<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = Display_FlowAdvance &rArr; Display_FillFromBuffer &rArr; strlen
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_FillFromBuffer
 <LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
@@ -1765,7 +1765,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[f2]"></a>Display_SetBuffer</STRONG> (Thumb, 58 bytes, Stack size 16 bytes, display.o(i.Display_SetBuffer))
-<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = Display_SetBuffer &rArr; Display_FillFromBuffer &rArr; strlen
+<BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = Display_SetBuffer &rArr; Display_FillFromBuffer &rArr; strlen
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_FillFromBuffer
 <LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
@@ -1774,7 +1774,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[e5]"></a>Display_SetFormat</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, display.o(i.Display_SetFormat))
-<BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = Display_SetFormat &rArr; Display_FillFromBuffer &rArr; strlen
+<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = Display_SetFormat &rArr; Display_FillFromBuffer &rArr; strlen
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_FillFromBuffer
 </UL>
@@ -1786,7 +1786,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 200 + Unknown Stack Size
 <LI>Call Chain = Display_SetMode &rArr; Display_UpdateFromClock &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_UpdateFromClock
+<BR>[Calls]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_UpdateFromClock
 </UL>
 <BR>[Called By]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_Dispatch
 </UL>
@@ -1795,7 +1795,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_MODE
 </UL>
 
-<P><STRONG><a name="[e3]"></a>Display_UpdateFromClock</STRONG> (Thumb, 168 bytes, Stack size 56 bytes, display.o(i.Display_UpdateFromClock))
+<P><STRONG><a name="[dd]"></a>Display_UpdateFromClock</STRONG> (Thumb, 186 bytes, Stack size 56 bytes, display.o(i.Display_UpdateFromClock))
 <BR><BR>[Stack]<UL><LI>Max Depth = 192 + Unknown Stack Size
 <LI>Call Chain = Display_UpdateFromClock &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
@@ -1805,7 +1805,8 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_SetMode
-<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DISPLAY
+<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DISPLAY
+<LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_RST
 </UL>
 
 <P><STRONG><a name="[fa]"></a>Events_1HzHandler</STRONG> (Thumb, 46 bytes, Stack size 40 bytes, events.o(i.Events_1HzHandler))
@@ -1843,7 +1844,8 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_Enqueue
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_1HzHandler
+<BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_1HzHandler
 </UL>
 
 <P><STRONG><a name="[ff]"></a>Events_ReportKey</STRONG> (Thumb, 34 bytes, Stack size 80 bytes, events.o(i.Events_ReportKey))
@@ -1910,7 +1912,6 @@ Global Symbols
 
 <P><STRONG><a name="[120]"></a>GPIOPinRead</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, gpio.o(i.GPIOPinRead))
 <BR><BR>[Called By]<UL><LI><a href="#[11f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_ReadRaw
-<LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER0A_Handler
 </UL>
 
 <P><STRONG><a name="[103]"></a>GPIOPinTypeGPIOInput</STRONG> (Thumb, 28 bytes, Stack size 12 bytes, gpio.o(i.GPIOPinTypeGPIOInput))
@@ -1960,7 +1961,7 @@ Global Symbols
 
 <P><STRONG><a name="[c3]"></a>GPIOPinWrite</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, gpio.o(i.GPIOPinWrite))
 <BR><BR>[Called By]<UL><LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER0A_Handler
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_Off
+<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_Off
 <LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_Init
 </UL>
 
@@ -2030,7 +2031,7 @@ Global Symbols
 <LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C0_WriteByte
 </UL>
 
-<P><STRONG><a name="[c8]"></a>IntEnable</STRONG> (Thumb, 92 bytes, Stack size 0 bytes, interrupt.o(i.IntEnable))
+<P><STRONG><a name="[c7]"></a>IntEnable</STRONG> (Thumb, 92 bytes, Stack size 0 bytes, interrupt.o(i.IntEnable))
 <BR><BR>[Called By]<UL><LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;S800_UART_Init
 <LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_Init
 </UL>
@@ -2112,7 +2113,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;System_Init
 </UL>
 
-<P><STRONG><a name="[123]"></a>LED_RXFlash</STRONG> (Thumb, 18 bytes, Stack size 4 bytes, led.o(i.LED_RXFlash))
+<P><STRONG><a name="[123]"></a>LED_RXFlash</STRONG> (Thumb, 30 bytes, Stack size 4 bytes, led.o(i.LED_RXFlash))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = LED_RXFlash
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Set
@@ -2129,15 +2130,15 @@ Global Symbols
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_MODE
 </UL>
 
-<P><STRONG><a name="[124]"></a>LED_TXFlash</STRONG> (Thumb, 18 bytes, Stack size 4 bytes, led.o(i.LED_TXFlash))
+<P><STRONG><a name="[124]"></a>LED_TXFlash</STRONG> (Thumb, 30 bytes, Stack size 4 bytes, led.o(i.LED_TXFlash))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = LED_TXFlash
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Set
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
+<BR>[Called By]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
 </UL>
 
-<P><STRONG><a name="[125]"></a>LED_UpdateFlashTimeout</STRONG> (Thumb, 68 bytes, Stack size 4 bytes, led.o(i.LED_UpdateFlashTimeout))
+<P><STRONG><a name="[125]"></a>LED_UpdateFlashTimeout</STRONG> (Thumb, 80 bytes, Stack size 4 bytes, led.o(i.LED_UpdateFlashTimeout))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = LED_UpdateFlashTimeout
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Set
@@ -2161,7 +2162,7 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 296 + Unknown Stack Size
 <LI>Call Chain = Protocol_Process &rArr; Protocol_ParseLine &rArr; Cmd_SET_KEY &rArr; Keys_Simulate &rArr; Keys_Dispatch &rArr; Display_SetMode &rArr; Display_UpdateFromClock &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
 <LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -2205,12 +2206,11 @@ Global Symbols
 <P><STRONG><a name="[79]"></a>SystemInit</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, system_tm4c129.o(i.SystemInit))
 <BR>[Address Reference Count : 1]<UL><LI> startup_tm4c129.o(.text)
 </UL>
-<P><STRONG><a name="[1f]"></a>TIMER0A_Handler</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, buzzer.o(i.TIMER0A_Handler))
+<P><STRONG><a name="[1f]"></a>TIMER0A_Handler</STRONG> (Thumb, 50 bytes, Stack size 8 bytes, buzzer.o(i.TIMER0A_Handler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = TIMER0A_Handler
 </UL>
 <BR>[Calls]<UL><LI><a href="#[13b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TimerIntClear
 <LI><a href="#[c3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinWrite
-<LI><a href="#[120]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinRead
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> startup_tm4c129.o(RESET)
 </UL>
@@ -2220,27 +2220,23 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_Init
 </UL>
 
-<P><STRONG><a name="[ca]"></a>TimerDisable</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, timer.o(i.TimerDisable))
-<BR><BR>[Called By]<UL><LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_Off
+<P><STRONG><a name="[c9]"></a>TimerDisable</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, timer.o(i.TimerDisable))
+<BR><BR>[Called By]<UL><LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_Off
 </UL>
 
-<P><STRONG><a name="[cc]"></a>TimerEnable</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, timer.o(i.TimerEnable))
-<BR><BR>[Called By]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_On
+<P><STRONG><a name="[cb]"></a>TimerEnable</STRONG> (Thumb, 14 bytes, Stack size 0 bytes, timer.o(i.TimerEnable))
+<BR><BR>[Called By]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_On
 </UL>
 
 <P><STRONG><a name="[13b]"></a>TimerIntClear</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, timer.o(i.TimerIntClear))
 <BR><BR>[Called By]<UL><LI><a href="#[1f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;TIMER0A_Handler
 </UL>
 
-<P><STRONG><a name="[c7]"></a>TimerIntEnable</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, timer.o(i.TimerIntEnable))
+<P><STRONG><a name="[c6]"></a>TimerIntEnable</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, timer.o(i.TimerIntEnable))
 <BR><BR>[Called By]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_Init
 </UL>
 
 <P><STRONG><a name="[c5]"></a>TimerLoadSet</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, timer.o(i.TimerLoadSet))
-<BR><BR>[Called By]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_Init
-</UL>
-
-<P><STRONG><a name="[c6]"></a>TimerMatchSet</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, timer.o(i.TimerMatchSet))
 <BR><BR>[Called By]<UL><LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_Init
 </UL>
 
@@ -2261,7 +2257,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[140]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UARTCharPut
 </UL>
 <BR>[Called By]<UL><LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_SendNext
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
 </UL>
 
 <P><STRONG><a name="[13e]"></a>UARTCharGetNonBlocking</STRONG> (Thumb, 16 bytes, Stack size 0 bytes, uart.o(i.UARTCharGetNonBlocking))
@@ -2306,7 +2302,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__printf
 </UL>
 
-<P><STRONG><a name="[a2]"></a>main</STRONG> (Thumb, 584 bytes, Stack size 32 bytes, main.o(i.main))
+<P><STRONG><a name="[a2]"></a>main</STRONG> (Thumb, 680 bytes, Stack size 32 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 328 + Unknown Stack Size
 <LI>Call Chain = main &rArr; Protocol_Process &rArr; Protocol_ParseLine &rArr; Cmd_SET_KEY &rArr; Keys_Simulate &rArr; Keys_Dispatch &rArr; Display_SetMode &rArr; Display_UpdateFromClock &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
@@ -2324,18 +2320,19 @@ Global Symbols
 <LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_GetEditState
 <LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_SendNext
 <LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_ReportKey
+<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_ReportDisp
 <LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_ReportAlarm
 <LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_HasPending
 <LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_1HzHandler
 <LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C0_WriteByte
-<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_UpdateFromClock
+<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_UpdateFromClock
 <LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_Scan
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_FlowAdvance
-<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clock_Tick
-<LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_StopRing
+<LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clock_Tick
+<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_StopRing
 <LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_StartRing
-<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_RhythmHandler
-<LI><a href="#[c9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_Off
+<LI><a href="#[cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_RhythmHandler
+<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_Off
 <LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Alarm_IsRinging
 <LI><a href="#[145]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Alarm_Check
 </UL>
@@ -2362,11 +2359,11 @@ Global Symbols
 <H3>
 Local Symbols
 </H3>
-<P><STRONG><a name="[d3]"></a>Clock_ComputeDOW</STRONG> (Thumb, 90 bytes, Stack size 20 bytes, clock.o(i.Clock_ComputeDOW))
+<P><STRONG><a name="[d2]"></a>Clock_ComputeDOW</STRONG> (Thumb, 90 bytes, Stack size 20 bytes, clock.o(i.Clock_ComputeDOW))
 <BR><BR>[Stack]<UL><LI>Max Depth = 20<LI>Call Chain = Clock_ComputeDOW
 </UL>
-<BR>[Called By]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clock_Tick
-<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clock_Init
+<BR>[Called By]<UL><LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clock_Tick
+<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clock_Init
 </UL>
 
 <P><STRONG><a name="[fd]"></a>Events_Enqueue</STRONG> (Thumb, 152 bytes, Stack size 16 bytes, events.o(i.Events_Enqueue))
@@ -2386,7 +2383,7 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[115]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_ExitEditNoSave
 <LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_EnterEdit
-<LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Alarm_Stop
+<LI><a href="#[cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Alarm_Stop
 <LI><a href="#[113]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Alarm_IsRinging
 </UL>
 <BR>[Called By]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_Dispatch
@@ -2419,7 +2416,7 @@ Local Symbols
 <P><STRONG><a name="[11d]"></a>Keys_GetFieldMax</STRONG> (Thumb, 152 bytes, Stack size 8 bytes, keys.o(i.Keys_GetFieldMax))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = Keys_GetFieldMax &rArr; Clock_DaysInMonth
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clock_DaysInMonth
+<BR>[Calls]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clock_DaysInMonth
 </UL>
 <BR>[Called By]<UL><LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_IncrementField
 </UL>
@@ -2511,12 +2508,12 @@ Local Symbols
 <LI><a href="#[12c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIOPinConfigure
 <LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysCtlPeripheralReady
 <LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysCtlPeripheralEnable
-<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IntEnable
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;IntEnable
 </UL>
 <BR>[Called By]<UL><LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;System_Init
 </UL>
 
-<P><STRONG><a name="[133]"></a>System_Init</STRONG> (Thumb, 176 bytes, Stack size 16 bytes, main.o(i.System_Init))
+<P><STRONG><a name="[133]"></a>System_Init</STRONG> (Thumb, 172 bytes, Stack size 16 bytes, main.o(i.System_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = System_Init &rArr; Clock_Init &rArr; Clock_ComputeDOW
 </UL>
 <BR>[Calls]<UL><LI><a href="#[135]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SysTickPeriodSet
@@ -2533,7 +2530,7 @@ Local Symbols
 <LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_Init
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_Init
 <LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_Init
-<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clock_Init
+<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clock_Init
 <LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_Init
 <LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Alarm_Init
 </UL>
@@ -2550,126 +2547,129 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[d5]"></a>Cmd_GET_ALARM</STRONG> (Thumb, 52 bytes, Stack size 16 bytes, protocol.o(i.Cmd_GET_ALARM))
-<BR><BR>[Stack]<UL><LI>Max Depth = 192 + Unknown Stack Size
-<LI>Call Chain = Cmd_GET_ALARM &rArr; Protocol_SendResponse &rArr; UART0_SendChar
+<P><STRONG><a name="[d4]"></a>Cmd_GET_ALARM</STRONG> (Thumb, 52 bytes, Stack size 16 bytes, protocol.o(i.Cmd_GET_ALARM))
+<BR><BR>[Stack]<UL><LI>Max Depth = 152 + Unknown Stack Size
+<LI>Call Chain = Cmd_GET_ALARM &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
 </UL>
 
-<P><STRONG><a name="[d7]"></a>Cmd_GET_DATE</STRONG> (Thumb, 44 bytes, Stack size 16 bytes, protocol.o(i.Cmd_GET_DATE))
-<BR><BR>[Stack]<UL><LI>Max Depth = 192 + Unknown Stack Size
-<LI>Call Chain = Cmd_GET_DATE &rArr; Protocol_SendResponse &rArr; UART0_SendChar
+<P><STRONG><a name="[d6]"></a>Cmd_GET_DATE</STRONG> (Thumb, 44 bytes, Stack size 16 bytes, protocol.o(i.Cmd_GET_DATE))
+<BR><BR>[Stack]<UL><LI>Max Depth = 152 + Unknown Stack Size
+<LI>Call Chain = Cmd_GET_DATE &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
+<BR>[Calls]<UL><LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendOKData
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
 </UL>
 
 <P><STRONG><a name="[d8]"></a>Cmd_GET_DISP</STRONG> (Thumb, 36 bytes, Stack size 8 bytes, protocol.o(i.Cmd_GET_DISP))
-<BR><BR>[Stack]<UL><LI>Max Depth = 184 + Unknown Stack Size
-<LI>Call Chain = Cmd_GET_DISP &rArr; Protocol_SendResponse &rArr; UART0_SendChar
+<BR><BR>[Stack]<UL><LI>Max Depth = 144 + Unknown Stack Size
+<LI>Call Chain = Cmd_GET_DISP &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
 </UL>
 
 <P><STRONG><a name="[d9]"></a>Cmd_GET_FORMAT</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, protocol.o(i.Cmd_GET_FORMAT))
-<BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = Cmd_GET_FORMAT &rArr; Protocol_SendResponse &rArr; UART0_SendChar
+<BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = Cmd_GET_FORMAT &rArr; Protocol_SendResponse &rArr; UART0_SendChar
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
 </UL>
 <BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
 </UL>
 
 <P><STRONG><a name="[da]"></a>Cmd_GET_TIME</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, protocol.o(i.Cmd_GET_TIME))
-<BR><BR>[Stack]<UL><LI>Max Depth = 184 + Unknown Stack Size
-<LI>Call Chain = Cmd_GET_TIME &rArr; Protocol_SendResponse &rArr; UART0_SendChar
+<BR><BR>[Stack]<UL><LI>Max Depth = 144 + Unknown Stack Size
+<LI>Call Chain = Cmd_GET_TIME &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
+<BR>[Calls]<UL><LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendOKData
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
 </UL>
 
 <P><STRONG><a name="[db]"></a>Cmd_PING</STRONG> (Thumb, 22 bytes, Stack size 8 bytes, protocol.o(i.Cmd_PING))
-<BR><BR>[Stack]<UL><LI>Max Depth = 184 + Unknown Stack Size
-<LI>Call Chain = Cmd_PING &rArr; Protocol_SendResponse &rArr; UART0_SendChar
+<BR><BR>[Stack]<UL><LI>Max Depth = 144 + Unknown Stack Size
+<LI>Call Chain = Cmd_PING &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
 </UL>
 
-<P><STRONG><a name="[dc]"></a>Cmd_RST</STRONG> (Thumb, 10 bytes, Stack size 8 bytes, protocol.o(i.Cmd_RST))
-<BR><BR>[Stack]<UL><LI>Max Depth = 184<LI>Call Chain = Cmd_RST &rArr; Protocol_SendResponse &rArr; UART0_SendChar
+<P><STRONG><a name="[dc]"></a>Cmd_RST</STRONG> (Thumb, 54 bytes, Stack size 16 bytes, protocol.o(i.Cmd_RST))
+<BR><BR>[Stack]<UL><LI>Max Depth = 208 + Unknown Stack Size
+<LI>Call Chain = Cmd_RST &rArr; Display_UpdateFromClock &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
+<BR>[Calls]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_UpdateFromClock
+<LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clock_Init
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
 </UL>
 <BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
 </UL>
 
-<P><STRONG><a name="[dd]"></a>Cmd_SET_ALARM</STRONG> (Thumb, 224 bytes, Stack size 32 bytes, protocol.o(i.Cmd_SET_ALARM))
-<BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = Cmd_SET_ALARM &rArr; Protocol_SendResponse &rArr; UART0_SendChar
+<P><STRONG><a name="[de]"></a>Cmd_SET_ALARM</STRONG> (Thumb, 224 bytes, Stack size 32 bytes, protocol.o(i.Cmd_SET_ALARM))
+<BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = Cmd_SET_ALARM &rArr; atoi &rArr; strtol &rArr; _strtoul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_StopRing
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
-<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NextToken
-<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MatchAbbrev
+<BR>[Calls]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_StopRing
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NextToken
+<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MatchAbbrev
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atoi
 </UL>
 <BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
 </UL>
 
-<P><STRONG><a name="[e0]"></a>Cmd_SET_BEEP</STRONG> (Thumb, 72 bytes, Stack size 16 bytes, protocol.o(i.Cmd_SET_BEEP))
-<BR><BR>[Stack]<UL><LI>Max Depth = 192<LI>Call Chain = Cmd_SET_BEEP &rArr; Protocol_SendResponse &rArr; UART0_SendChar
+<P><STRONG><a name="[e1]"></a>Cmd_SET_BEEP</STRONG> (Thumb, 72 bytes, Stack size 16 bytes, protocol.o(i.Cmd_SET_BEEP))
+<BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = Cmd_SET_BEEP &rArr; atoi &rArr; strtol &rArr; _strtoul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_On
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
-<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NextToken
+<BR>[Calls]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_On
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NextToken
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atoi
 </UL>
 <BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
 </UL>
 
-<P><STRONG><a name="[e1]"></a>Cmd_SET_DATE</STRONG> (Thumb, 252 bytes, Stack size 40 bytes, protocol.o(i.Cmd_SET_DATE))
-<BR><BR>[Stack]<UL><LI>Max Depth = 216<LI>Call Chain = Cmd_SET_DATE &rArr; Protocol_SendResponse &rArr; UART0_SendChar
+<P><STRONG><a name="[e2]"></a>Cmd_SET_DATE</STRONG> (Thumb, 252 bytes, Stack size 40 bytes, protocol.o(i.Cmd_SET_DATE))
+<BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = Cmd_SET_DATE &rArr; atoi &rArr; strtol &rArr; _strtoul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clock_DaysInMonth
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
-<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NextToken
-<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MatchAbbrev
+<BR>[Calls]<UL><LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clock_DaysInMonth
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NextToken
+<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MatchAbbrev
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atoi
 </UL>
 <BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
 </UL>
 
-<P><STRONG><a name="[e2]"></a>Cmd_SET_DISPLAY</STRONG> (Thumb, 168 bytes, Stack size 16 bytes, protocol.o(i.Cmd_SET_DISPLAY))
+<P><STRONG><a name="[e3]"></a>Cmd_SET_DISPLAY</STRONG> (Thumb, 168 bytes, Stack size 16 bytes, protocol.o(i.Cmd_SET_DISPLAY))
 <BR><BR>[Stack]<UL><LI>Max Depth = 208 + Unknown Stack Size
 <LI>Call Chain = Cmd_SET_DISPLAY &rArr; Display_UpdateFromClock &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_UpdateFromClock
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
-<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NextToken
-<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MatchAbbrev
+<BR>[Calls]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_UpdateFromClock
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NextToken
+<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MatchAbbrev
 </UL>
 <BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
 </UL>
 
 <P><STRONG><a name="[e4]"></a>Cmd_SET_FORMAT</STRONG> (Thumb, 78 bytes, Stack size 16 bytes, protocol.o(i.Cmd_SET_FORMAT))
-<BR><BR>[Stack]<UL><LI>Max Depth = 192<LI>Call Chain = Cmd_SET_FORMAT &rArr; Protocol_SendResponse &rArr; UART0_SendChar
+<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = Cmd_SET_FORMAT &rArr; MatchAbbrev &rArr; strlen
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_SetFormat
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
-<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NextToken
-<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MatchAbbrev
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NextToken
+<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MatchAbbrev
 </UL>
 <BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
 </UL>
@@ -2680,59 +2680,59 @@ Local Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_Simulate
 <LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_GetKeyName
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
-<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NextToken
-<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MatchAbbrev
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NextToken
+<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MatchAbbrev
 </UL>
 <BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
 </UL>
 
-<P><STRONG><a name="[e9]"></a>Cmd_SET_LED</STRONG> (Thumb, 58 bytes, Stack size 16 bytes, protocol.o(i.Cmd_SET_LED))
-<BR><BR>[Stack]<UL><LI>Max Depth = 192<LI>Call Chain = Cmd_SET_LED &rArr; Protocol_SendResponse &rArr; UART0_SendChar
+<P><STRONG><a name="[e9]"></a>Cmd_SET_LED</STRONG> (Thumb, 64 bytes, Stack size 16 bytes, protocol.o(i.Cmd_SET_LED))
+<BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = Cmd_SET_LED &rArr; ParseHex2 &rArr; strtoul &rArr; _strtoul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
 <LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ParseHex2
-<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NextToken
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NextToken
 </UL>
 <BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
 </UL>
 
 <P><STRONG><a name="[eb]"></a>Cmd_SET_MODE</STRONG> (Thumb, 106 bytes, Stack size 16 bytes, protocol.o(i.Cmd_SET_MODE))
-<BR><BR>[Stack]<UL><LI>Max Depth = 192<LI>Call Chain = Cmd_SET_MODE &rArr; Protocol_SendResponse &rArr; UART0_SendChar
+<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = Cmd_SET_MODE &rArr; MatchAbbrev &rArr; strlen
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Set
 <LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_ReportMode
 <LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_SetNight
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
-<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NextToken
-<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MatchAbbrev
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NextToken
+<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MatchAbbrev
 </UL>
 <BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
 </UL>
 
 <P><STRONG><a name="[ef]"></a>Cmd_SET_MSG</STRONG> (Thumb, 60 bytes, Stack size 16 bytes, protocol.o(i.Cmd_SET_MSG))
-<BR><BR>[Stack]<UL><LI>Max Depth = 192<LI>Call Chain = Cmd_SET_MSG &rArr; Protocol_SendResponse &rArr; UART0_SendChar
+<BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = Cmd_SET_MSG &rArr; Display_SetBuffer &rArr; Display_FillFromBuffer &rArr; strlen
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_SetBuffer
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SkipSpaces
-<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
+<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
 <LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
 <BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
 </UL>
 
 <P><STRONG><a name="[f3]"></a>Cmd_SET_TIME</STRONG> (Thumb, 172 bytes, Stack size 32 bytes, protocol.o(i.Cmd_SET_TIME))
-<BR><BR>[Stack]<UL><LI>Max Depth = 208<LI>Call Chain = Cmd_SET_TIME &rArr; Protocol_SendResponse &rArr; UART0_SendChar
+<BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = Cmd_SET_TIME &rArr; atoi &rArr; strtol &rArr; _strtoul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
-<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NextToken
-<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MatchAbbrev
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NextToken
+<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MatchAbbrev
 <LI><a href="#[b1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;atoi
 </UL>
 <BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
 </UL>
 
-<P><STRONG><a name="[de]"></a>MatchAbbrev</STRONG> (Thumb, 136 bytes, Stack size 40 bytes, protocol.o(i.MatchAbbrev))
+<P><STRONG><a name="[df]"></a>MatchAbbrev</STRONG> (Thumb, 136 bytes, Stack size 40 bytes, protocol.o(i.MatchAbbrev))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = MatchAbbrev &rArr; strlen
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
@@ -2742,12 +2742,12 @@ Local Symbols
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_MODE
 <LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_KEY
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_FORMAT
-<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DISPLAY
-<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DATE
-<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_ALARM
+<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DISPLAY
+<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DATE
+<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_ALARM
 </UL>
 
-<P><STRONG><a name="[df]"></a>NextToken</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, protocol.o(i.NextToken))
+<P><STRONG><a name="[e0]"></a>NextToken</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, protocol.o(i.NextToken))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = NextToken
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SkipSpaces
@@ -2758,10 +2758,10 @@ Local Symbols
 <LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_LED
 <LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_KEY
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_FORMAT
-<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DISPLAY
-<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DATE
-<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_BEEP
-<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_ALARM
+<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DISPLAY
+<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DATE
+<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_BEEP
+<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_ALARM
 </UL>
 
 <P><STRONG><a name="[ea]"></a>ParseHex2</STRONG> (Thumb, 118 bytes, Stack size 32 bytes, protocol.o(i.ParseHex2))
@@ -2777,40 +2777,50 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 288 + Unknown Stack Size
 <LI>Call Chain = Protocol_ParseLine &rArr; Cmd_SET_KEY &rArr; Keys_Simulate &rArr; Keys_Dispatch &rArr; Display_SetMode &rArr; Display_UpdateFromClock &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
-<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NextToken
-<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MatchAbbrev
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
+<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NextToken
+<LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MatchAbbrev
 <LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_TIME
 <LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_MSG
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_MODE
 <LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_LED
 <LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_KEY
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_FORMAT
-<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DISPLAY
-<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DATE
-<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_BEEP
-<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_ALARM
+<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DISPLAY
+<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DATE
+<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_BEEP
+<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_ALARM
 <LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_RST
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_PING
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_GET_TIME
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_GET_FORMAT
 <LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_GET_DISP
-<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_GET_DATE
-<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_GET_ALARM
+<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_GET_DATE
+<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_GET_ALARM
 <LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strchr
 </UL>
 <BR>[Called By]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_Process
 </UL>
 
-<P><STRONG><a name="[d6]"></a>Protocol_SendResponse</STRONG> (Thumb, 172 bytes, Stack size 168 bytes, protocol.o(i.Protocol_SendResponse))
-<BR><BR>[Stack]<UL><LI>Max Depth = 176<LI>Call Chain = Protocol_SendResponse &rArr; UART0_SendChar
+<P><STRONG><a name="[d7]"></a>Protocol_SendOKData</STRONG> (Thumb, 144 bytes, Stack size 88 bytes, protocol.o(i.Protocol_SendOKData))
+<BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = Protocol_SendOKData &rArr; Protocol_SendResponse &rArr; UART0_SendChar
+</UL>
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
+<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+</UL>
+<BR>[Called By]<UL><LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_GET_TIME
+<LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_GET_DATE
+</UL>
+
+<P><STRONG><a name="[d5]"></a>Protocol_SendResponse</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, protocol.o(i.Protocol_SendResponse))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = Protocol_SendResponse &rArr; UART0_SendChar
 </UL>
 <BR>[Calls]<UL><LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_TXFlash
 <LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UART0_SendChar
-<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
 <BR>[Called By]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_Process
+<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendOKData
 <LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
 <LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_TIME
 <LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_MSG
@@ -2818,21 +2828,19 @@ Local Symbols
 <LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_LED
 <LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_KEY
 <LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_FORMAT
-<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DISPLAY
-<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DATE
-<LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_BEEP
-<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_ALARM
+<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DISPLAY
+<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DATE
+<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_BEEP
+<LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_ALARM
 <LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_RST
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_PING
-<LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_GET_TIME
 <LI><a href="#[d9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_GET_FORMAT
 <LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_GET_DISP
-<LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_GET_DATE
-<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_GET_ALARM
+<LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_GET_ALARM
 </UL>
 
 <P><STRONG><a name="[f0]"></a>SkipSpaces</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, protocol.o(i.SkipSpaces))
-<BR><BR>[Called By]<UL><LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NextToken
+<BR><BR>[Called By]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NextToken
 <LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_MSG
 </UL>
 
