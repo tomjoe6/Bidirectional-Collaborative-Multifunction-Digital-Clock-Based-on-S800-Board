@@ -344,9 +344,27 @@ static void Keys_Dispatch(uint8_t key_id, uint8_t is_long)
         break;
 
     case KEY_ID_EXT:
-    case KEY_ID_USER1:
     case KEY_ID_USER2:
-        /* These generate events only, no local action (handled by PC) */
+        break;
+
+    case KEY_ID_USER1:
+        if (is_long) {
+            char ntp_buf[16];
+            uint8_t hours;
+            const char *sts;
+            if (g_ntp_state == NTP_STATE_UNSYNCED) {
+                hours = 0xff; sts = "NO";
+            } else if (g_ntp_state == NTP_STATE_SYNCED) {
+                hours = (uint8_t)((g_uptime_seconds - g_ntp_last_sync) / 3600); sts = "OK";
+            } else {
+                hours = (uint8_t)((g_uptime_seconds - g_ntp_last_sync) / 3600); sts = "DR";
+            }
+            if (hours == 0xff) sprintf(ntp_buf, "??.SY.%s", sts);
+            else if (hours < 10) sprintf(ntp_buf, " %d.SY.%s", hours, sts);
+            else if (hours < 100) sprintf(ntp_buf, "%2d.SY.%s", hours, sts);
+            else sprintf(ntp_buf, "!!.SY.%s", sts);
+            Display_SetBuffer(ntp_buf);
+        }
         break;
 
     default:

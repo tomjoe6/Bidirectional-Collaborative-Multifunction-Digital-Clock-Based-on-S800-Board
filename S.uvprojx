@@ -377,62 +377,22 @@
       </TargetOption>
       <Groups>
         <Group>
-          <GroupName>Source Group 1</GroupName>
-          <Files>
-            <File>
-              <FileName>alarm.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\firmware\alarm.c</FilePath>
-            </File>
-            <File>
-              <FileName>buzzer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\firmware\buzzer.c</FilePath>
-            </File>
-            <File>
-              <FileName>clock.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\firmware\clock.c</FilePath>
-            </File>
-            <File>
-              <FileName>display.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\firmware\display.c</FilePath>
-            </File>
-            <File>
-              <FileName>events.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\firmware\events.c</FilePath>
-            </File>
-            <File>
-              <FileName>keys.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\firmware\keys.c</FilePath>
-            </File>
-            <File>
-              <FileName>led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\firmware\led.c</FilePath>
-            </File>
-            <File>
-              <FileName>main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\firmware\main.c</FilePath>
-            </File>
-            <File>
-              <FileName>protocol.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\firmware\protocol.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>New Group</GroupName>
           <Files>
             <File>
               <FileName>driverlib.lib</FileName>
               <FileType>4</FileType>
               <FilePath>.\driverlib\rvmdk\driverlib.lib</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Grop1</GroupName>
+          <Files>
+            <File>
+              <FileName>main.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\firmware\main.c</FilePath>
             </File>
           </Files>
         </Group>

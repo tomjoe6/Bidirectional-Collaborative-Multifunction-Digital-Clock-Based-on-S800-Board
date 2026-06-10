@@ -78,7 +78,7 @@ void LED_Heartbeat(void)
  *=========================================================================*/
 void LED_RXFlash(void)
 {
-    { extern volatile uint8_t g_led_user_lock; if (g_led_user_lock > 0) return; }
+    { extern volatile uint16_t g_led_user_lock; if (g_led_user_lock > 0) return; }
     LED_Set(LED_RX_ACTIVE, 1);
     g_rx_flash_timer = 20;
 }
@@ -88,7 +88,7 @@ void LED_RXFlash(void)
  *=========================================================================*/
 void LED_TXFlash(void)
 {
-    { extern volatile uint8_t g_led_user_lock; if (g_led_user_lock > 0) return; }
+    { extern volatile uint16_t g_led_user_lock; if (g_led_user_lock > 0) return; }
     LED_Set(LED_TX_ACTIVE, 1);
     g_tx_flash_timer = 20;
 }

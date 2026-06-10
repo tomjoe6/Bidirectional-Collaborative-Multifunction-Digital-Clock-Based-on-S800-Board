@@ -1,6 +1,4 @@
-/*=========================================================================*/
-/*  S800 Smart Clock — All custom code in single main.c                     */
-/*=========================================================================*/
+/* S800 — All custom code in main.c */
 
 #include "alarm.h"
 #include "buzzer.h"
@@ -30,6 +28,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+/*=========================================================================*/
+/*  S800 Smart Clock — All custom code in single main.c                     */
+/*=========================================================================*/
+
+/*=========================================================================*/
+/*  S800 Smart Clock — All custom code in single main.c                     */
+/*=========================================================================*/
+
 /*=========================================================================
  * Global Variable Definitions
  *=========================================================================*/
@@ -47,7 +54,9 @@ volatile uint32_t g_uptime_seconds;
 
 /* Beep timeout (in 10ms ticks), used by *SET:BEEP command */
 volatile uint16_t g_beep_timeout;
-volatile uint8_t  g_led_user_lock; /* *SET:LED user-override (10ms ticks) */
+volatile uint16_t g_led_user_lock; /* *SET:LED user-override (10ms ticks) */
+volatile uint8_t  g_ntp_state     = 0;  /* NTP_STATE_UNSYNCED              */
+volatile uint32_t g_ntp_last_sync = 0;
 
 /* Boot animation state */
 static uint8_t g_boot_phase;
@@ -425,16 +434,23 @@ static uint8_t BootAnimation_Run(void)
             static uint8_t ver_shown = 0;
             if (!ver_shown) {
                 if (g_boot_timer >= BOOT_FLASH_OFF_MS / 10) {
-                    uint8_t vlen;
+                    uint8_t vlen, di;
                     vlen = (uint8_t)strlen(BOOT_VERSION);
+                    di = 0;
+                    g_dp_mask = 0x00;
                     for (i = 0; i < DISP_DIGITS; i++) {
-                        if (i < vlen) {
-                            g_disp_chars[i] = BOOT_VERSION[i];
+                        if (di < vlen && BOOT_VERSION[di] == '.') {
+                            if (i > 0) g_dp_mask |= (uint8_t)(1 << (i - 1));
+                            di++;
+                            i--; /* retry this display slot */
+                            continue;
+                        }
+                        if (di < vlen) {
+                            g_disp_chars[i] = BOOT_VERSION[di++];
                         } else {
                             g_disp_chars[i] = ' ';
                         }
                     }
-                    g_dp_mask = 0x00;
                     g_led_state = 0xFF;
                     I2C0_WriteByte(PCA9557_I2CADDR, PCA9557_OUTPUT, 0x00);
                     g_boot_timer = 0;
@@ -666,6 +682,11 @@ int main(void)
 
                 if (alarm_now_ringing) {
                     Buzzer_RhythmHandler();
+                    if (g_led_user_lock == 0)
+                        LED_Set(LED_ALARM_RING, Buzzer_IsOn());
+                } else {
+                    if (g_led_user_lock == 0)
+                        LED_Set(LED_ALARM_RING, 0);
                 }
 
                 /* Beep timeout for *SET:BEEP */
@@ -687,6 +708,19 @@ int main(void)
                 /* User LED lock timeout */
                 if (g_led_user_lock > 0) g_led_user_lock--;
 
+                /* DRIFT NTP blink: toggle D6 every 500ms (50*10ms) */
+                if (g_ntp_state == NTP_STATE_DRIFT) {
+                    static uint16_t drift_cnt;
+                    static uint8_t  drift_on;
+                    drift_cnt++;
+                    if (drift_cnt >= 50) {
+                        drift_cnt = 0;
+                        drift_on = (uint8_t)(!drift_on);
+                        if (g_led_user_lock == 0)
+                            LED_Set(LED_NTP_STATUS, drift_on);
+                    }
+                }
+
                 /* LED flash timeout */
                 LED_UpdateFlashTimeout();
 
@@ -696,14 +730,17 @@ int main(void)
                 }
 
                 /* Update flow counter for scroll */
-                if (g_disp_mode == DISP_MODE_FULL || g_disp_mode == DISP_MODE_YEAR) {
+                if (g_disp_mode == DISP_MODE_FULL) {
                     g_flow_counter++;
                     if (g_flow_counter >= g_flow_delay) {
                         g_flow_counter = 0;
                         Display_FlowAdvance();
                         if (g_disp_on) {
                             char fd[9]; uint8_t fj;
-                            for (fj = 0; fj < 8; fj++) fd[fj] = g_disp_chars[fj];
+                            for (fj = 0; fj < 8; fj++) {
+                                char c = g_disp_chars[fj];
+                                fd[fj] = (c == ' ') ? '_' : c;
+                            }
                             fd[8] = '\0';
                             Events_ReportDisp(fd, g_dp_mask);
                         }
@@ -766,12 +803,20 @@ int main(void)
                     } else {
                         LED_Set(LED_ALARM_EN, 0);
                     }
-                    if (Alarm_IsRinging()) {
-                        LED_Set(LED_ALARM_RING, 1);
-                    } else {
-                        LED_Set(LED_ALARM_RING, 0);
-                    }
                     LED_Heartbeat();
+
+                /* NTP drift: if synced >24h ago, enter DRIFT */
+                if (g_ntp_state == NTP_STATE_SYNCED
+                    && (g_uptime_seconds - g_ntp_last_sync) > 86400) {
+                    g_ntp_state = NTP_STATE_DRIFT;
+                }
+
+                /* D6 LED: off=UNSYNCED, on=SYNCED (DRIFT blink in 10ms handler) */
+                if (g_ntp_state == NTP_STATE_SYNCED) {
+                    LED_Set(LED_NTP_STATUS, 1);
+                } else if (g_ntp_state == NTP_STATE_UNSYNCED) {
+                    LED_Set(LED_NTP_STATUS, 0);
+                }
                 }
 
                 /* Update display from clock (if not in edit mode). */
@@ -786,8 +831,10 @@ int main(void)
                     char disp_str[9];
                     uint8_t j, led_for_evt;
                     if (g_disp_on) {
-                        for (j = 0; j < DISP_DIGITS; j++)
-                            disp_str[j] = g_disp_chars[j];
+                        for (j = 0; j < DISP_DIGITS; j++) {
+                            char c = g_disp_chars[j];
+                            disp_str[j] = (c == ' ') ? '_' : c;
+                        }
                     } else {
                         for (j = 0; j < DISP_DIGITS; j++)
                             disp_str[j] = ' ';
@@ -1141,7 +1188,7 @@ uint8_t Display_GetSegCode(char c)
     if (c >= '0' && c <= '9') return g_seg_table_num[c - '0'];
     if (c >= 'A' && c <= 'Z') return g_seg_table_alpha[c - 'A'];
     if (c >= 'a' && c <= 'z') return g_seg_table_alpha[c - 'a'];
-    if (c == '.') return 0x80;  /* DP only — used by boot animation */
+    if (c == '.') return 0x00;  /* DP handled by FillFromBuffer g_dp_mask */
     if (c == '-') return 0x40;
     if (c == '_') return 0x08;
     if (c == '=') return 0x48;
@@ -1236,39 +1283,59 @@ void Display_FillFromBuffer(void)
 {
     uint8_t str_len;
     int16_t vpos, i;
+    char temp[DISP_DIGITS + 4];  /* extra room for dots before removal */
+    uint8_t temp_dp, temp_fill;
 
     str_len = (uint8_t)strlen(g_disp_buffer);
 
-    for (i = 0; i < DISP_DIGITS; i++) {
+    /* Copy chars into temp with circular wrap for flow */
+    temp_fill = 0;
+    for (i = 0; i < (int16_t)(DISP_DIGITS + 4); i++) {
         vpos = g_flow_position + i;
         if ((g_disp_mode == DISP_MODE_FULL || g_disp_mode == DISP_MODE_YEAR)
             && str_len > DISP_DIGITS) {
             while (vpos >= str_len) vpos -= str_len;
             while (vpos < 0)      vpos += str_len;
         }
-        if (str_len > 0 && vpos >= 0 && vpos < str_len) {
-            g_disp_chars[i] = g_disp_buffer[vpos];
+        if (vpos >= 0 && vpos < str_len && str_len > 0) {
+            temp[i] = g_disp_buffer[vpos];
+            temp_fill = (uint8_t)(i + 1);
         } else {
-            g_disp_chars[i] = ' ';
+            temp[i] = ' ';
         }
     }
 
-    /* FORMAT_RIGHT: reverse the 8-digit window */
-    if (g_disp_format == FORMAT_RIGHT) {
-        char rev[DISP_DIGITS];
-        for (i = 0; i < DISP_DIGITS; i++)
-            rev[i] = g_disp_chars[DISP_DIGITS - 1 - i];
-        for (i = 0; i < DISP_DIGITS; i++)
-            g_disp_chars[i] = rev[i];
+    /* DP processing: '.' sets DP on PREVIOUS digit, not a char itself */
+    temp_dp = 0;
+    for (i = 0; i < (int16_t)temp_fill; i++) {
+        if (temp[i] == '.') {
+            if (i > 0) temp_dp |= (uint8_t)(1 << (i - 1));
+            /* shift left */
+            { uint8_t j; for (j = (uint8_t)i; j < DISP_DIGITS + 3; j++) temp[j] = temp[j + 1]; }
+            temp[DISP_DIGITS + 3] = ' ';
+        }
     }
 
-    /* Compute g_dp_mask from which digits show a '.' (0x80).
-     * This goes into *EVT:DISP as the 2-hex-digit DP byte. */
-    g_dp_mask = 0;
-    for (i = 0; i < DISP_DIGITS; i++) {
-        if (g_disp_chars[i] == '.')
-            g_dp_mask |= (uint8_t)(1 << i);
+    /* Copy first 8 chars to display, pad spaces */
+    for (i = 0; i < DISP_DIGITS; i++)
+        g_disp_chars[i] = temp[i];
+
+    /* FORMAT_RIGHT: reverse chars + DP */
+    if (g_disp_format == FORMAT_RIGHT) {
+        char rev[DISP_DIGITS]; uint8_t rev_dp = 0, k;
+        for (i = 0; i < DISP_DIGITS; i++) rev[i] = g_disp_chars[DISP_DIGITS - 1 - i];
+        for (i = 0; i < DISP_DIGITS; i++) {
+            if (temp_dp & (1 << i)) {
+                k = DISP_DIGITS - 2 - (uint8_t)i;
+                if (k < DISP_DIGITS)
+                    rev_dp |= (uint8_t)(1 << k);
+            }
+        }
+        for (i = 0; i < DISP_DIGITS; i++) g_disp_chars[i] = rev[i];
+        temp_dp = rev_dp;
     }
+
+    g_dp_mask = temp_dp;
 }
 
 /*=========================================================================
@@ -1752,9 +1819,35 @@ static void Keys_Dispatch(uint8_t key_id, uint8_t is_long)
         break;
 
     case KEY_ID_EXT:
-    case KEY_ID_USER1:
     case KEY_ID_USER2:
         /* These generate events only, no local action (handled by PC) */
+        break;
+
+    case KEY_ID_USER1:
+        if (is_long) {
+            /* Long press: show NTP status "n.SY.xx" for 5s */
+            char ntp_buf[16];
+            uint8_t hours;
+            const char *sts;
+            if (g_ntp_state == NTP_STATE_UNSYNCED) {
+                hours = 0xff; sts = "NO";
+            } else if (g_ntp_state == NTP_STATE_SYNCED) {
+                hours = (uint8_t)((g_uptime_seconds - g_ntp_last_sync) / 3600);
+                sts = "OK";
+            } else {
+                hours = (uint8_t)((g_uptime_seconds - g_ntp_last_sync) / 3600);
+                sts = "DR";
+            }
+            if (hours == 0xff)
+                sprintf(ntp_buf, "??.SY.%s", sts);
+            else if (hours < 10)
+                sprintf(ntp_buf, " %d.SY.%s", hours, sts);
+            else if (hours < 100)
+                sprintf(ntp_buf, "%2d.SY.%s", hours, sts);
+            else
+                sprintf(ntp_buf, "!!.SY.%s", sts);
+            Display_SetBuffer(ntp_buf);
+        }
         break;
 
     default:
@@ -2032,6 +2125,7 @@ void Buzzer_StopRing(void)
 }
 
 uint8_t Buzzer_IsRinging(void) { return g_buzzer_ringing; }
+uint8_t Buzzer_IsOn(void)      { return g_buzzer_on; }
 
 void TIMER0A_Handler(void)
 {
@@ -2124,7 +2218,7 @@ void LED_Heartbeat(void)
  *=========================================================================*/
 void LED_RXFlash(void)
 {
-    { extern volatile uint8_t g_led_user_lock; if (g_led_user_lock > 0) return; }
+    { extern volatile uint16_t g_led_user_lock; if (g_led_user_lock > 0) return; }
     LED_Set(LED_RX_ACTIVE, 1);
     g_rx_flash_timer = 20;
 }
@@ -2134,7 +2228,7 @@ void LED_RXFlash(void)
  *=========================================================================*/
 void LED_TXFlash(void)
 {
-    { extern volatile uint8_t g_led_user_lock; if (g_led_user_lock > 0) return; }
+    { extern volatile uint16_t g_led_user_lock; if (g_led_user_lock > 0) return; }
     LED_Set(LED_TX_ACTIVE, 1);
     g_tx_flash_timer = 20;
 }
@@ -2145,7 +2239,7 @@ void LED_TXFlash(void)
  *=========================================================================*/
 void LED_UpdateFlashTimeout(void)
 {
-    extern volatile uint8_t g_led_user_lock;
+    extern volatile uint16_t g_led_user_lock;
     if (g_led_user_lock > 0) return;
     if (g_rx_flash_timer > 0) {
         g_rx_flash_timer--;
@@ -2483,6 +2577,8 @@ static void Cmd_SET_DATE(char *params)
             temp_time.day = Clock_DaysInMonth(temp_time.year, temp_time.month);
         }
         g_clock = temp_time;
+        g_ntp_state = NTP_STATE_SYNCED;
+        g_ntp_last_sync = g_uptime_seconds;
         Protocol_SendResponse("OK\r\n");
     } else {
         Protocol_SendResponse("ERROR\r\n");
@@ -2540,6 +2636,8 @@ static void Cmd_SET_TIME(char *params)
     }
 
     if (has_update) {
+        g_ntp_state = NTP_STATE_SYNCED;
+        g_ntp_last_sync = g_uptime_seconds;
         Protocol_SendResponse("OK\r\n");
     } else {
         Protocol_SendResponse("ERROR\r\n");
@@ -2756,7 +2854,7 @@ static void Cmd_SET_LED(char *params)
     }
 
     g_led_state = val;
-    g_led_user_lock = 200;  /* user override for 2s (200*10ms) */
+    g_led_user_lock = 1000; /* user override for 10s (1000*10ms) */
     Protocol_SendResponse("OK\r\n");
 }
 

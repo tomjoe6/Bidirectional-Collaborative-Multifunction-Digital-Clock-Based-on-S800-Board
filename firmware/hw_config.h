@@ -169,7 +169,14 @@ extern volatile uint8_t  g_flag_1000ms;
 extern volatile uint8_t  g_cnt_1000ms;
 extern volatile uint32_t g_uptime_seconds;
 extern volatile uint16_t g_beep_timeout;
-extern volatile uint8_t  g_led_user_lock;  /* SET LED user-override timeout (10ms) */
+extern volatile uint16_t g_led_user_lock;  /* SET LED user-override timeout (10ms) */
+
+/* NTP sync state */
+#define NTP_STATE_UNSYNCED     0   /* never synced since power-on    */
+#define NTP_STATE_SYNCED       1   /* synced within last 24h         */
+#define NTP_STATE_DRIFT        2   /* synced >24h ago                */
+extern volatile uint8_t  g_ntp_state;
+extern volatile uint32_t g_ntp_last_sync;
 
 /*=========================================================================
  * Shared Utility Function Declarations (defined in main.c)

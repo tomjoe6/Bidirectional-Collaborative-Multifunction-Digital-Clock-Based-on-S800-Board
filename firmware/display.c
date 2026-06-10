@@ -44,7 +44,7 @@ uint8_t Display_GetSegCode(char c)
     if (c >= '0' && c <= '9') return g_seg_table_num[c - '0'];
     if (c >= 'A' && c <= 'Z') return g_seg_table_alpha[c - 'A'];
     if (c >= 'a' && c <= 'z') return g_seg_table_alpha[c - 'a'];
-    if (c == '.') return 0x80;  /* DP only — used by boot animation */
+    if (c == '.') return 0x00;  /* DP handled by FillFromBuffer g_dp_mask */
     if (c == '-') return 0x40;
     if (c == '_') return 0x08;
     if (c == '=') return 0x48;
@@ -139,39 +139,59 @@ void Display_FillFromBuffer(void)
 {
     uint8_t str_len;
     int16_t vpos, i;
+    char temp[DISP_DIGITS + 4];  /* extra room for dots before removal */
+    uint8_t temp_dp, temp_fill;
 
     str_len = (uint8_t)strlen(g_disp_buffer);
 
-    for (i = 0; i < DISP_DIGITS; i++) {
+    /* Copy chars into temp with circular wrap for flow */
+    temp_fill = 0;
+    for (i = 0; i < (int16_t)(DISP_DIGITS + 4); i++) {
         vpos = g_flow_position + i;
         if ((g_disp_mode == DISP_MODE_FULL || g_disp_mode == DISP_MODE_YEAR)
             && str_len > DISP_DIGITS) {
             while (vpos >= str_len) vpos -= str_len;
             while (vpos < 0)      vpos += str_len;
         }
-        if (str_len > 0 && vpos >= 0 && vpos < str_len) {
-            g_disp_chars[i] = g_disp_buffer[vpos];
+        if (vpos >= 0 && vpos < str_len && str_len > 0) {
+            temp[i] = g_disp_buffer[vpos];
+            temp_fill = (uint8_t)(i + 1);
         } else {
-            g_disp_chars[i] = ' ';
+            temp[i] = ' ';
         }
     }
 
-    /* FORMAT_RIGHT: reverse the 8-digit window */
-    if (g_disp_format == FORMAT_RIGHT) {
-        char rev[DISP_DIGITS];
-        for (i = 0; i < DISP_DIGITS; i++)
-            rev[i] = g_disp_chars[DISP_DIGITS - 1 - i];
-        for (i = 0; i < DISP_DIGITS; i++)
-            g_disp_chars[i] = rev[i];
+    /* DP processing: '.' sets DP on PREVIOUS digit, not a char itself */
+    temp_dp = 0;
+    for (i = 0; i < (int16_t)temp_fill; i++) {
+        if (temp[i] == '.') {
+            if (i > 0) temp_dp |= (uint8_t)(1 << (i - 1));
+            /* shift left */
+            { uint8_t j; for (j = (uint8_t)i; j < DISP_DIGITS + 3; j++) temp[j] = temp[j + 1]; }
+            temp[DISP_DIGITS + 3] = ' ';
+        }
     }
 
-    /* Compute g_dp_mask from which digits show a '.' (0x80).
-     * This goes into *EVT:DISP as the 2-hex-digit DP byte. */
-    g_dp_mask = 0;
-    for (i = 0; i < DISP_DIGITS; i++) {
-        if (g_disp_chars[i] == '.')
-            g_dp_mask |= (uint8_t)(1 << i);
+    /* Copy first 8 chars to display, pad spaces */
+    for (i = 0; i < DISP_DIGITS; i++)
+        g_disp_chars[i] = temp[i];
+
+    /* FORMAT_RIGHT: reverse chars + DP */
+    if (g_disp_format == FORMAT_RIGHT) {
+        char rev[DISP_DIGITS]; uint8_t rev_dp = 0, k;
+        for (i = 0; i < DISP_DIGITS; i++) rev[i] = g_disp_chars[DISP_DIGITS - 1 - i];
+        for (i = 0; i < DISP_DIGITS; i++) {
+            if (temp_dp & (1 << i)) {
+                k = DISP_DIGITS - 2 - (uint8_t)i;
+                if (k < DISP_DIGITS)
+                    rev_dp |= (uint8_t)(1 << k);
+            }
+        }
+        for (i = 0; i < DISP_DIGITS; i++) g_disp_chars[i] = rev[i];
+        temp_dp = rev_dp;
     }
+
+    g_dp_mask = temp_dp;
 }
 
 /*=========================================================================

@@ -14,5 +14,6 @@ void    Buzzer_RhythmHandler(void);     /* called every 100ms           */
 void    Buzzer_StartRing(void);
 void    Buzzer_StopRing(void);
 uint8_t Buzzer_IsRinging(void);
+uint8_t Buzzer_IsOn(void);
 
 #endif /* __BUZZER_H__ */
