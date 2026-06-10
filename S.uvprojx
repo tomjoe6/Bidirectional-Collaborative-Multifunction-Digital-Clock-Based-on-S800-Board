@@ -387,7 +387,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Grop1</GroupName>
+          <GroupName>Source Group1</GroupName>
           <Files>
             <File>
               <FileName>main.c</FileName>
