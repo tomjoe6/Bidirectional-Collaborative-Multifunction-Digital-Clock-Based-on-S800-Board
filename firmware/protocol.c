@@ -481,6 +481,7 @@ static void Cmd_SET_DISPLAY(char *params)
         Protocol_SendResponse("OK\r\n");
     } else if (MatchAbbrev(token, "OFF")) {
         g_disp_on = 0;
+        Events_ReportDisp("        ", 0);  /* tell PC twin to go dark */
         Protocol_SendResponse("OK\r\n");
     } else if (MatchAbbrev(token, "TIME")) {
         g_disp_mode = DISP_MODE_TIME;

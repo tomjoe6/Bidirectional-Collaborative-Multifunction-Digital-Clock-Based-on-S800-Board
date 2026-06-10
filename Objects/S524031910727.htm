@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\S524031910727.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\S524031910727.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Mon Jun 08 20:51:45 2026
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Wed Jun 10 15:41:41 2026
 <BR><P>
 <H3>Maximum Stack Usage =        328 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1368,8 +1368,8 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_GetEditDisplay
 <LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_ReportLED
 <LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_ReportKey
-<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_ReportDisp
-<LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_1HzHandler
+<LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_ReportDisp
+<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_1HzHandler
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_UpdateFromClock
 <LI><a href="#[db]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_PING
 <LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_GET_TIME
@@ -1436,7 +1436,7 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtol
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_errno_addr
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_TIME
+<BR>[Called By]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_TIME
 <LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DATE
 <LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_BEEP
 <LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_ALARM
@@ -1449,27 +1449,27 @@ Global Symbols
 <LI><a href="#[b2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_errno_addr
 <LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_ctype_table
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ParseHex2
+<BR>[Called By]<UL><LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ParseHex2
 </UL>
 
 <P><STRONG><a name="[128]"></a>strchr</STRONG> (Thumb, 20 bytes, Stack size 0 bytes, strchr.o(.text))
 <BR><BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
 </UL>
 
-<P><STRONG><a name="[f1]"></a>strlen</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, strlen.o(.text))
+<P><STRONG><a name="[f2]"></a>strlen</STRONG> (Thumb, 62 bytes, Stack size 8 bytes, strlen.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = strlen
 </UL>
 <BR>[Called By]<UL><LI><a href="#[141]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;UpdateEditDisplay
 <LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_Enqueue
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_UpdateFromClock
-<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_SetBuffer
-<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_FlowAdvance
-<LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_FillFromBuffer
+<LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_SetBuffer
+<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_FlowAdvance
+<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_FillFromBuffer
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendOKData
 <LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
-<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ParseHex2
+<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ParseHex2
 <LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MatchAbbrev
-<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_MSG
+<LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_MSG
 </UL>
 
 <P><STRONG><a name="[171]"></a>__use_two_region_memory</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, heapauxi.o(.text), UNUSED)
@@ -1666,7 +1666,7 @@ Global Symbols
 <LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_BEEP
 </UL>
 
-<P><STRONG><a name="[cc]"></a>Buzzer_RhythmHandler</STRONG> (Thumb, 88 bytes, Stack size 8 bytes, buzzer.o(i.Buzzer_RhythmHandler))
+<P><STRONG><a name="[cc]"></a>Buzzer_RhythmHandler</STRONG> (Thumb, 96 bytes, Stack size 8 bytes, buzzer.o(i.Buzzer_RhythmHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = Buzzer_RhythmHandler &rArr; Buzzer_StopRing &rArr; Buzzer_Off
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_StopRing
@@ -1723,31 +1723,31 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[f4]"></a>Display_FillFromBuffer</STRONG> (Thumb, 160 bytes, Stack size 24 bytes, display.o(i.Display_FillFromBuffer))
+<P><STRONG><a name="[f5]"></a>Display_FillFromBuffer</STRONG> (Thumb, 196 bytes, Stack size 24 bytes, display.o(i.Display_FillFromBuffer))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = Display_FillFromBuffer &rArr; strlen
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<BR>[Calls]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
 <BR>[Called By]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_UpdateFromClock
-<LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_SetFormat
-<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_SetBuffer
-<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_FlowAdvance
+<LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_SetFormat
+<LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_SetBuffer
+<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_FlowAdvance
 </UL>
 
-<P><STRONG><a name="[f5]"></a>Display_FlowAdvance</STRONG> (Thumb, 94 bytes, Stack size 8 bytes, display.o(i.Display_FlowAdvance))
+<P><STRONG><a name="[f6]"></a>Display_FlowAdvance</STRONG> (Thumb, 102 bytes, Stack size 8 bytes, display.o(i.Display_FlowAdvance))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = Display_FlowAdvance &rArr; Display_FillFromBuffer &rArr; strlen
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_FillFromBuffer
-<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<BR>[Calls]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_FillFromBuffer
+<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[f8]"></a>Display_GetSegCode</STRONG> (Thumb, 92 bytes, Stack size 0 bytes, display.o(i.Display_GetSegCode))
-<BR><BR>[Called By]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_Scan
+<P><STRONG><a name="[f9]"></a>Display_GetSegCode</STRONG> (Thumb, 92 bytes, Stack size 0 bytes, display.o(i.Display_GetSegCode))
+<BR><BR>[Called By]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_Scan
 </UL>
 
-<P><STRONG><a name="[f6]"></a>Display_Init</STRONG> (Thumb, 100 bytes, Stack size 8 bytes, display.o(i.Display_Init))
+<P><STRONG><a name="[f7]"></a>Display_Init</STRONG> (Thumb, 100 bytes, Stack size 8 bytes, display.o(i.Display_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = Display_Init &rArr; I2C0_WriteByte
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C0_WriteByte
@@ -1755,34 +1755,34 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;System_Init
 </UL>
 
-<P><STRONG><a name="[f7]"></a>Display_Scan</STRONG> (Thumb, 104 bytes, Stack size 24 bytes, display.o(i.Display_Scan))
+<P><STRONG><a name="[f8]"></a>Display_Scan</STRONG> (Thumb, 104 bytes, Stack size 24 bytes, display.o(i.Display_Scan))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = Display_Scan &rArr; I2C0_WriteByte
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C0_WriteByte
-<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_GetSegCode
+<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_GetSegCode
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[f2]"></a>Display_SetBuffer</STRONG> (Thumb, 58 bytes, Stack size 16 bytes, display.o(i.Display_SetBuffer))
+<P><STRONG><a name="[f3]"></a>Display_SetBuffer</STRONG> (Thumb, 58 bytes, Stack size 16 bytes, display.o(i.Display_SetBuffer))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = Display_SetBuffer &rArr; Display_FillFromBuffer &rArr; strlen
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_FillFromBuffer
-<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<BR>[Calls]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_FillFromBuffer
+<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_MSG
+<BR>[Called By]<UL><LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_MSG
 </UL>
 
-<P><STRONG><a name="[e5]"></a>Display_SetFormat</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, display.o(i.Display_SetFormat))
+<P><STRONG><a name="[e6]"></a>Display_SetFormat</STRONG> (Thumb, 34 bytes, Stack size 8 bytes, display.o(i.Display_SetFormat))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = Display_SetFormat &rArr; Display_FillFromBuffer &rArr; strlen
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_FillFromBuffer
+<BR>[Calls]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_FillFromBuffer
 </UL>
 <BR>[Called By]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_Dispatch
-<LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_FORMAT
+<LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_FORMAT
 </UL>
 
-<P><STRONG><a name="[f9]"></a>Display_SetMode</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, display.o(i.Display_SetMode))
+<P><STRONG><a name="[fa]"></a>Display_SetMode</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, display.o(i.Display_SetMode))
 <BR><BR>[Stack]<UL><LI>Max Depth = 200 + Unknown Stack Size
 <LI>Call Chain = Display_SetMode &rArr; Display_UpdateFromClock &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
@@ -1791,30 +1791,30 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_Dispatch
 </UL>
 
-<P><STRONG><a name="[ec]"></a>Display_SetNight</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, display.o(i.Display_SetNight))
-<BR><BR>[Called By]<UL><LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_MODE
+<P><STRONG><a name="[ed]"></a>Display_SetNight</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, display.o(i.Display_SetNight))
+<BR><BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_MODE
 </UL>
 
 <P><STRONG><a name="[dd]"></a>Display_UpdateFromClock</STRONG> (Thumb, 186 bytes, Stack size 56 bytes, display.o(i.Display_UpdateFromClock))
 <BR><BR>[Stack]<UL><LI>Max Depth = 192 + Unknown Stack Size
 <LI>Call Chain = Display_UpdateFromClock &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_FillFromBuffer
-<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<BR>[Calls]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_FillFromBuffer
+<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_SetMode
+<LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_SetMode
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DISPLAY
 <LI><a href="#[dc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_RST
 </UL>
 
-<P><STRONG><a name="[fa]"></a>Events_1HzHandler</STRONG> (Thumb, 46 bytes, Stack size 40 bytes, events.o(i.Events_1HzHandler))
+<P><STRONG><a name="[fb]"></a>Events_1HzHandler</STRONG> (Thumb, 46 bytes, Stack size 40 bytes, events.o(i.Events_1HzHandler))
 <BR><BR>[Stack]<UL><LI>Max Depth = 272 + Unknown Stack Size
 <LI>Call Chain = Events_1HzHandler &rArr; Events_ReportDisp &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_ReportLED
-<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_ReportDisp
+<LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_ReportDisp
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
@@ -1837,7 +1837,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[fb]"></a>Events_ReportDisp</STRONG> (Thumb, 68 bytes, Stack size 96 bytes, events.o(i.Events_ReportDisp))
+<P><STRONG><a name="[e4]"></a>Events_ReportDisp</STRONG> (Thumb, 68 bytes, Stack size 96 bytes, events.o(i.Events_ReportDisp))
 <BR><BR>[Stack]<UL><LI>Max Depth = 232 + Unknown Stack Size
 <LI>Call Chain = Events_ReportDisp &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
@@ -1845,14 +1845,15 @@ Global Symbols
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
-<LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_1HzHandler
+<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_1HzHandler
+<LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DISPLAY
 </UL>
 
 <P><STRONG><a name="[ff]"></a>Events_ReportKey</STRONG> (Thumb, 34 bytes, Stack size 80 bytes, events.o(i.Events_ReportKey))
 <BR><BR>[Stack]<UL><LI>Max Depth = 216 + Unknown Stack Size
 <LI>Call Chain = Events_ReportKey &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_GetKeyName
+<BR>[Calls]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_GetKeyName
 <LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_Enqueue
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
@@ -1866,15 +1867,15 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_Enqueue
 <LI><a href="#[a8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__2sprintf
 </UL>
-<BR>[Called By]<UL><LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_1HzHandler
+<BR>[Called By]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_1HzHandler
 </UL>
 
-<P><STRONG><a name="[ee]"></a>Events_ReportMode</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, events.o(i.Events_ReportMode))
+<P><STRONG><a name="[ef]"></a>Events_ReportMode</STRONG> (Thumb, 24 bytes, Stack size 8 bytes, events.o(i.Events_ReportMode))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = Events_ReportMode &rArr; Events_Enqueue &rArr; strlen
 </UL>
 <BR>[Calls]<UL><LI><a href="#[fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_Enqueue
 </UL>
-<BR>[Called By]<UL><LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_MODE
+<BR>[Called By]<UL><LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_MODE
 </UL>
 
 <P><STRONG><a name="[100]"></a>Events_SendNext</STRONG> (Thumb, 168 bytes, Stack size 16 bytes, events.o(i.Events_SendNext))
@@ -1991,8 +1992,8 @@ Global Symbols
 <LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BootAnimation_Run
 <LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BootAnimation_Init
 <LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Init
-<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_Scan
-<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_Init
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_Scan
+<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_Init
 </UL>
 
 <P><STRONG><a name="[10a]"></a>I2CMasterBusy</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, i2c.o(i.I2CMasterBusy))
@@ -2072,9 +2073,9 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[e7]"></a>Keys_GetKeyName</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, keys.o(i.Keys_GetKeyName))
+<P><STRONG><a name="[e8]"></a>Keys_GetKeyName</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, keys.o(i.Keys_GetKeyName))
 <BR><BR>[Called By]<UL><LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_ReportKey
-<LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_KEY
+<LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_KEY
 </UL>
 
 <P><STRONG><a name="[139]"></a>Keys_Init</STRONG> (Thumb, 62 bytes, Stack size 0 bytes, keys.o(i.Keys_Init))
@@ -2092,13 +2093,13 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[e8]"></a>Keys_Simulate</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, keys.o(i.Keys_Simulate))
+<P><STRONG><a name="[e9]"></a>Keys_Simulate</STRONG> (Thumb, 18 bytes, Stack size 8 bytes, keys.o(i.Keys_Simulate))
 <BR><BR>[Stack]<UL><LI>Max Depth = 224 + Unknown Stack Size
 <LI>Call Chain = Keys_Simulate &rArr; Keys_Dispatch &rArr; Display_SetMode &rArr; Display_UpdateFromClock &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[116]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_Dispatch
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_KEY
+<BR>[Called By]<UL><LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_KEY
 </UL>
 
 <P><STRONG><a name="[146]"></a>LED_Heartbeat</STRONG> (Thumb, 50 bytes, Stack size 0 bytes, led.o(i.LED_Heartbeat))
@@ -2116,24 +2117,24 @@ Global Symbols
 <P><STRONG><a name="[123]"></a>LED_RXFlash</STRONG> (Thumb, 30 bytes, Stack size 4 bytes, led.o(i.LED_RXFlash))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = LED_RXFlash
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Set
+<BR>[Calls]<UL><LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Set
 </UL>
 <BR>[Called By]<UL><LI><a href="#[126]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_CharReceived
 </UL>
 
-<P><STRONG><a name="[ed]"></a>LED_Set</STRONG> (Thumb, 44 bytes, Stack size 0 bytes, led.o(i.LED_Set))
+<P><STRONG><a name="[ee]"></a>LED_Set</STRONG> (Thumb, 44 bytes, Stack size 0 bytes, led.o(i.LED_Set))
 <BR><BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 <LI><a href="#[133]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;System_Init
 <LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_UpdateFlashTimeout
 <LI><a href="#[124]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_TXFlash
 <LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_RXFlash
-<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_MODE
+<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_MODE
 </UL>
 
 <P><STRONG><a name="[124]"></a>LED_TXFlash</STRONG> (Thumb, 30 bytes, Stack size 4 bytes, led.o(i.LED_TXFlash))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = LED_TXFlash
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Set
+<BR>[Calls]<UL><LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Set
 </UL>
 <BR>[Called By]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
 </UL>
@@ -2141,7 +2142,7 @@ Global Symbols
 <P><STRONG><a name="[125]"></a>LED_UpdateFlashTimeout</STRONG> (Thumb, 80 bytes, Stack size 4 bytes, led.o(i.LED_UpdateFlashTimeout))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = LED_UpdateFlashTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Set
+<BR>[Calls]<UL><LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Set
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -2302,7 +2303,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__printf
 </UL>
 
-<P><STRONG><a name="[a2]"></a>main</STRONG> (Thumb, 680 bytes, Stack size 32 bytes, main.o(i.main))
+<P><STRONG><a name="[a2]"></a>main</STRONG> (Thumb, 718 bytes, Stack size 32 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 328 + Unknown Stack Size
 <LI>Call Chain = main &rArr; Protocol_Process &rArr; Protocol_ParseLine &rArr; Cmd_SET_KEY &rArr; Keys_Simulate &rArr; Keys_Dispatch &rArr; Display_SetMode &rArr; Display_UpdateFromClock &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
@@ -2312,7 +2313,7 @@ Global Symbols
 <LI><a href="#[be]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BootAnimation_Run
 <LI><a href="#[bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BootAnimation_Init
 <LI><a href="#[125]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_UpdateFlashTimeout
-<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Set
+<LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Set
 <LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Heartbeat
 <LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_Scan10ms
 <LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_Init
@@ -2320,14 +2321,14 @@ Global Symbols
 <LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_GetEditState
 <LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_SendNext
 <LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_ReportKey
-<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_ReportDisp
+<LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_ReportDisp
 <LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_ReportAlarm
 <LI><a href="#[144]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_HasPending
-<LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_1HzHandler
+<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_1HzHandler
 <LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C0_WriteByte
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_UpdateFromClock
-<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_Scan
-<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_FlowAdvance
+<LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_Scan
+<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_FlowAdvance
 <LI><a href="#[d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clock_Tick
 <LI><a href="#[ce]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_StopRing
 <LI><a href="#[143]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_StartRing
@@ -2369,12 +2370,12 @@ Local Symbols
 <P><STRONG><a name="[fd]"></a>Events_Enqueue</STRONG> (Thumb, 152 bytes, Stack size 16 bytes, events.o(i.Events_Enqueue))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = Events_Enqueue &rArr; strlen
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<BR>[Calls]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_ReportMode
+<BR>[Called By]<UL><LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_ReportMode
 <LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_ReportLED
 <LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_ReportKey
-<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_ReportDisp
+<LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_ReportDisp
 <LI><a href="#[fe]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_ReportAlarm
 </UL>
 
@@ -2398,10 +2399,10 @@ Local Symbols
 <LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_NextField
 <LI><a href="#[119]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_IncrementField
 <LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_CycleFunc
-<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_SetMode
-<LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_SetFormat
+<LI><a href="#[fa]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_SetMode
+<LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_SetFormat
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_Simulate
+<BR>[Called By]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_Simulate
 <LI><a href="#[11c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_GetEvent
 </UL>
 
@@ -2525,11 +2526,11 @@ Local Symbols
 <LI><a href="#[12f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;S800_UART_Init
 <LI><a href="#[12b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;S800_I2C0_Init
 <LI><a href="#[12a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;S800_GPIO_Init
-<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Set
+<LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Set
 <LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Init
 <LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_Init
 <LI><a href="#[101]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_Init
-<LI><a href="#[f6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_Init
+<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_Init
 <LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Clock_Init
 <LI><a href="#[bf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Buzzer_Init
 <LI><a href="#[138]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Alarm_Init
@@ -2542,7 +2543,7 @@ Local Symbols
 <LI>Call Chain = UpdateEditDisplay &rArr; Keys_GetEditDisplay &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
 <BR>[Calls]<UL><LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_GetEditDisplay
-<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -2651,11 +2652,12 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
 </UL>
 
-<P><STRONG><a name="[e3]"></a>Cmd_SET_DISPLAY</STRONG> (Thumb, 168 bytes, Stack size 16 bytes, protocol.o(i.Cmd_SET_DISPLAY))
-<BR><BR>[Stack]<UL><LI>Max Depth = 208 + Unknown Stack Size
-<LI>Call Chain = Cmd_SET_DISPLAY &rArr; Display_UpdateFromClock &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
+<P><STRONG><a name="[e3]"></a>Cmd_SET_DISPLAY</STRONG> (Thumb, 176 bytes, Stack size 16 bytes, protocol.o(i.Cmd_SET_DISPLAY))
+<BR><BR>[Stack]<UL><LI>Max Depth = 248 + Unknown Stack Size
+<LI>Call Chain = Cmd_SET_DISPLAY &rArr; Events_ReportDisp &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_UpdateFromClock
+<BR>[Calls]<UL><LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_ReportDisp
+<LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_UpdateFromClock
 <LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
 <LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NextToken
 <LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MatchAbbrev
@@ -2663,10 +2665,10 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
 </UL>
 
-<P><STRONG><a name="[e4]"></a>Cmd_SET_FORMAT</STRONG> (Thumb, 78 bytes, Stack size 16 bytes, protocol.o(i.Cmd_SET_FORMAT))
+<P><STRONG><a name="[e5]"></a>Cmd_SET_FORMAT</STRONG> (Thumb, 78 bytes, Stack size 16 bytes, protocol.o(i.Cmd_SET_FORMAT))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = Cmd_SET_FORMAT &rArr; MatchAbbrev &rArr; strlen
 </UL>
-<BR>[Calls]<UL><LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_SetFormat
+<BR>[Calls]<UL><LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_SetFormat
 <LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
 <LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NextToken
 <LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MatchAbbrev
@@ -2674,12 +2676,12 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
 </UL>
 
-<P><STRONG><a name="[e6]"></a>Cmd_SET_KEY</STRONG> (Thumb, 74 bytes, Stack size 24 bytes, protocol.o(i.Cmd_SET_KEY))
+<P><STRONG><a name="[e7]"></a>Cmd_SET_KEY</STRONG> (Thumb, 74 bytes, Stack size 24 bytes, protocol.o(i.Cmd_SET_KEY))
 <BR><BR>[Stack]<UL><LI>Max Depth = 248 + Unknown Stack Size
 <LI>Call Chain = Cmd_SET_KEY &rArr; Keys_Simulate &rArr; Keys_Dispatch &rArr; Display_SetMode &rArr; Display_UpdateFromClock &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
-<BR>[Calls]<UL><LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_Simulate
-<LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_GetKeyName
+<BR>[Calls]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_Simulate
+<LI><a href="#[e8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Keys_GetKeyName
 <LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
 <LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NextToken
 <LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MatchAbbrev
@@ -2687,22 +2689,22 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
 </UL>
 
-<P><STRONG><a name="[e9]"></a>Cmd_SET_LED</STRONG> (Thumb, 64 bytes, Stack size 16 bytes, protocol.o(i.Cmd_SET_LED))
+<P><STRONG><a name="[ea]"></a>Cmd_SET_LED</STRONG> (Thumb, 64 bytes, Stack size 16 bytes, protocol.o(i.Cmd_SET_LED))
 <BR><BR>[Stack]<UL><LI>Max Depth = 128<LI>Call Chain = Cmd_SET_LED &rArr; ParseHex2 &rArr; strtoul &rArr; _strtoul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
-<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ParseHex2
+<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ParseHex2
 <LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NextToken
 </UL>
 <BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
 </UL>
 
-<P><STRONG><a name="[eb]"></a>Cmd_SET_MODE</STRONG> (Thumb, 106 bytes, Stack size 16 bytes, protocol.o(i.Cmd_SET_MODE))
+<P><STRONG><a name="[ec]"></a>Cmd_SET_MODE</STRONG> (Thumb, 106 bytes, Stack size 16 bytes, protocol.o(i.Cmd_SET_MODE))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = Cmd_SET_MODE &rArr; MatchAbbrev &rArr; strlen
 </UL>
-<BR>[Calls]<UL><LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Set
-<LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_ReportMode
-<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_SetNight
+<BR>[Calls]<UL><LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Set
+<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Events_ReportMode
+<LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_SetNight
 <LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
 <LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NextToken
 <LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MatchAbbrev
@@ -2710,18 +2712,18 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
 </UL>
 
-<P><STRONG><a name="[ef]"></a>Cmd_SET_MSG</STRONG> (Thumb, 60 bytes, Stack size 16 bytes, protocol.o(i.Cmd_SET_MSG))
+<P><STRONG><a name="[f0]"></a>Cmd_SET_MSG</STRONG> (Thumb, 60 bytes, Stack size 16 bytes, protocol.o(i.Cmd_SET_MSG))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = Cmd_SET_MSG &rArr; Display_SetBuffer &rArr; Display_FillFromBuffer &rArr; strlen
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_SetBuffer
-<LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SkipSpaces
+<BR>[Calls]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_SetBuffer
+<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SkipSpaces
 <LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
-<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
 <BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
 </UL>
 
-<P><STRONG><a name="[f3]"></a>Cmd_SET_TIME</STRONG> (Thumb, 172 bytes, Stack size 32 bytes, protocol.o(i.Cmd_SET_TIME))
+<P><STRONG><a name="[f4]"></a>Cmd_SET_TIME</STRONG> (Thumb, 172 bytes, Stack size 32 bytes, protocol.o(i.Cmd_SET_TIME))
 <BR><BR>[Stack]<UL><LI>Max Depth = 120<LI>Call Chain = Cmd_SET_TIME &rArr; atoi &rArr; strtol &rArr; _strtoul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
@@ -2735,13 +2737,13 @@ Local Symbols
 <P><STRONG><a name="[df]"></a>MatchAbbrev</STRONG> (Thumb, 136 bytes, Stack size 40 bytes, protocol.o(i.MatchAbbrev))
 <BR><BR>[Stack]<UL><LI>Max Depth = 48<LI>Call Chain = MatchAbbrev &rArr; strlen
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<BR>[Calls]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
 <BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
-<LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_TIME
-<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_MODE
-<LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_KEY
-<LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_FORMAT
+<LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_TIME
+<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_MODE
+<LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_KEY
+<LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_FORMAT
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DISPLAY
 <LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DATE
 <LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_ALARM
@@ -2750,27 +2752,27 @@ Local Symbols
 <P><STRONG><a name="[e0]"></a>NextToken</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, protocol.o(i.NextToken))
 <BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = NextToken
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SkipSpaces
+<BR>[Calls]<UL><LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SkipSpaces
 </UL>
 <BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
-<LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_TIME
-<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_MODE
-<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_LED
-<LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_KEY
-<LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_FORMAT
+<LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_TIME
+<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_MODE
+<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_LED
+<LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_KEY
+<LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_FORMAT
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DISPLAY
 <LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DATE
 <LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_BEEP
 <LI><a href="#[de]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_ALARM
 </UL>
 
-<P><STRONG><a name="[ea]"></a>ParseHex2</STRONG> (Thumb, 118 bytes, Stack size 32 bytes, protocol.o(i.ParseHex2))
+<P><STRONG><a name="[eb]"></a>ParseHex2</STRONG> (Thumb, 118 bytes, Stack size 32 bytes, protocol.o(i.ParseHex2))
 <BR><BR>[Stack]<UL><LI>Max Depth = 112<LI>Call Chain = ParseHex2 &rArr; strtoul &rArr; _strtoul
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<BR>[Calls]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 <LI><a href="#[b4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strtoul
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_LED
+<BR>[Called By]<UL><LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_LED
 </UL>
 
 <P><STRONG><a name="[127]"></a>Protocol_ParseLine</STRONG> (Thumb, 512 bytes, Stack size 40 bytes, protocol.o(i.Protocol_ParseLine))
@@ -2780,12 +2782,12 @@ Local Symbols
 <BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
 <LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NextToken
 <LI><a href="#[df]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MatchAbbrev
-<LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_TIME
-<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_MSG
-<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_MODE
-<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_LED
-<LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_KEY
-<LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_FORMAT
+<LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_TIME
+<LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_MSG
+<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_MODE
+<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_LED
+<LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_KEY
+<LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_FORMAT
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DISPLAY
 <LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DATE
 <LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_BEEP
@@ -2797,7 +2799,7 @@ Local Symbols
 <LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_GET_DISP
 <LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_GET_DATE
 <LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_GET_ALARM
-<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 <LI><a href="#[128]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strchr
 </UL>
 <BR>[Called By]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_Process
@@ -2807,7 +2809,7 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = Protocol_SendOKData &rArr; Protocol_SendResponse &rArr; UART0_SendChar
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendResponse
-<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
+<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
 </UL>
 <BR>[Called By]<UL><LI><a href="#[da]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_GET_TIME
 <LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_GET_DATE
@@ -2822,12 +2824,12 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[129]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_Process
 <LI><a href="#[d7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_SendOKData
 <LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
-<LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_TIME
-<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_MSG
-<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_MODE
-<LI><a href="#[e9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_LED
-<LI><a href="#[e6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_KEY
-<LI><a href="#[e4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_FORMAT
+<LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_TIME
+<LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_MSG
+<LI><a href="#[ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_MODE
+<LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_LED
+<LI><a href="#[e7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_KEY
+<LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_FORMAT
 <LI><a href="#[e3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DISPLAY
 <LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_DATE
 <LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_BEEP
@@ -2839,9 +2841,9 @@ Local Symbols
 <LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_GET_ALARM
 </UL>
 
-<P><STRONG><a name="[f0]"></a>SkipSpaces</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, protocol.o(i.SkipSpaces))
+<P><STRONG><a name="[f1]"></a>SkipSpaces</STRONG> (Thumb, 18 bytes, Stack size 0 bytes, protocol.o(i.SkipSpaces))
 <BR><BR>[Called By]<UL><LI><a href="#[e0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NextToken
-<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_MSG
+<LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_MSG
 </UL>
 
 <P><STRONG><a name="[7d]"></a>_printf_input_char</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, _printf_char_common.o(.text))

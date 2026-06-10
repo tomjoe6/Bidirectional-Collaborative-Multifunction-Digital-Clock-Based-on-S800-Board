@@ -7,15 +7,15 @@
  * 7-Segment Code Tables (from exp2.c)
  *=========================================================================*/
 const uint8_t g_seg_table_num[10] = {
-    0x3f, 0x06, 0x5b, 0x4f, 0x66, 0x6d, 0x7d, 0x07, 0x7f, 0x6f
+    0x3F, 0x06, 0x5B, 0x4F, 0x66, 0x6D, 0x7D, 0x07, 0x7F, 0x6F
 };
 
 const uint8_t g_seg_table_alpha[26] = {
     0x77, 0x7C, 0x39, 0x5E, 0x79, 0x71,   /* A B C D E F */
-    0x3D, 0x76, 0x30, 0x1E, 0x75, 0x38,   /* G H I J K L */
-    0x37, 0x54, 0x3F, 0x73, 0x67, 0x50,   /* M N O P Q R */
-    0x6D, 0x78, 0x3E, 0x3E, 0x3E, 0x76,   /* S T U V W X */
-    0x6E, 0x5B                              /* Y Z */
+    0x3D, 0x76, 0x30, 0x1E, 0x7A, 0x38,   /* G H I J K L */
+    0x55, 0x37, 0x3F, 0x73, 0x67, 0x70,   /* M N O P Q R */
+    0x6D, 0x78, 0x3E, 0x7E, 0x6A, 0x36,   /* S T U V W X */
+    0x6E, 0x49                              /* Y Z */
 };
 
 /*=========================================================================
@@ -142,9 +142,6 @@ void Display_FillFromBuffer(void)
 
     str_len = (uint8_t)strlen(g_disp_buffer);
 
-    /* '.' occupies its own digit (displays as DP-only segment via
-     * Display_GetSegCode). No DP processing needed. */
-    g_dp_mask = 0;
     for (i = 0; i < DISP_DIGITS; i++) {
         vpos = g_flow_position + i;
         if ((g_disp_mode == DISP_MODE_FULL || g_disp_mode == DISP_MODE_YEAR)
@@ -166,6 +163,14 @@ void Display_FillFromBuffer(void)
             rev[i] = g_disp_chars[DISP_DIGITS - 1 - i];
         for (i = 0; i < DISP_DIGITS; i++)
             g_disp_chars[i] = rev[i];
+    }
+
+    /* Compute g_dp_mask from which digits show a '.' (0x80).
+     * This goes into *EVT:DISP as the 2-hex-digit DP byte. */
+    g_dp_mask = 0;
+    for (i = 0; i < DISP_DIGITS; i++) {
+        if (g_disp_chars[i] == '.')
+            g_dp_mask |= (uint8_t)(1 << i);
     }
 }
 
@@ -275,6 +280,7 @@ void Display_FlowAdvance(void)
 {
     int16_t str_len;
 
+    if (!g_disp_on) return;
     if (g_disp_mode != DISP_MODE_FULL && g_disp_mode != DISP_MODE_YEAR) {
         return;
     }

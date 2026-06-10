@@ -15,7 +15,7 @@
 static uint8_t  g_buzzer_on;
 static uint8_t  g_buzzer_ringing;
 static uint8_t  g_buzzer_rhythm_counter;
-static uint8_t  g_buzzer_ring_duration;
+static uint16_t g_buzzer_ring_duration;
 
 /* Frequency sweep: test tones 1k~4k Hz, 2s each */
 
@@ -62,7 +62,8 @@ void Buzzer_Toggle(void)
 
 void Buzzer_RhythmHandler(void)
 {
-    if (!g_buzzer_ringing) { Buzzer_Off(); return; }
+    extern uint8_t g_disp_night;
+    if (!g_buzzer_ringing || g_disp_night == MODE_NIGHT) { Buzzer_Off(); return; }
 
     g_buzzer_rhythm_counter++;
     g_buzzer_ring_duration++;

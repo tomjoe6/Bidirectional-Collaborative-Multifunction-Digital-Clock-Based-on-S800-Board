@@ -1,0 +1,1173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1200</width>
+    <height>720</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>S800 智能联网时钟系统 v1.0.0 - main_window.ui*</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QVBoxLayout" name="verticalLayout_main">
+    <!-- 顶部工具栏 -->
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout_toolbar">
+      <item>
+       <widget class="QLabel" name="lbl_com">
+        <property name="text">
+         <string>串口：</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QComboBox" name="cmb_com">
+        <property name="minimumSize">
+         <size>
+          <width>220</width>
+          <height>0</height>
+         </size>
+        </property>
+        <item>
+         <property name="text">
+          <string>COM3 - Stellaris Virtual Serial Port (COM3)</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_refresh">
+        <property name="text">
+         <string>刷新</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_connect">
+        <property name="text">
+         <string>连接</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="lbl_status">
+        <property name="text">
+         <string>未连接</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: red;</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="lbl_night">
+        <property name="text">
+         <string>DAY</string>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: #FFAA00; font-weight: bold;</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="horizontalSpacer_top">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Expanding</enum>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QLabel" name="lbl_delay">
+        <property name="text">
+         <string>延迟：--ms</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+
+    <!-- 主内容区：左右分栏 -->
+    <item>
+     <widget class="QSplitter" name="splitter_main">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <!-- ✅ 修正：sizes 使用 <number> 而非 <list> -->
+      <property name="sizes">
+       <number>500</number>
+       <number>700</number>
+      </property>
+
+      <!-- 左侧：数字孪生区 -->
+      <widget class="QWidget" name="widget_digit_twin">
+       <layout class="QVBoxLayout" name="verticalLayout_dt">
+        <!-- 数码管显示区 -->
+        <item>
+         <widget class="QGroupBox" name="grp_display">
+          <property name="title">
+           <string>数字孪生</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_display">
+           <item>
+            <widget class="QLabel" name="lbl_seg_display">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="minimumSize">
+              <size>
+               <width>480</width>
+               <height>80</height>
+              </size>
+             </property>
+             <property name="font">
+              <font>
+               <pointsize>28</pointsize>
+               <weight>75</weight>
+               <bold>true</bold>
+              </font>
+             </property>
+             <property name="text">
+              <string>8.8.8.8.8.8.8.8</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: #FF0000; background-color: #000000; border: 2px solid #444; padding: 5px;</string>
+             </property>
+            </widget>
+           </item>
+
+           <!-- 8颗LED指示灯 -->
+           <item>
+            <layout class="QGridLayout" name="gridLayout_leds">
+             <property name="horizontalSpacing">
+              <number>10</number>
+             </property>
+             <property name="verticalSpacing">
+              <number>8</number>
+             </property>
+             <item row="0" column="0">
+              <widget class="QFrame" name="led_0">
+               <property name="minimumSize">
+                <size>
+                 <width>40</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::Box</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Sunken</enum>
+               </property>
+               <property name="lineWidth">
+                <number>2</number>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: #333333; border-radius: 20px; border: 1px solid #666;</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_led0">
+                <item>
+                 <widget class="QLabel" name="lbl_led0_text">
+                  <property name="text">
+                   <string>心跳</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: #CCCCCC; font-size: 9pt;</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item row="0" column="1">
+              <widget class="QFrame" name="led_1">
+               <property name="minimumSize">
+                <size>
+                 <width>40</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::Box</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Sunken</enum>
+               </property>
+               <property name="lineWidth">
+                <number>2</number>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: #333333; border-radius: 20px; border: 1px solid #666;</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_led1">
+                <item>
+                 <widget class="QLabel" name="lbl_led1_text">
+                  <property name="text">
+                   <string>闹钟使能</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: #CCCCCC; font-size: 9pt;</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QFrame" name="led_2">
+               <property name="minimumSize">
+                <size>
+                 <width>40</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::Box</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Sunken</enum>
+               </property>
+               <property name="lineWidth">
+                <number>2</number>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: #333333; border-radius: 20px; border: 1px solid #666;</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_led2">
+                <item>
+                 <widget class="QLabel" name="lbl_led2_text">
+                  <property name="text">
+                   <string>闹钟响铃</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: #CCCCCC; font-size: 9pt;</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item row="0" column="3">
+              <widget class="QFrame" name="led_3">
+               <property name="minimumSize">
+                <size>
+                 <width>40</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::Box</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Sunken</enum>
+               </property>
+               <property name="lineWidth">
+                <number>2</number>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: #333333; border-radius: 20px; border: 1px solid #666;</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_led3">
+                <item>
+                 <widget class="QLabel" name="lbl_led3_text">
+                  <property name="text">
+                   <string>编辑模式</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: #CCCCCC; font-size: 9pt;</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item row="0" column="4">
+              <widget class="QFrame" name="led_4">
+               <property name="minimumSize">
+                <size>
+                 <width>40</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::Box</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Sunken</enum>
+               </property>
+               <property name="lineWidth">
+                <number>2</number>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: #333333; border-radius: 20px; border: 1px solid #666;</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_led4">
+                <item>
+                 <widget class="QLabel" name="lbl_led4_text">
+                  <property name="text">
+                   <string>串口RX</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: #CCCCCC; font-size: 9pt;</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item row="0" column="5">
+              <widget class="QFrame" name="led_5">
+               <property name="minimumSize">
+                <size>
+                 <width>40</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::Box</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Sunken</enum>
+               </property>
+               <property name="lineWidth">
+                <number>2</number>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: #333333; border-radius: 20px; border: 1px solid #666;</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_led5">
+                <item>
+                 <widget class="QLabel" name="lbl_led5_text">
+                  <property name="text">
+                   <string>串口TX</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: #CCCCCC; font-size: 9pt;</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item row="0" column="6">
+              <widget class="QFrame" name="led_6">
+               <property name="minimumSize">
+                <size>
+                 <width>40</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::Box</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Sunken</enum>
+               </property>
+               <property name="lineWidth">
+                <number>2</number>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: #333333; border-radius: 20px; border: 1px solid #666;</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_led6">
+                <item>
+                 <widget class="QLabel" name="lbl_led6_text">
+                  <property name="text">
+                   <string>NTP状态</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: #CCCCCC; font-size: 9pt;</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+             <item row="0" column="7">
+              <widget class="QFrame" name="led_7">
+               <property name="minimumSize">
+                <size>
+                 <width>40</width>
+                 <height>40</height>
+                </size>
+               </property>
+               <property name="frameShape">
+                <enum>QFrame::Box</enum>
+               </property>
+               <property name="frameShadow">
+                <enum>QFrame::Sunken</enum>
+               </property>
+               <property name="lineWidth">
+                <number>2</number>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: #333333; border-radius: 20px; border: 1px solid #666;</string>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_led7">
+                <item>
+                 <widget class="QLabel" name="lbl_led7_text">
+                  <property name="text">
+                   <string>昼夜</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                  <property name="styleSheet">
+                   <string notr="true">color: #CCCCCC; font-size: 9pt;</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </widget>
+             </item>
+            </layout>
+           </item>
+
+           <!-- 按键模拟 -->
+           <item>
+            <widget class="QGroupBox" name="grp_key_sim">
+             <property name="title">
+              <string>按键模拟</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_keys">
+              <item row="0" column="0">
+               <widget class="QPushButton" name="btn_K1">
+                <property name="text">
+                 <string>K1</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QPushButton" name="btn_K2">
+                <property name="text">
+                 <string>K2</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="QPushButton" name="btn_K3">
+                <property name="text">
+                 <string>K3</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="3">
+               <widget class="QPushButton" name="btn_K4">
+                <property name="text">
+                 <string>K4</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="4">
+               <widget class="QPushButton" name="btn_K5">
+                <property name="text">
+                 <string>K5</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QPushButton" name="btn_K6">
+                <property name="text">
+                 <string>K6</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QPushButton" name="btn_K7">
+                <property name="text">
+                 <string>K7</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="2">
+               <widget class="QPushButton" name="btn_K8">
+                <property name="text">
+                 <string>K8</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="3">
+               <widget class="QPushButton" name="btn_U1">
+                <property name="text">
+                 <string>U1</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="4">
+               <widget class="QPushButton" name="btn_U2">
+                <property name="text">
+                 <string>U2</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+
+           <!-- 模式显示 -->
+           <item>
+            <widget class="QLabel" name="lbl_mode">
+             <property name="text">
+              <string>模式：DAY</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+             <property name="styleSheet">
+              <string notr="true">color: orange; font-weight: bold; font-size: 12pt;</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+
+      <!-- 右侧：控制面板 -->
+      <widget class="QWidget" name="widget_control">
+       <layout class="QVBoxLayout" name="verticalLayout_ctrl">
+        <item>
+         <widget class="QGroupBox" name="grp_control">
+          <property name="title">
+           <string>控制面板</string>
+          </property>
+          <layout class="QFormLayout" name="formLayout_control">
+           <item row="0" column="0">
+            <widget class="QLabel" name="lbl_date_preset">
+             <property name="text">
+              <string>日期预设：</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <layout class="QHBoxLayout" name="horizontalLayout_date">
+             <item>
+              <widget class="QComboBox" name="cmb_year">
+               <item>
+                <property name="text">
+                 <string>-- 选择 --</string>
+                </property>
+               </item>
+               <item>
+                <property name="text">
+                 <string>2024</string>
+                </property>
+               </item>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lbl_year">
+               <property name="text">
+                <string>年：</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="spin_month">
+               <property name="maximum">
+                <number>12</number>
+               </property>
+               <property name="value">
+                <number>6</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lbl_month">
+               <property name="text">
+                <string>月：</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="spin_day">
+               <property name="maximum">
+                <number>31</number>
+               </property>
+               <property name="value">
+                <number>4</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lbl_day">
+               <property name="text">
+                <string>日：</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_set_date">
+               <property name="text">
+                <string>设置日期</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+
+           <item row="1" column="0">
+            <widget class="QLabel" name="lbl_time">
+             <property name="text">
+              <string>时间：</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="1">
+            <layout class="QHBoxLayout" name="horizontalLayout_time">
+             <item>
+              <widget class="QSpinBox" name="spin_hour">
+               <property name="maximum">
+                <number>23</number>
+               </property>
+               <property name="value">
+                <number>12</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lbl_colon1">
+               <property name="text">
+                <string>:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="spin_min">
+               <property name="maximum">
+                <number>59</number>
+               </property>
+               <property name="value">
+                <number>0</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lbl_colon2">
+               <property name="text">
+                <string>:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="spin_sec">
+               <property name="maximum">
+                <number>59</number>
+               </property>
+               <property name="value">
+                <number>0</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_set_time">
+               <property name="text">
+                <string>设置时间</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+
+           <item row="2" column="0">
+            <widget class="QLabel" name="lbl_param_combo">
+             <property name="text">
+              <string>参数组合：</string>
+             </property>
+            </widget>
+           </item>
+           <item row="2" column="1">
+            <widget class="QComboBox" name="cmb_param_combo">
+             <item>
+              <property name="text">
+               <string>完整 (HOUR MIN SEC)</string>
+              </property>
+             </item>
+            </widget>
+           </item>
+
+           <item row="3" column="0">
+            <widget class="QLabel" name="lbl_alarm">
+             <property name="text">
+              <string>闹钟：</string>
+             </property>
+            </widget>
+           </item>
+           <item row="3" column="1">
+            <layout class="QHBoxLayout" name="horizontalLayout_alarm">
+             <item>
+              <widget class="QSpinBox" name="spin_alarm_h">
+               <property name="maximum">
+                <number>23</number>
+               </property>
+               <property name="value">
+                <number>7</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lbl_colon3">
+               <property name="text">
+                <string>:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="spin_alarm_m">
+               <property name="maximum">
+                <number>59</number>
+               </property>
+               <property name="value">
+                <number>0</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLabel" name="lbl_colon4">
+               <property name="text">
+                <string>:</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="spin_alarm_s">
+               <property name="maximum">
+                <number>59</number>
+               </property>
+               <property name="value">
+                <number>0</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_set_alarm">
+               <property name="text">
+                <string>设置闹钟</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_close_alarm">
+               <property name="text">
+                <string>关闭闹钟</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+
+           <item row="4" column="0">
+            <widget class="QLabel" name="lbl_display">
+             <property name="text">
+              <string>显示：</string>
+             </property>
+            </widget>
+           </item>
+           <item row="4" column="1">
+            <layout class="QHBoxLayout" name="horizontalLayout_display">
+             <item>
+              <widget class="QPushButton" name="btn_disp_on">
+               <property name="text">
+                <string>开启</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_disp_off">
+               <property name="text">
+                <string>关闭</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+
+           <item row="5" column="0">
+            <widget class="QLabel" name="lbl_flow_dir">
+             <property name="text">
+              <string>流水方向：</string>
+             </property>
+            </widget>
+           </item>
+           <item row="5" column="1">
+            <layout class="QHBoxLayout" name="horizontalLayout_flow">
+             <item>
+              <widget class="QPushButton" name="btn_flow_left">
+               <property name="text">
+                <string>从左到右</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_flow_right">
+               <property name="text">
+                <string>从右到左</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+
+           <item row="6" column="0">
+            <widget class="QLabel" name="lbl_msg">
+             <property name="text">
+              <string>消息：</string>
+             </property>
+            </widget>
+           </item>
+           <item row="6" column="1">
+            <layout class="QHBoxLayout" name="horizontalLayout_msg">
+             <item>
+              <widget class="QLineEdit" name="edit_msg">
+               <property name="placeholderText">
+                <string>最多32个字符</string>
+               </property>
+               <property name="maxLength">
+                <number>32</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_send_msg">
+               <property name="text">
+                <string>发送消息</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+
+           <item row="7" column="0">
+            <widget class="QLabel" name="lbl_buzzer">
+             <property name="text">
+              <string>蜂鸣：</string>
+             </property>
+            </widget>
+           </item>
+           <item row="7" column="1">
+            <layout class="QHBoxLayout" name="horizontalLayout_buzzer">
+             <item>
+              <widget class="QSpinBox" name="spin_buzzer_ms">
+               <property name="maximum">
+                <number>2000</number>
+               </property>
+               <property name="value">
+                <number>500</number>
+               </property>
+               <property name="suffix">
+                <string> ms</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_set_buzzer">
+               <property name="text">
+                <string>蜂鸣</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+
+           <item row="8" column="0">
+            <widget class="QLabel" name="lbl_led_val">
+             <property name="text">
+              <string>LED值：</string>
+             </property>
+            </widget>
+           </item>
+           <item row="8" column="1">
+            <layout class="QHBoxLayout" name="horizontalLayout_led_val">
+             <item>
+              <widget class="QLineEdit" name="edit_led_val">
+               <property name="placeholderText">
+                <string>00...</string>
+               </property>
+               <property name="maxLength">
+                <number>2</number>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_set_led">
+               <property name="text">
+                <string>设置 LED</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+
+           <item row="9" column="0">
+            <widget class="QLabel" name="lbl_mode_type">
+             <property name="text">
+              <string>模式：</string>
+             </property>
+            </widget>
+           </item>
+           <item row="9" column="1">
+            <layout class="QHBoxLayout" name="horizontalLayout_mode">
+             <item>
+              <widget class="QPushButton" name="btn_day_mode">
+               <property name="text">
+                <string>白天模式</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_night_mode">
+               <property name="text">
+                <string>夜间模式</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+
+           <item row="10" column="0">
+            <widget class="QLabel" name="lbl_extra">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="10" column="1">
+            <layout class="QHBoxLayout" name="horizontalLayout_extra">
+             <item>
+              <widget class="QPushButton" name="btn_ntp_sync">
+               <property name="text">
+                <string>NTP 对时</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_weather">
+               <property name="text">
+                <string>获取天气</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+
+           <item row="11" column="0">
+            <widget class="QLabel" name="lbl_reset">
+             <property name="text">
+              <string/>
+             </property>
+            </widget>
+           </item>
+           <item row="11" column="1">
+            <layout class="QHBoxLayout" name="horizontalLayout_reset">
+             <item>
+              <widget class="QPushButton" name="btn_reset">
+               <property name="text">
+                <string>复位</string>
+               </property>
+               <property name="styleSheet">
+                <string notr="true">background-color: red; color: white;</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_ping">
+               <property name="text">
+                <string>PING</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+
+        <!-- 演示区 -->
+        <item>
+         <widget class="QGroupBox" name="grp_demo">
+          <property name="title">
+           <string>演示</string>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_demo">
+           <item>
+            <widget class="QLabel" name="lbl_demo_hint">
+             <property name="text">
+              <string>验证协议逻辑三件套：缩写规则 / 大小写不敏感</string>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignLeft</set>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_demo_btns">
+             <item>
+              <widget class="QPushButton" name="btn_cmd_demo">
+               <property name="text">
+                <string>缩写命令演示</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_case_demo">
+               <property name="text">
+                <string>大小写混合演示</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+          </layout>
+         </widget>
+        </item>
+
+        <!-- 查询区 -->
+        <item>
+         <widget class="QGroupBox" name="grp_query">
+          <property name="title">
+           <string>查询</string>
+          </property>
+          <layout class="QHBoxLayout" name="horizontalLayout_query">
+           <item>
+            <widget class="QPushButton" name="btn_get_date">
+             <property name="text">
+              <string>获取日期</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btn_get_time">
+             <property name="text">
+              <string>获取时间</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btn_get_alarm">
+             <property name="text">
+              <string>获取闹钟</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btn_get_disp">
+             <property name="text">
+              <string>获取显示</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="btn_get_fmt">
+             <property name="text">
+              <string>获取格式</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+     </widget>
+    </item>
+
+    <!-- 底部：通信日志（横跨全宽） -->
+    <item>
+     <widget class="QGroupBox" name="grp_log_full">
+      <property name="title">
+       <string>通信日志</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_log_full">
+       <item>
+        <widget class="QPlainTextEdit" name="txt_log">
+         <property name="readOnly">
+          <bool>true</bool>
+         </property>
+         <property name="placeholderText">
+          <string>日志输出区域（自动滚动）</string>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: #1E1E1E; color: #D4D4D4; font-family: 'Consolas', monospace;</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_log_ctrl">
+         <item>
+          <widget class="QPushButton" name="btn_clear_log">
+           <property name="text">
+            <string>清空日志</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btn_export_txt">
+           <property name="text">
+            <string>导出 TXT</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="btn_export_csv">
+           <property name="text">
+            <string>导出 CSV</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_log">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeType">
+            <enum>QSizePolicy::Expanding</enum>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QStatusBar" name="statusBar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
