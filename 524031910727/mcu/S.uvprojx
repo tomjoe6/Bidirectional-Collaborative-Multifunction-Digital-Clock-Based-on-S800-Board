@@ -382,7 +382,7 @@
             <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\firmware\main.c</FilePath>
+              <FilePath>.\src\main.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -414,7 +414,7 @@
       </component>
     </components>
     <files>
-      <file attr="config" category="source" condition="Compiler ARMCC" name="Device\Source\ARM\startup_TM4C129.s" version="0.0.0">
+      <file attr="config" category="source" condition="Compiler ARMCC" name="Device\Source\ARM\startup_TM4C129.s" version="1.0.0">
         <instance index="0">RTE\Device\TM4C1294NCPDT\startup_TM4C129.s</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.0" condition="TM4C129x CMSIS"/>
         <package name="TM4C_DFP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="Keil" version="1.1.0"/>
@@ -422,7 +422,7 @@
           <targetInfo name="Target 1"/>
         </targetInfos>
       </file>
-      <file attr="config" category="source" name="Device\Source\system_TM4C129.c" version="0.0.0">
+      <file attr="config" category="source" name="Device\Source\system_TM4C129.c" version="1.0.0">
         <instance index="0">RTE\Device\TM4C1294NCPDT\system_TM4C129.c</instance>
         <component Cclass="Device" Cgroup="Startup" Cvendor="Keil" Cversion="1.0.0" condition="TM4C129x CMSIS"/>
         <package name="TM4C_DFP" schemaVersion="1.2" url="http://www.keil.com/pack/" vendor="Keil" version="1.1.0"/>

@@ -137,6 +137,7 @@ Section Cross References
     main.o(i.Cmd_SET_MSG) refers to main.o(i.Protocol_SendResponse) for Protocol_SendResponse
     main.o(i.Cmd_SET_MSG) refers to strlen.o(.text) for strlen
     main.o(i.Cmd_SET_MSG) refers to main.o(i.Display_SetBuffer) for Display_SetBuffer
+    main.o(i.Cmd_SET_MSG) refers to main.o(.data) for g_msg_timeout
     main.o(i.Cmd_SET_TIME) refers to main.o(i.NextToken) for NextToken
     main.o(i.Cmd_SET_TIME) refers to main.o(i.Protocol_SendResponse) for Protocol_SendResponse
     main.o(i.Cmd_SET_TIME) refers to atoi.o(.text) for atoi
@@ -1205,189 +1206,189 @@ Image Symbol Table
     i.Cmd_PING                               0x00001428   Section        0  main.o(i.Cmd_PING)
     Cmd_PING                                 0x00001429   Thumb Code    22  main.o(i.Cmd_PING)
     i.Cmd_RST                                0x00001454   Section        0  main.o(i.Cmd_RST)
-    Cmd_RST                                  0x00001455   Thumb Code    54  main.o(i.Cmd_RST)
-    i.Cmd_SET_ALARM                          0x000014a8   Section        0  main.o(i.Cmd_SET_ALARM)
-    Cmd_SET_ALARM                            0x000014a9   Thumb Code   224  main.o(i.Cmd_SET_ALARM)
-    i.Cmd_SET_BEEP                           0x000015b8   Section        0  main.o(i.Cmd_SET_BEEP)
-    Cmd_SET_BEEP                             0x000015b9   Thumb Code    72  main.o(i.Cmd_SET_BEEP)
-    i.Cmd_SET_DATE                           0x00001614   Section        0  main.o(i.Cmd_SET_DATE)
-    Cmd_SET_DATE                             0x00001615   Thumb Code   256  main.o(i.Cmd_SET_DATE)
-    i.Cmd_SET_DISPLAY                        0x0000174c   Section        0  main.o(i.Cmd_SET_DISPLAY)
-    Cmd_SET_DISPLAY                          0x0000174d   Thumb Code   176  main.o(i.Cmd_SET_DISPLAY)
-    i.Cmd_SET_FORMAT                         0x00001844   Section        0  main.o(i.Cmd_SET_FORMAT)
-    Cmd_SET_FORMAT                           0x00001845   Thumb Code    78  main.o(i.Cmd_SET_FORMAT)
-    i.Cmd_SET_KEY                            0x000018b4   Section        0  main.o(i.Cmd_SET_KEY)
-    Cmd_SET_KEY                              0x000018b5   Thumb Code    74  main.o(i.Cmd_SET_KEY)
-    i.Cmd_SET_LED                            0x00001910   Section        0  main.o(i.Cmd_SET_LED)
-    Cmd_SET_LED                              0x00001911   Thumb Code    66  main.o(i.Cmd_SET_LED)
-    i.Cmd_SET_MODE                           0x0000196c   Section        0  main.o(i.Cmd_SET_MODE)
-    Cmd_SET_MODE                             0x0000196d   Thumb Code   106  main.o(i.Cmd_SET_MODE)
-    i.Cmd_SET_MSG                            0x000019f4   Section        0  main.o(i.Cmd_SET_MSG)
-    Cmd_SET_MSG                              0x000019f5   Thumb Code    60  main.o(i.Cmd_SET_MSG)
-    i.Cmd_SET_TIME                           0x00001a40   Section        0  main.o(i.Cmd_SET_TIME)
-    Cmd_SET_TIME                             0x00001a41   Thumb Code   186  main.o(i.Cmd_SET_TIME)
-    i.Display_FillFromBuffer                 0x00001b34   Section        0  main.o(i.Display_FillFromBuffer)
-    i.Display_FlowAdvance                    0x00001c78   Section        0  main.o(i.Display_FlowAdvance)
-    i.Display_GetSegCode                     0x00001cf4   Section        0  main.o(i.Display_GetSegCode)
-    i.Display_Init                           0x00001d58   Section        0  main.o(i.Display_Init)
-    i.Display_Scan                           0x00001dec   Section        0  main.o(i.Display_Scan)
-    i.Display_SetBuffer                      0x00001e64   Section        0  main.o(i.Display_SetBuffer)
-    i.Display_SetFormat                      0x00001eac   Section        0  main.o(i.Display_SetFormat)
-    i.Display_SetMode                        0x00001ed8   Section        0  main.o(i.Display_SetMode)
-    i.Display_SetNight                       0x00001ef4   Section        0  main.o(i.Display_SetNight)
-    i.Display_UpdateFromClock                0x00001f00   Section        0  main.o(i.Display_UpdateFromClock)
-    i.Events_1HzHandler                      0x00001fe8   Section        0  main.o(i.Events_1HzHandler)
-    i.Events_Enqueue                         0x00002028   Section        0  main.o(i.Events_Enqueue)
-    Events_Enqueue                           0x00002029   Thumb Code   152  main.o(i.Events_Enqueue)
-    i.Events_HasPending                      0x000020cc   Section        0  main.o(i.Events_HasPending)
-    i.Events_Init                            0x000020e0   Section        0  main.o(i.Events_Init)
-    i.Events_ReportAlarm                     0x00002138   Section        0  main.o(i.Events_ReportAlarm)
-    i.Events_ReportDisp                      0x00002174   Section        0  main.o(i.Events_ReportDisp)
-    i.Events_ReportKey                       0x000021cc   Section        0  main.o(i.Events_ReportKey)
-    i.Events_ReportLED                       0x00002200   Section        0  main.o(i.Events_ReportLED)
-    i.Events_ReportMode                      0x0000222c   Section        0  main.o(i.Events_ReportMode)
-    i.Events_SendNext                        0x00002268   Section        0  main.o(i.Events_SendNext)
-    i.GPIODirModeSet                         0x00002320   Section        0  gpio.o(i.GPIODirModeSet)
-    i.GPIOPadConfigSet                       0x00002348   Section        0  gpio.o(i.GPIOPadConfigSet)
-    i.GPIOPinConfigure                       0x00002480   Section        0  gpio.o(i.GPIOPinConfigure)
-    i.GPIOPinRead                            0x000024c4   Section        0  gpio.o(i.GPIOPinRead)
-    i.GPIOPinTypeGPIOInput                   0x000024ca   Section        0  gpio.o(i.GPIOPinTypeGPIOInput)
-    i.GPIOPinTypeGPIOOutput                  0x000024e6   Section        0  gpio.o(i.GPIOPinTypeGPIOOutput)
-    i.GPIOPinTypeI2C                         0x00002502   Section        0  gpio.o(i.GPIOPinTypeI2C)
-    i.GPIOPinTypeI2CSCL                      0x0000251e   Section        0  gpio.o(i.GPIOPinTypeI2CSCL)
-    i.GPIOPinTypeUART                        0x0000253a   Section        0  gpio.o(i.GPIOPinTypeUART)
-    i.GPIOPinWrite                           0x00002556   Section        0  gpio.o(i.GPIOPinWrite)
-    i.I2C0_ReadByte                          0x0000255c   Section        0  main.o(i.I2C0_ReadByte)
-    i.I2C0_WriteByte                         0x000025d8   Section        0  main.o(i.I2C0_WriteByte)
-    i.I2CMasterBusy                          0x0000264c   Section        0  i2c.o(i.I2CMasterBusy)
-    i.I2CMasterControl                       0x00002658   Section        0  i2c.o(i.I2CMasterControl)
-    i.I2CMasterDataGet                       0x0000265c   Section        0  i2c.o(i.I2CMasterDataGet)
-    i.I2CMasterDataPut                       0x00002660   Section        0  i2c.o(i.I2CMasterDataPut)
-    i.I2CMasterEnable                        0x00002664   Section        0  i2c.o(i.I2CMasterEnable)
-    i.I2CMasterErr                           0x0000266e   Section        0  i2c.o(i.I2CMasterErr)
-    i.I2CMasterInitExpClk                    0x00002688   Section        0  i2c.o(i.I2CMasterInitExpClk)
-    i.I2CMasterSlaveAddrSet                  0x000026dc   Section        0  i2c.o(i.I2CMasterSlaveAddrSet)
-    i.IntEnable                              0x000026e4   Section        0  interrupt.o(i.IntEnable)
-    i.IntMasterEnable                        0x00002748   Section        0  interrupt.o(i.IntMasterEnable)
-    i.Keys_CycleFunc                         0x00002758   Section        0  main.o(i.Keys_CycleFunc)
-    Keys_CycleFunc                           0x00002759   Thumb Code    68  main.o(i.Keys_CycleFunc)
-    i.Keys_Dispatch                          0x000027a0   Section        0  main.o(i.Keys_Dispatch)
-    Keys_Dispatch                            0x000027a1   Thumb Code   338  main.o(i.Keys_Dispatch)
-    i.Keys_EnterEdit                         0x00002954   Section        0  main.o(i.Keys_EnterEdit)
-    Keys_EnterEdit                           0x00002955   Thumb Code    34  main.o(i.Keys_EnterEdit)
-    i.Keys_ExitEditNoSave                    0x00002988   Section        0  main.o(i.Keys_ExitEditNoSave)
-    i.Keys_GetEditDisplay                    0x000029ac   Section        0  main.o(i.Keys_GetEditDisplay)
-    i.Keys_GetEditState                      0x00002a3c   Section        0  main.o(i.Keys_GetEditState)
-    i.Keys_GetEvent                          0x00002a48   Section        0  main.o(i.Keys_GetEvent)
-    i.Keys_GetFieldMax                       0x00002aa4   Section        0  main.o(i.Keys_GetFieldMax)
-    Keys_GetFieldMax                         0x00002aa5   Thumb Code   152  main.o(i.Keys_GetFieldMax)
-    i.Keys_GetFieldMin                       0x00002b48   Section        0  main.o(i.Keys_GetFieldMin)
-    Keys_GetFieldMin                         0x00002b49   Thumb Code    54  main.o(i.Keys_GetFieldMin)
-    i.Keys_GetKeyName                        0x00002b88   Section        0  main.o(i.Keys_GetKeyName)
-    i.Keys_IncrementField                    0x00002ba8   Section        0  main.o(i.Keys_IncrementField)
-    Keys_IncrementField                      0x00002ba9   Thumb Code   180  main.o(i.Keys_IncrementField)
-    i.Keys_Init                              0x00002c6c   Section        0  main.o(i.Keys_Init)
-    i.Keys_LoadEditTemp                      0x00002cd4   Section        0  main.o(i.Keys_LoadEditTemp)
-    Keys_LoadEditTemp                        0x00002cd5   Thumb Code    74  main.o(i.Keys_LoadEditTemp)
-    i.Keys_NextField                         0x00002d34   Section        0  main.o(i.Keys_NextField)
-    Keys_NextField                           0x00002d35   Thumb Code    64  main.o(i.Keys_NextField)
-    i.Keys_ReadRaw                           0x00002d7c   Section        0  main.o(i.Keys_ReadRaw)
-    Keys_ReadRaw                             0x00002d7d   Thumb Code   104  main.o(i.Keys_ReadRaw)
-    i.Keys_SaveEdit                          0x00002dec   Section        0  main.o(i.Keys_SaveEdit)
-    Keys_SaveEdit                            0x00002ded   Thumb Code    68  main.o(i.Keys_SaveEdit)
-    i.Keys_Scan10ms                          0x00002e44   Section        0  main.o(i.Keys_Scan10ms)
-    i.Keys_Simulate                          0x00002fac   Section        0  main.o(i.Keys_Simulate)
-    i.LED_Heartbeat                          0x00002fc0   Section        0  main.o(i.LED_Heartbeat)
-    i.LED_Init                               0x00002ffc   Section        0  main.o(i.LED_Init)
-    i.LED_RXFlash                            0x0000302c   Section        0  main.o(i.LED_RXFlash)
-    i.LED_Set                                0x00003054   Section        0  main.o(i.LED_Set)
-    i.LED_TXFlash                            0x00003084   Section        0  main.o(i.LED_TXFlash)
-    i.LED_UpdateFlashTimeout                 0x000030ac   Section        0  main.o(i.LED_UpdateFlashTimeout)
-    i.MatchAbbrev                            0x00003108   Section        0  main.o(i.MatchAbbrev)
-    MatchAbbrev                              0x00003109   Thumb Code   136  main.o(i.MatchAbbrev)
-    i.NextToken                              0x00003190   Section        0  main.o(i.NextToken)
-    NextToken                                0x00003191   Thumb Code    62  main.o(i.NextToken)
-    i.ParseHex2                              0x000031ce   Section        0  main.o(i.ParseHex2)
-    ParseHex2                                0x000031cf   Thumb Code   118  main.o(i.ParseHex2)
-    i.Protocol_CharReceived                  0x00003244   Section        0  main.o(i.Protocol_CharReceived)
-    i.Protocol_Init                          0x00003290   Section        0  main.o(i.Protocol_Init)
-    i.Protocol_ParseLine                     0x000032dc   Section        0  main.o(i.Protocol_ParseLine)
-    Protocol_ParseLine                       0x000032dd   Thumb Code   512  main.o(i.Protocol_ParseLine)
-    i.Protocol_Process                       0x0000353c   Section        0  main.o(i.Protocol_Process)
-    i.Protocol_SendOKData                    0x00003630   Section        0  main.o(i.Protocol_SendOKData)
-    Protocol_SendOKData                      0x00003631   Thumb Code   144  main.o(i.Protocol_SendOKData)
-    i.Protocol_SendResponse                  0x000036c4   Section        0  main.o(i.Protocol_SendResponse)
-    Protocol_SendResponse                    0x000036c5   Thumb Code    26  main.o(i.Protocol_SendResponse)
-    i.S800_GPIO_Init                         0x000036e0   Section        0  main.o(i.S800_GPIO_Init)
-    S800_GPIO_Init                           0x000036e1   Thumb Code    42  main.o(i.S800_GPIO_Init)
-    i.S800_I2C0_Init                         0x00003714   Section        0  main.o(i.S800_I2C0_Init)
-    S800_I2C0_Init                           0x00003715   Thumb Code   146  main.o(i.S800_I2C0_Init)
-    i.S800_UART_Init                         0x000037c4   Section        0  main.o(i.S800_UART_Init)
-    S800_UART_Init                           0x000037c5   Thumb Code    92  main.o(i.S800_UART_Init)
-    i.SkipSpaces                             0x00003830   Section        0  main.o(i.SkipSpaces)
-    SkipSpaces                               0x00003831   Thumb Code    18  main.o(i.SkipSpaces)
-    i.SysCtlClockFreqSet                     0x00003844   Section        0  sysctl.o(i.SysCtlClockFreqSet)
-    i.SysCtlPeripheralEnable                 0x00003b28   Section        0  sysctl.o(i.SysCtlPeripheralEnable)
-    i.SysCtlPeripheralReady                  0x00003b50   Section        0  sysctl.o(i.SysCtlPeripheralReady)
-    i.SysTickEnable                          0x00003b7c   Section        0  systick.o(i.SysTickEnable)
-    i.SysTickIntEnable                       0x00003b8a   Section        0  systick.o(i.SysTickIntEnable)
-    i.SysTickPeriodSet                       0x00003b98   Section        0  systick.o(i.SysTickPeriodSet)
-    i.SysTick_Handler                        0x00003ba4   Section        0  main.o(i.SysTick_Handler)
-    i.SystemInit                             0x00003c28   Section        0  system_tm4c129.o(i.SystemInit)
-    i.System_Init                            0x00003c48   Section        0  main.o(i.System_Init)
-    System_Init                              0x00003c49   Thumb Code   172  main.o(i.System_Init)
-    i.TIMER0A_Handler                        0x00003d28   Section        0  main.o(i.TIMER0A_Handler)
-    i.TimerConfigure                         0x00003d68   Section        0  timer.o(i.TimerConfigure)
-    i.TimerDisable                           0x00003dc8   Section        0  timer.o(i.TimerDisable)
-    i.TimerEnable                            0x00003dd8   Section        0  timer.o(i.TimerEnable)
-    i.TimerIntClear                          0x00003de6   Section        0  timer.o(i.TimerIntClear)
-    i.TimerIntEnable                         0x00003dea   Section        0  timer.o(i.TimerIntEnable)
-    i.TimerLoadSet                           0x00003df2   Section        0  timer.o(i.TimerLoadSet)
-    i.UART0_Handler                          0x00003e04   Section        0  main.o(i.UART0_Handler)
-    i.UART0_SendChar                         0x00003e3c   Section        0  main.o(i.UART0_SendChar)
-    i.UARTCharGetNonBlocking                 0x00003e50   Section        0  uart.o(i.UARTCharGetNonBlocking)
-    i.UARTCharPut                            0x00003e60   Section        0  uart.o(i.UARTCharPut)
-    i.UARTCharsAvail                         0x00003e6c   Section        0  uart.o(i.UARTCharsAvail)
-    i.UARTConfigSetExpClk                    0x00003e76   Section        0  uart.o(i.UARTConfigSetExpClk)
-    i.UARTFIFOLevelSet                       0x00003ee4   Section        0  uart.o(i.UARTFIFOLevelSet)
-    i.UARTIntClear                           0x00003eea   Section        0  uart.o(i.UARTIntClear)
-    i.UARTIntEnable                          0x00003eee   Section        0  uart.o(i.UARTIntEnable)
-    i.UARTIntStatus                          0x00003ef6   Section        0  uart.o(i.UARTIntStatus)
-    i.UpdateEditDisplay                      0x00003f00   Section        0  main.o(i.UpdateEditDisplay)
-    UpdateEditDisplay                        0x00003f01   Thumb Code   358  main.o(i.UpdateEditDisplay)
-    i._is_digit                              0x0000407c   Section        0  __printf_wp.o(i._is_digit)
-    i.main                                   0x0000408c   Section        0  main.o(i.main)
-    locale$$code                             0x00004440   Section       44  lc_ctype_c.o(locale$$code)
-    x$fpl$fpinit                             0x0000446c   Section       10  fpinit.o(x$fpl$fpinit)
-    $v0                                      0x0000446c   Number         0  fpinit.o(x$fpl$fpinit)
-    .constdata                               0x00004476   Section       48  main.o(.constdata)
-    month_days                               0x0000449a   Data          12  main.o(.constdata)
-    .constdata                               0x000044a8   Section      552  gpio.o(.constdata)
-    g_ppui32GPIOIntMapBlizzard               0x000044a8   Data         192  gpio.o(.constdata)
-    g_ppui32GPIOIntMapSnowflake              0x00004568   Data         216  gpio.o(.constdata)
-    g_pui32GPIOBaseAddrs                     0x00004640   Data         144  gpio.o(.constdata)
-    .constdata                               0x000046d0   Section      268  interrupt.o(.constdata)
-    g_pui32Priority                          0x000046d0   Data          32  interrupt.o(.constdata)
-    g_pui32Regs                              0x000046f0   Data         156  interrupt.o(.constdata)
-    g_pui32EnRegs                            0x0000478c   Data          20  interrupt.o(.constdata)
-    g_pui32Dii16Regs                         0x000047a0   Data          20  interrupt.o(.constdata)
-    g_pui32PendRegs                          0x000047b4   Data          20  interrupt.o(.constdata)
-    g_pui32UnpendRegs                        0x000047c8   Data          20  interrupt.o(.constdata)
-    .constdata                               0x000047dc   Section      596  sysctl.o(.constdata)
-    g_pui32VCOFrequencies                    0x000047dc   Data           8  sysctl.o(.constdata)
-    g_pui32Xtals                             0x000047e4   Data         108  sysctl.o(.constdata)
-    g_pppui32XTALtoVCO                       0x00004850   Data         432  sysctl.o(.constdata)
-    g_sXTALtoMEMTIM                          0x00004a00   Data          48  sysctl.o(.constdata)
-    .constdata                               0x00004a30   Section       40  _printf_hex_int.o(.constdata)
-    uc_hextab                                0x00004a30   Data          20  _printf_hex_int.o(.constdata)
-    lc_hextab                                0x00004a44   Data          20  _printf_hex_int.o(.constdata)
-    .constdata                               0x00004a58   Section       17  __printf_flags_ss_wp.o(.constdata)
-    maptable                                 0x00004a58   Data          17  __printf_flags_ss_wp.o(.constdata)
-    .conststring                             0x00004a6c   Section       72  main.o(.conststring)
-    locale$$data                             0x00004ad4   Section      272  lc_ctype_c.o(locale$$data)
-    __lcctype_c_name                         0x00004ad8   Data           2  lc_ctype_c.o(locale$$data)
-    __lcctype_c_start                        0x00004ae0   Data           0  lc_ctype_c.o(locale$$data)
-    __lcctype_c_end                          0x00004be4   Data           0  lc_ctype_c.o(locale$$data)
+    Cmd_RST                                  0x00001455   Thumb Code    66  main.o(i.Cmd_RST)
+    i.Cmd_SET_ALARM                          0x000014bc   Section        0  main.o(i.Cmd_SET_ALARM)
+    Cmd_SET_ALARM                            0x000014bd   Thumb Code   224  main.o(i.Cmd_SET_ALARM)
+    i.Cmd_SET_BEEP                           0x000015cc   Section        0  main.o(i.Cmd_SET_BEEP)
+    Cmd_SET_BEEP                             0x000015cd   Thumb Code    72  main.o(i.Cmd_SET_BEEP)
+    i.Cmd_SET_DATE                           0x00001628   Section        0  main.o(i.Cmd_SET_DATE)
+    Cmd_SET_DATE                             0x00001629   Thumb Code   256  main.o(i.Cmd_SET_DATE)
+    i.Cmd_SET_DISPLAY                        0x00001760   Section        0  main.o(i.Cmd_SET_DISPLAY)
+    Cmd_SET_DISPLAY                          0x00001761   Thumb Code   176  main.o(i.Cmd_SET_DISPLAY)
+    i.Cmd_SET_FORMAT                         0x00001858   Section        0  main.o(i.Cmd_SET_FORMAT)
+    Cmd_SET_FORMAT                           0x00001859   Thumb Code    78  main.o(i.Cmd_SET_FORMAT)
+    i.Cmd_SET_KEY                            0x000018c8   Section        0  main.o(i.Cmd_SET_KEY)
+    Cmd_SET_KEY                              0x000018c9   Thumb Code    74  main.o(i.Cmd_SET_KEY)
+    i.Cmd_SET_LED                            0x00001924   Section        0  main.o(i.Cmd_SET_LED)
+    Cmd_SET_LED                              0x00001925   Thumb Code    66  main.o(i.Cmd_SET_LED)
+    i.Cmd_SET_MODE                           0x00001980   Section        0  main.o(i.Cmd_SET_MODE)
+    Cmd_SET_MODE                             0x00001981   Thumb Code   106  main.o(i.Cmd_SET_MODE)
+    i.Cmd_SET_MSG                            0x00001a08   Section        0  main.o(i.Cmd_SET_MSG)
+    Cmd_SET_MSG                              0x00001a09   Thumb Code    78  main.o(i.Cmd_SET_MSG)
+    i.Cmd_SET_TIME                           0x00001a6c   Section        0  main.o(i.Cmd_SET_TIME)
+    Cmd_SET_TIME                             0x00001a6d   Thumb Code   186  main.o(i.Cmd_SET_TIME)
+    i.Display_FillFromBuffer                 0x00001b60   Section        0  main.o(i.Display_FillFromBuffer)
+    i.Display_FlowAdvance                    0x00001cb8   Section        0  main.o(i.Display_FlowAdvance)
+    i.Display_GetSegCode                     0x00001d34   Section        0  main.o(i.Display_GetSegCode)
+    i.Display_Init                           0x00001d98   Section        0  main.o(i.Display_Init)
+    i.Display_Scan                           0x00001e34   Section        0  main.o(i.Display_Scan)
+    i.Display_SetBuffer                      0x00001eac   Section        0  main.o(i.Display_SetBuffer)
+    i.Display_SetFormat                      0x00001efc   Section        0  main.o(i.Display_SetFormat)
+    i.Display_SetMode                        0x00001f28   Section        0  main.o(i.Display_SetMode)
+    i.Display_SetNight                       0x00001f50   Section        0  main.o(i.Display_SetNight)
+    i.Display_UpdateFromClock                0x00001f5c   Section        0  main.o(i.Display_UpdateFromClock)
+    i.Events_1HzHandler                      0x00002044   Section        0  main.o(i.Events_1HzHandler)
+    i.Events_Enqueue                         0x00002084   Section        0  main.o(i.Events_Enqueue)
+    Events_Enqueue                           0x00002085   Thumb Code   152  main.o(i.Events_Enqueue)
+    i.Events_HasPending                      0x00002128   Section        0  main.o(i.Events_HasPending)
+    i.Events_Init                            0x0000213c   Section        0  main.o(i.Events_Init)
+    i.Events_ReportAlarm                     0x00002194   Section        0  main.o(i.Events_ReportAlarm)
+    i.Events_ReportDisp                      0x000021d0   Section        0  main.o(i.Events_ReportDisp)
+    i.Events_ReportKey                       0x00002228   Section        0  main.o(i.Events_ReportKey)
+    i.Events_ReportLED                       0x0000225c   Section        0  main.o(i.Events_ReportLED)
+    i.Events_ReportMode                      0x00002288   Section        0  main.o(i.Events_ReportMode)
+    i.Events_SendNext                        0x000022c4   Section        0  main.o(i.Events_SendNext)
+    i.GPIODirModeSet                         0x0000237c   Section        0  gpio.o(i.GPIODirModeSet)
+    i.GPIOPadConfigSet                       0x000023a4   Section        0  gpio.o(i.GPIOPadConfigSet)
+    i.GPIOPinConfigure                       0x000024dc   Section        0  gpio.o(i.GPIOPinConfigure)
+    i.GPIOPinRead                            0x00002520   Section        0  gpio.o(i.GPIOPinRead)
+    i.GPIOPinTypeGPIOInput                   0x00002526   Section        0  gpio.o(i.GPIOPinTypeGPIOInput)
+    i.GPIOPinTypeGPIOOutput                  0x00002542   Section        0  gpio.o(i.GPIOPinTypeGPIOOutput)
+    i.GPIOPinTypeI2C                         0x0000255e   Section        0  gpio.o(i.GPIOPinTypeI2C)
+    i.GPIOPinTypeI2CSCL                      0x0000257a   Section        0  gpio.o(i.GPIOPinTypeI2CSCL)
+    i.GPIOPinTypeUART                        0x00002596   Section        0  gpio.o(i.GPIOPinTypeUART)
+    i.GPIOPinWrite                           0x000025b2   Section        0  gpio.o(i.GPIOPinWrite)
+    i.I2C0_ReadByte                          0x000025b8   Section        0  main.o(i.I2C0_ReadByte)
+    i.I2C0_WriteByte                         0x00002634   Section        0  main.o(i.I2C0_WriteByte)
+    i.I2CMasterBusy                          0x000026a8   Section        0  i2c.o(i.I2CMasterBusy)
+    i.I2CMasterControl                       0x000026b4   Section        0  i2c.o(i.I2CMasterControl)
+    i.I2CMasterDataGet                       0x000026b8   Section        0  i2c.o(i.I2CMasterDataGet)
+    i.I2CMasterDataPut                       0x000026bc   Section        0  i2c.o(i.I2CMasterDataPut)
+    i.I2CMasterEnable                        0x000026c0   Section        0  i2c.o(i.I2CMasterEnable)
+    i.I2CMasterErr                           0x000026ca   Section        0  i2c.o(i.I2CMasterErr)
+    i.I2CMasterInitExpClk                    0x000026e4   Section        0  i2c.o(i.I2CMasterInitExpClk)
+    i.I2CMasterSlaveAddrSet                  0x00002738   Section        0  i2c.o(i.I2CMasterSlaveAddrSet)
+    i.IntEnable                              0x00002740   Section        0  interrupt.o(i.IntEnable)
+    i.IntMasterEnable                        0x000027a4   Section        0  interrupt.o(i.IntMasterEnable)
+    i.Keys_CycleFunc                         0x000027b4   Section        0  main.o(i.Keys_CycleFunc)
+    Keys_CycleFunc                           0x000027b5   Thumb Code    68  main.o(i.Keys_CycleFunc)
+    i.Keys_Dispatch                          0x000027fc   Section        0  main.o(i.Keys_Dispatch)
+    Keys_Dispatch                            0x000027fd   Thumb Code   338  main.o(i.Keys_Dispatch)
+    i.Keys_EnterEdit                         0x000029b0   Section        0  main.o(i.Keys_EnterEdit)
+    Keys_EnterEdit                           0x000029b1   Thumb Code    34  main.o(i.Keys_EnterEdit)
+    i.Keys_ExitEditNoSave                    0x000029e4   Section        0  main.o(i.Keys_ExitEditNoSave)
+    i.Keys_GetEditDisplay                    0x00002a08   Section        0  main.o(i.Keys_GetEditDisplay)
+    i.Keys_GetEditState                      0x00002a98   Section        0  main.o(i.Keys_GetEditState)
+    i.Keys_GetEvent                          0x00002aa4   Section        0  main.o(i.Keys_GetEvent)
+    i.Keys_GetFieldMax                       0x00002b00   Section        0  main.o(i.Keys_GetFieldMax)
+    Keys_GetFieldMax                         0x00002b01   Thumb Code   152  main.o(i.Keys_GetFieldMax)
+    i.Keys_GetFieldMin                       0x00002ba4   Section        0  main.o(i.Keys_GetFieldMin)
+    Keys_GetFieldMin                         0x00002ba5   Thumb Code    54  main.o(i.Keys_GetFieldMin)
+    i.Keys_GetKeyName                        0x00002be4   Section        0  main.o(i.Keys_GetKeyName)
+    i.Keys_IncrementField                    0x00002c04   Section        0  main.o(i.Keys_IncrementField)
+    Keys_IncrementField                      0x00002c05   Thumb Code   180  main.o(i.Keys_IncrementField)
+    i.Keys_Init                              0x00002cc8   Section        0  main.o(i.Keys_Init)
+    i.Keys_LoadEditTemp                      0x00002d30   Section        0  main.o(i.Keys_LoadEditTemp)
+    Keys_LoadEditTemp                        0x00002d31   Thumb Code    74  main.o(i.Keys_LoadEditTemp)
+    i.Keys_NextField                         0x00002d90   Section        0  main.o(i.Keys_NextField)
+    Keys_NextField                           0x00002d91   Thumb Code    64  main.o(i.Keys_NextField)
+    i.Keys_ReadRaw                           0x00002dd8   Section        0  main.o(i.Keys_ReadRaw)
+    Keys_ReadRaw                             0x00002dd9   Thumb Code   104  main.o(i.Keys_ReadRaw)
+    i.Keys_SaveEdit                          0x00002e48   Section        0  main.o(i.Keys_SaveEdit)
+    Keys_SaveEdit                            0x00002e49   Thumb Code    68  main.o(i.Keys_SaveEdit)
+    i.Keys_Scan10ms                          0x00002ea0   Section        0  main.o(i.Keys_Scan10ms)
+    i.Keys_Simulate                          0x00003008   Section        0  main.o(i.Keys_Simulate)
+    i.LED_Heartbeat                          0x0000301c   Section        0  main.o(i.LED_Heartbeat)
+    i.LED_Init                               0x00003058   Section        0  main.o(i.LED_Init)
+    i.LED_RXFlash                            0x00003088   Section        0  main.o(i.LED_RXFlash)
+    i.LED_Set                                0x000030b0   Section        0  main.o(i.LED_Set)
+    i.LED_TXFlash                            0x000030e0   Section        0  main.o(i.LED_TXFlash)
+    i.LED_UpdateFlashTimeout                 0x00003108   Section        0  main.o(i.LED_UpdateFlashTimeout)
+    i.MatchAbbrev                            0x00003164   Section        0  main.o(i.MatchAbbrev)
+    MatchAbbrev                              0x00003165   Thumb Code   136  main.o(i.MatchAbbrev)
+    i.NextToken                              0x000031ec   Section        0  main.o(i.NextToken)
+    NextToken                                0x000031ed   Thumb Code    62  main.o(i.NextToken)
+    i.ParseHex2                              0x0000322a   Section        0  main.o(i.ParseHex2)
+    ParseHex2                                0x0000322b   Thumb Code   118  main.o(i.ParseHex2)
+    i.Protocol_CharReceived                  0x000032a0   Section        0  main.o(i.Protocol_CharReceived)
+    i.Protocol_Init                          0x000032ec   Section        0  main.o(i.Protocol_Init)
+    i.Protocol_ParseLine                     0x00003338   Section        0  main.o(i.Protocol_ParseLine)
+    Protocol_ParseLine                       0x00003339   Thumb Code   512  main.o(i.Protocol_ParseLine)
+    i.Protocol_Process                       0x00003598   Section        0  main.o(i.Protocol_Process)
+    i.Protocol_SendOKData                    0x0000368c   Section        0  main.o(i.Protocol_SendOKData)
+    Protocol_SendOKData                      0x0000368d   Thumb Code   144  main.o(i.Protocol_SendOKData)
+    i.Protocol_SendResponse                  0x00003720   Section        0  main.o(i.Protocol_SendResponse)
+    Protocol_SendResponse                    0x00003721   Thumb Code    26  main.o(i.Protocol_SendResponse)
+    i.S800_GPIO_Init                         0x0000373c   Section        0  main.o(i.S800_GPIO_Init)
+    S800_GPIO_Init                           0x0000373d   Thumb Code    42  main.o(i.S800_GPIO_Init)
+    i.S800_I2C0_Init                         0x00003770   Section        0  main.o(i.S800_I2C0_Init)
+    S800_I2C0_Init                           0x00003771   Thumb Code   146  main.o(i.S800_I2C0_Init)
+    i.S800_UART_Init                         0x00003820   Section        0  main.o(i.S800_UART_Init)
+    S800_UART_Init                           0x00003821   Thumb Code    92  main.o(i.S800_UART_Init)
+    i.SkipSpaces                             0x0000388c   Section        0  main.o(i.SkipSpaces)
+    SkipSpaces                               0x0000388d   Thumb Code    18  main.o(i.SkipSpaces)
+    i.SysCtlClockFreqSet                     0x000038a0   Section        0  sysctl.o(i.SysCtlClockFreqSet)
+    i.SysCtlPeripheralEnable                 0x00003b84   Section        0  sysctl.o(i.SysCtlPeripheralEnable)
+    i.SysCtlPeripheralReady                  0x00003bac   Section        0  sysctl.o(i.SysCtlPeripheralReady)
+    i.SysTickEnable                          0x00003bd8   Section        0  systick.o(i.SysTickEnable)
+    i.SysTickIntEnable                       0x00003be6   Section        0  systick.o(i.SysTickIntEnable)
+    i.SysTickPeriodSet                       0x00003bf4   Section        0  systick.o(i.SysTickPeriodSet)
+    i.SysTick_Handler                        0x00003c00   Section        0  main.o(i.SysTick_Handler)
+    i.SystemInit                             0x00003c84   Section        0  system_tm4c129.o(i.SystemInit)
+    i.System_Init                            0x00003ca4   Section        0  main.o(i.System_Init)
+    System_Init                              0x00003ca5   Thumb Code   172  main.o(i.System_Init)
+    i.TIMER0A_Handler                        0x00003d84   Section        0  main.o(i.TIMER0A_Handler)
+    i.TimerConfigure                         0x00003dc4   Section        0  timer.o(i.TimerConfigure)
+    i.TimerDisable                           0x00003e24   Section        0  timer.o(i.TimerDisable)
+    i.TimerEnable                            0x00003e34   Section        0  timer.o(i.TimerEnable)
+    i.TimerIntClear                          0x00003e42   Section        0  timer.o(i.TimerIntClear)
+    i.TimerIntEnable                         0x00003e46   Section        0  timer.o(i.TimerIntEnable)
+    i.TimerLoadSet                           0x00003e4e   Section        0  timer.o(i.TimerLoadSet)
+    i.UART0_Handler                          0x00003e60   Section        0  main.o(i.UART0_Handler)
+    i.UART0_SendChar                         0x00003e98   Section        0  main.o(i.UART0_SendChar)
+    i.UARTCharGetNonBlocking                 0x00003eac   Section        0  uart.o(i.UARTCharGetNonBlocking)
+    i.UARTCharPut                            0x00003ebc   Section        0  uart.o(i.UARTCharPut)
+    i.UARTCharsAvail                         0x00003ec8   Section        0  uart.o(i.UARTCharsAvail)
+    i.UARTConfigSetExpClk                    0x00003ed2   Section        0  uart.o(i.UARTConfigSetExpClk)
+    i.UARTFIFOLevelSet                       0x00003f40   Section        0  uart.o(i.UARTFIFOLevelSet)
+    i.UARTIntClear                           0x00003f46   Section        0  uart.o(i.UARTIntClear)
+    i.UARTIntEnable                          0x00003f4a   Section        0  uart.o(i.UARTIntEnable)
+    i.UARTIntStatus                          0x00003f52   Section        0  uart.o(i.UARTIntStatus)
+    i.UpdateEditDisplay                      0x00003f5c   Section        0  main.o(i.UpdateEditDisplay)
+    UpdateEditDisplay                        0x00003f5d   Thumb Code   358  main.o(i.UpdateEditDisplay)
+    i._is_digit                              0x000040d8   Section        0  __printf_wp.o(i._is_digit)
+    i.main                                   0x000040e8   Section        0  main.o(i.main)
+    locale$$code                             0x000044e4   Section       44  lc_ctype_c.o(locale$$code)
+    x$fpl$fpinit                             0x00004510   Section       10  fpinit.o(x$fpl$fpinit)
+    $v0                                      0x00004510   Number         0  fpinit.o(x$fpl$fpinit)
+    .constdata                               0x0000451a   Section       48  main.o(.constdata)
+    month_days                               0x0000453e   Data          12  main.o(.constdata)
+    .constdata                               0x0000454c   Section      552  gpio.o(.constdata)
+    g_ppui32GPIOIntMapBlizzard               0x0000454c   Data         192  gpio.o(.constdata)
+    g_ppui32GPIOIntMapSnowflake              0x0000460c   Data         216  gpio.o(.constdata)
+    g_pui32GPIOBaseAddrs                     0x000046e4   Data         144  gpio.o(.constdata)
+    .constdata                               0x00004774   Section      268  interrupt.o(.constdata)
+    g_pui32Priority                          0x00004774   Data          32  interrupt.o(.constdata)
+    g_pui32Regs                              0x00004794   Data         156  interrupt.o(.constdata)
+    g_pui32EnRegs                            0x00004830   Data          20  interrupt.o(.constdata)
+    g_pui32Dii16Regs                         0x00004844   Data          20  interrupt.o(.constdata)
+    g_pui32PendRegs                          0x00004858   Data          20  interrupt.o(.constdata)
+    g_pui32UnpendRegs                        0x0000486c   Data          20  interrupt.o(.constdata)
+    .constdata                               0x00004880   Section      596  sysctl.o(.constdata)
+    g_pui32VCOFrequencies                    0x00004880   Data           8  sysctl.o(.constdata)
+    g_pui32Xtals                             0x00004888   Data         108  sysctl.o(.constdata)
+    g_pppui32XTALtoVCO                       0x000048f4   Data         432  sysctl.o(.constdata)
+    g_sXTALtoMEMTIM                          0x00004aa4   Data          48  sysctl.o(.constdata)
+    .constdata                               0x00004ad4   Section       40  _printf_hex_int.o(.constdata)
+    uc_hextab                                0x00004ad4   Data          20  _printf_hex_int.o(.constdata)
+    lc_hextab                                0x00004ae8   Data          20  _printf_hex_int.o(.constdata)
+    .constdata                               0x00004afc   Section       17  __printf_flags_ss_wp.o(.constdata)
+    maptable                                 0x00004afc   Data          17  __printf_flags_ss_wp.o(.constdata)
+    .conststring                             0x00004b10   Section       72  main.o(.conststring)
+    locale$$data                             0x00004b78   Section      272  lc_ctype_c.o(locale$$data)
+    __lcctype_c_name                         0x00004b7c   Data           2  lc_ctype_c.o(locale$$data)
+    __lcctype_c_start                        0x00004b84   Data           0  lc_ctype_c.o(locale$$data)
+    __lcctype_c_end                          0x00004c88   Data           0  lc_ctype_c.o(locale$$data)
     .data                                    0x20000000   Section      189  main.o(.data)
     g_boot_phase                             0x2000001c   Data           1  main.o(.data)
     g_boot_timer                             0x2000001e   Data           2  main.o(.data)
@@ -1721,100 +1722,100 @@ Image Symbol Table
     Clock_Init                               0x0000119d   Thumb Code    52  main.o(i.Clock_Init)
     Clock_IsLeapYear                         0x000011d5   Thumb Code    62  main.o(i.Clock_IsLeapYear)
     Clock_Tick                               0x00001215   Thumb Code   182  main.o(i.Clock_Tick)
-    Display_FillFromBuffer                   0x00001b35   Thumb Code   300  main.o(i.Display_FillFromBuffer)
-    Display_FlowAdvance                      0x00001c79   Thumb Code   102  main.o(i.Display_FlowAdvance)
-    Display_GetSegCode                       0x00001cf5   Thumb Code    92  main.o(i.Display_GetSegCode)
-    Display_Init                             0x00001d59   Thumb Code   100  main.o(i.Display_Init)
-    Display_Scan                             0x00001ded   Thumb Code   104  main.o(i.Display_Scan)
-    Display_SetBuffer                        0x00001e65   Thumb Code    58  main.o(i.Display_SetBuffer)
-    Display_SetFormat                        0x00001ead   Thumb Code    34  main.o(i.Display_SetFormat)
-    Display_SetMode                          0x00001ed9   Thumb Code    20  main.o(i.Display_SetMode)
-    Display_SetNight                         0x00001ef5   Thumb Code     6  main.o(i.Display_SetNight)
-    Display_UpdateFromClock                  0x00001f01   Thumb Code   186  main.o(i.Display_UpdateFromClock)
-    Events_1HzHandler                        0x00001fe9   Thumb Code    46  main.o(i.Events_1HzHandler)
-    Events_HasPending                        0x000020cd   Thumb Code    16  main.o(i.Events_HasPending)
-    Events_Init                              0x000020e1   Thumb Code    68  main.o(i.Events_Init)
-    Events_ReportAlarm                       0x00002139   Thumb Code    22  main.o(i.Events_ReportAlarm)
-    Events_ReportDisp                        0x00002175   Thumb Code    68  main.o(i.Events_ReportDisp)
-    Events_ReportKey                         0x000021cd   Thumb Code    34  main.o(i.Events_ReportKey)
-    Events_ReportLED                         0x00002201   Thumb Code    26  main.o(i.Events_ReportLED)
-    Events_ReportMode                        0x0000222d   Thumb Code    24  main.o(i.Events_ReportMode)
-    Events_SendNext                          0x00002269   Thumb Code   168  main.o(i.Events_SendNext)
-    GPIODirModeSet                           0x00002321   Thumb Code    40  gpio.o(i.GPIODirModeSet)
-    GPIOPadConfigSet                         0x00002349   Thumb Code   312  gpio.o(i.GPIOPadConfigSet)
-    GPIOPinConfigure                         0x00002481   Thumb Code    60  gpio.o(i.GPIOPinConfigure)
-    GPIOPinRead                              0x000024c5   Thumb Code     6  gpio.o(i.GPIOPinRead)
-    GPIOPinTypeGPIOInput                     0x000024cb   Thumb Code    28  gpio.o(i.GPIOPinTypeGPIOInput)
-    GPIOPinTypeGPIOOutput                    0x000024e7   Thumb Code    28  gpio.o(i.GPIOPinTypeGPIOOutput)
-    GPIOPinTypeI2C                           0x00002503   Thumb Code    28  gpio.o(i.GPIOPinTypeI2C)
-    GPIOPinTypeI2CSCL                        0x0000251f   Thumb Code    28  gpio.o(i.GPIOPinTypeI2CSCL)
-    GPIOPinTypeUART                          0x0000253b   Thumb Code    28  gpio.o(i.GPIOPinTypeUART)
-    GPIOPinWrite                             0x00002557   Thumb Code     6  gpio.o(i.GPIOPinWrite)
-    I2C0_ReadByte                            0x0000255d   Thumb Code   118  main.o(i.I2C0_ReadByte)
-    I2C0_WriteByte                           0x000025d9   Thumb Code   110  main.o(i.I2C0_WriteByte)
-    I2CMasterBusy                            0x0000264d   Thumb Code    12  i2c.o(i.I2CMasterBusy)
-    I2CMasterControl                         0x00002659   Thumb Code     4  i2c.o(i.I2CMasterControl)
-    I2CMasterDataGet                         0x0000265d   Thumb Code     4  i2c.o(i.I2CMasterDataGet)
-    I2CMasterDataPut                         0x00002661   Thumb Code     4  i2c.o(i.I2CMasterDataPut)
-    I2CMasterEnable                          0x00002665   Thumb Code    10  i2c.o(i.I2CMasterEnable)
-    I2CMasterErr                             0x0000266f   Thumb Code    24  i2c.o(i.I2CMasterErr)
-    I2CMasterInitExpClk                      0x00002689   Thumb Code    72  i2c.o(i.I2CMasterInitExpClk)
-    I2CMasterSlaveAddrSet                    0x000026dd   Thumb Code     8  i2c.o(i.I2CMasterSlaveAddrSet)
-    IntEnable                                0x000026e5   Thumb Code    92  interrupt.o(i.IntEnable)
-    IntMasterEnable                          0x00002749   Thumb Code    14  interrupt.o(i.IntMasterEnable)
-    Keys_ExitEditNoSave                      0x00002989   Thumb Code    20  main.o(i.Keys_ExitEditNoSave)
-    Keys_GetEditDisplay                      0x000029ad   Thumb Code   116  main.o(i.Keys_GetEditDisplay)
-    Keys_GetEditState                        0x00002a3d   Thumb Code     6  main.o(i.Keys_GetEditState)
-    Keys_GetEvent                            0x00002a49   Thumb Code    82  main.o(i.Keys_GetEvent)
-    Keys_GetKeyName                          0x00002b89   Thumb Code    18  main.o(i.Keys_GetKeyName)
-    Keys_Init                                0x00002c6d   Thumb Code    62  main.o(i.Keys_Init)
-    Keys_Scan10ms                            0x00002e45   Thumb Code   318  main.o(i.Keys_Scan10ms)
-    Keys_Simulate                            0x00002fad   Thumb Code    18  main.o(i.Keys_Simulate)
-    LED_Heartbeat                            0x00002fc1   Thumb Code    50  main.o(i.LED_Heartbeat)
-    LED_Init                                 0x00002ffd   Thumb Code    32  main.o(i.LED_Init)
-    LED_RXFlash                              0x0000302d   Thumb Code    30  main.o(i.LED_RXFlash)
-    LED_Set                                  0x00003055   Thumb Code    44  main.o(i.LED_Set)
-    LED_TXFlash                              0x00003085   Thumb Code    30  main.o(i.LED_TXFlash)
-    LED_UpdateFlashTimeout                   0x000030ad   Thumb Code    80  main.o(i.LED_UpdateFlashTimeout)
-    Protocol_CharReceived                    0x00003245   Thumb Code    58  main.o(i.Protocol_CharReceived)
-    Protocol_Init                            0x00003291   Thumb Code    46  main.o(i.Protocol_Init)
-    Protocol_Process                         0x0000353d   Thumb Code   210  main.o(i.Protocol_Process)
-    SysCtlClockFreqSet                       0x00003845   Thumb Code   700  sysctl.o(i.SysCtlClockFreqSet)
-    SysCtlPeripheralEnable                   0x00003b29   Thumb Code    36  sysctl.o(i.SysCtlPeripheralEnable)
-    SysCtlPeripheralReady                    0x00003b51   Thumb Code    40  sysctl.o(i.SysCtlPeripheralReady)
-    SysTickEnable                            0x00003b7d   Thumb Code    14  systick.o(i.SysTickEnable)
-    SysTickIntEnable                         0x00003b8b   Thumb Code    14  systick.o(i.SysTickIntEnable)
-    SysTickPeriodSet                         0x00003b99   Thumb Code    10  systick.o(i.SysTickPeriodSet)
-    SysTick_Handler                          0x00003ba5   Thumb Code   104  main.o(i.SysTick_Handler)
-    SystemInit                               0x00003c29   Thumb Code    20  system_tm4c129.o(i.SystemInit)
-    TIMER0A_Handler                          0x00003d29   Thumb Code    50  main.o(i.TIMER0A_Handler)
-    TimerConfigure                           0x00003d69   Thumb Code    88  timer.o(i.TimerConfigure)
-    TimerDisable                             0x00003dc9   Thumb Code    16  timer.o(i.TimerDisable)
-    TimerEnable                              0x00003dd9   Thumb Code    14  timer.o(i.TimerEnable)
-    TimerIntClear                            0x00003de7   Thumb Code     4  timer.o(i.TimerIntClear)
-    TimerIntEnable                           0x00003deb   Thumb Code     8  timer.o(i.TimerIntEnable)
-    TimerLoadSet                             0x00003df3   Thumb Code    18  timer.o(i.TimerLoadSet)
-    UART0_Handler                            0x00003e05   Thumb Code    52  main.o(i.UART0_Handler)
-    UART0_SendChar                           0x00003e3d   Thumb Code    14  main.o(i.UART0_SendChar)
-    UARTCharGetNonBlocking                   0x00003e51   Thumb Code    16  uart.o(i.UARTCharGetNonBlocking)
-    UARTCharPut                              0x00003e61   Thumb Code    12  uart.o(i.UARTCharPut)
-    UARTCharsAvail                           0x00003e6d   Thumb Code    10  uart.o(i.UARTCharsAvail)
-    UARTConfigSetExpClk                      0x00003e77   Thumb Code   110  uart.o(i.UARTConfigSetExpClk)
-    UARTFIFOLevelSet                         0x00003ee5   Thumb Code     6  uart.o(i.UARTFIFOLevelSet)
-    UARTIntClear                             0x00003eeb   Thumb Code     4  uart.o(i.UARTIntClear)
-    UARTIntEnable                            0x00003eef   Thumb Code     8  uart.o(i.UARTIntEnable)
-    UARTIntStatus                            0x00003ef7   Thumb Code    10  uart.o(i.UARTIntStatus)
-    _is_digit                                0x0000407d   Thumb Code    14  __printf_wp.o(i._is_digit)
-    main                                     0x0000408d   Thumb Code   856  main.o(i.main)
-    _get_lc_ctype                            0x00004441   Thumb Code    44  lc_ctype_c.o(locale$$code)
-    _fp_init                                 0x0000446d   Thumb Code    10  fpinit.o(x$fpl$fpinit)
-    __fplib_config_fpu_vfp                   0x00004475   Thumb Code     0  fpinit.o(x$fpl$fpinit)
-    __fplib_config_pureend_doubles           0x00004475   Thumb Code     0  fpinit.o(x$fpl$fpinit)
-    g_seg_table_num                          0x00004476   Data          10  main.o(.constdata)
-    g_seg_table_alpha                        0x00004480   Data          26  main.o(.constdata)
-    Region$$Table$$Base                      0x00004ab4   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x00004ad4   Number         0  anon$$obj.o(Region$$Table)
-    __ctype                                  0x00004ae1   Data           0  lc_ctype_c.o(locale$$data)
+    Display_FillFromBuffer                   0x00001b61   Thumb Code   320  main.o(i.Display_FillFromBuffer)
+    Display_FlowAdvance                      0x00001cb9   Thumb Code   102  main.o(i.Display_FlowAdvance)
+    Display_GetSegCode                       0x00001d35   Thumb Code    92  main.o(i.Display_GetSegCode)
+    Display_Init                             0x00001d99   Thumb Code   104  main.o(i.Display_Init)
+    Display_Scan                             0x00001e35   Thumb Code   104  main.o(i.Display_Scan)
+    Display_SetBuffer                        0x00001ead   Thumb Code    62  main.o(i.Display_SetBuffer)
+    Display_SetFormat                        0x00001efd   Thumb Code    34  main.o(i.Display_SetFormat)
+    Display_SetMode                          0x00001f29   Thumb Code    26  main.o(i.Display_SetMode)
+    Display_SetNight                         0x00001f51   Thumb Code     6  main.o(i.Display_SetNight)
+    Display_UpdateFromClock                  0x00001f5d   Thumb Code   186  main.o(i.Display_UpdateFromClock)
+    Events_1HzHandler                        0x00002045   Thumb Code    46  main.o(i.Events_1HzHandler)
+    Events_HasPending                        0x00002129   Thumb Code    16  main.o(i.Events_HasPending)
+    Events_Init                              0x0000213d   Thumb Code    68  main.o(i.Events_Init)
+    Events_ReportAlarm                       0x00002195   Thumb Code    22  main.o(i.Events_ReportAlarm)
+    Events_ReportDisp                        0x000021d1   Thumb Code    68  main.o(i.Events_ReportDisp)
+    Events_ReportKey                         0x00002229   Thumb Code    34  main.o(i.Events_ReportKey)
+    Events_ReportLED                         0x0000225d   Thumb Code    26  main.o(i.Events_ReportLED)
+    Events_ReportMode                        0x00002289   Thumb Code    24  main.o(i.Events_ReportMode)
+    Events_SendNext                          0x000022c5   Thumb Code   168  main.o(i.Events_SendNext)
+    GPIODirModeSet                           0x0000237d   Thumb Code    40  gpio.o(i.GPIODirModeSet)
+    GPIOPadConfigSet                         0x000023a5   Thumb Code   312  gpio.o(i.GPIOPadConfigSet)
+    GPIOPinConfigure                         0x000024dd   Thumb Code    60  gpio.o(i.GPIOPinConfigure)
+    GPIOPinRead                              0x00002521   Thumb Code     6  gpio.o(i.GPIOPinRead)
+    GPIOPinTypeGPIOInput                     0x00002527   Thumb Code    28  gpio.o(i.GPIOPinTypeGPIOInput)
+    GPIOPinTypeGPIOOutput                    0x00002543   Thumb Code    28  gpio.o(i.GPIOPinTypeGPIOOutput)
+    GPIOPinTypeI2C                           0x0000255f   Thumb Code    28  gpio.o(i.GPIOPinTypeI2C)
+    GPIOPinTypeI2CSCL                        0x0000257b   Thumb Code    28  gpio.o(i.GPIOPinTypeI2CSCL)
+    GPIOPinTypeUART                          0x00002597   Thumb Code    28  gpio.o(i.GPIOPinTypeUART)
+    GPIOPinWrite                             0x000025b3   Thumb Code     6  gpio.o(i.GPIOPinWrite)
+    I2C0_ReadByte                            0x000025b9   Thumb Code   118  main.o(i.I2C0_ReadByte)
+    I2C0_WriteByte                           0x00002635   Thumb Code   110  main.o(i.I2C0_WriteByte)
+    I2CMasterBusy                            0x000026a9   Thumb Code    12  i2c.o(i.I2CMasterBusy)
+    I2CMasterControl                         0x000026b5   Thumb Code     4  i2c.o(i.I2CMasterControl)
+    I2CMasterDataGet                         0x000026b9   Thumb Code     4  i2c.o(i.I2CMasterDataGet)
+    I2CMasterDataPut                         0x000026bd   Thumb Code     4  i2c.o(i.I2CMasterDataPut)
+    I2CMasterEnable                          0x000026c1   Thumb Code    10  i2c.o(i.I2CMasterEnable)
+    I2CMasterErr                             0x000026cb   Thumb Code    24  i2c.o(i.I2CMasterErr)
+    I2CMasterInitExpClk                      0x000026e5   Thumb Code    72  i2c.o(i.I2CMasterInitExpClk)
+    I2CMasterSlaveAddrSet                    0x00002739   Thumb Code     8  i2c.o(i.I2CMasterSlaveAddrSet)
+    IntEnable                                0x00002741   Thumb Code    92  interrupt.o(i.IntEnable)
+    IntMasterEnable                          0x000027a5   Thumb Code    14  interrupt.o(i.IntMasterEnable)
+    Keys_ExitEditNoSave                      0x000029e5   Thumb Code    20  main.o(i.Keys_ExitEditNoSave)
+    Keys_GetEditDisplay                      0x00002a09   Thumb Code   116  main.o(i.Keys_GetEditDisplay)
+    Keys_GetEditState                        0x00002a99   Thumb Code     6  main.o(i.Keys_GetEditState)
+    Keys_GetEvent                            0x00002aa5   Thumb Code    82  main.o(i.Keys_GetEvent)
+    Keys_GetKeyName                          0x00002be5   Thumb Code    18  main.o(i.Keys_GetKeyName)
+    Keys_Init                                0x00002cc9   Thumb Code    62  main.o(i.Keys_Init)
+    Keys_Scan10ms                            0x00002ea1   Thumb Code   318  main.o(i.Keys_Scan10ms)
+    Keys_Simulate                            0x00003009   Thumb Code    18  main.o(i.Keys_Simulate)
+    LED_Heartbeat                            0x0000301d   Thumb Code    50  main.o(i.LED_Heartbeat)
+    LED_Init                                 0x00003059   Thumb Code    32  main.o(i.LED_Init)
+    LED_RXFlash                              0x00003089   Thumb Code    30  main.o(i.LED_RXFlash)
+    LED_Set                                  0x000030b1   Thumb Code    44  main.o(i.LED_Set)
+    LED_TXFlash                              0x000030e1   Thumb Code    30  main.o(i.LED_TXFlash)
+    LED_UpdateFlashTimeout                   0x00003109   Thumb Code    80  main.o(i.LED_UpdateFlashTimeout)
+    Protocol_CharReceived                    0x000032a1   Thumb Code    58  main.o(i.Protocol_CharReceived)
+    Protocol_Init                            0x000032ed   Thumb Code    46  main.o(i.Protocol_Init)
+    Protocol_Process                         0x00003599   Thumb Code   210  main.o(i.Protocol_Process)
+    SysCtlClockFreqSet                       0x000038a1   Thumb Code   700  sysctl.o(i.SysCtlClockFreqSet)
+    SysCtlPeripheralEnable                   0x00003b85   Thumb Code    36  sysctl.o(i.SysCtlPeripheralEnable)
+    SysCtlPeripheralReady                    0x00003bad   Thumb Code    40  sysctl.o(i.SysCtlPeripheralReady)
+    SysTickEnable                            0x00003bd9   Thumb Code    14  systick.o(i.SysTickEnable)
+    SysTickIntEnable                         0x00003be7   Thumb Code    14  systick.o(i.SysTickIntEnable)
+    SysTickPeriodSet                         0x00003bf5   Thumb Code    10  systick.o(i.SysTickPeriodSet)
+    SysTick_Handler                          0x00003c01   Thumb Code   104  main.o(i.SysTick_Handler)
+    SystemInit                               0x00003c85   Thumb Code    20  system_tm4c129.o(i.SystemInit)
+    TIMER0A_Handler                          0x00003d85   Thumb Code    50  main.o(i.TIMER0A_Handler)
+    TimerConfigure                           0x00003dc5   Thumb Code    88  timer.o(i.TimerConfigure)
+    TimerDisable                             0x00003e25   Thumb Code    16  timer.o(i.TimerDisable)
+    TimerEnable                              0x00003e35   Thumb Code    14  timer.o(i.TimerEnable)
+    TimerIntClear                            0x00003e43   Thumb Code     4  timer.o(i.TimerIntClear)
+    TimerIntEnable                           0x00003e47   Thumb Code     8  timer.o(i.TimerIntEnable)
+    TimerLoadSet                             0x00003e4f   Thumb Code    18  timer.o(i.TimerLoadSet)
+    UART0_Handler                            0x00003e61   Thumb Code    52  main.o(i.UART0_Handler)
+    UART0_SendChar                           0x00003e99   Thumb Code    14  main.o(i.UART0_SendChar)
+    UARTCharGetNonBlocking                   0x00003ead   Thumb Code    16  uart.o(i.UARTCharGetNonBlocking)
+    UARTCharPut                              0x00003ebd   Thumb Code    12  uart.o(i.UARTCharPut)
+    UARTCharsAvail                           0x00003ec9   Thumb Code    10  uart.o(i.UARTCharsAvail)
+    UARTConfigSetExpClk                      0x00003ed3   Thumb Code   110  uart.o(i.UARTConfigSetExpClk)
+    UARTFIFOLevelSet                         0x00003f41   Thumb Code     6  uart.o(i.UARTFIFOLevelSet)
+    UARTIntClear                             0x00003f47   Thumb Code     4  uart.o(i.UARTIntClear)
+    UARTIntEnable                            0x00003f4b   Thumb Code     8  uart.o(i.UARTIntEnable)
+    UARTIntStatus                            0x00003f53   Thumb Code    10  uart.o(i.UARTIntStatus)
+    _is_digit                                0x000040d9   Thumb Code    14  __printf_wp.o(i._is_digit)
+    main                                     0x000040e9   Thumb Code   920  main.o(i.main)
+    _get_lc_ctype                            0x000044e5   Thumb Code    44  lc_ctype_c.o(locale$$code)
+    _fp_init                                 0x00004511   Thumb Code    10  fpinit.o(x$fpl$fpinit)
+    __fplib_config_fpu_vfp                   0x00004519   Thumb Code     0  fpinit.o(x$fpl$fpinit)
+    __fplib_config_pureend_doubles           0x00004519   Thumb Code     0  fpinit.o(x$fpl$fpinit)
+    g_seg_table_num                          0x0000451a   Data          10  main.o(.constdata)
+    g_seg_table_alpha                        0x00004524   Data          26  main.o(.constdata)
+    Region$$Table$$Base                      0x00004b58   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x00004b78   Number         0  anon$$obj.o(Region$$Table)
+    __ctype                                  0x00004b85   Data           0  lc_ctype_c.o(locale$$data)
     g_ui32SysClock                           0x20000000   Data           4  main.o(.data)
     g_flag_1ms                               0x20000004   Data           1  main.o(.data)
     g_flag_10ms                              0x20000005   Data           1  main.o(.data)
@@ -1842,6 +1843,7 @@ Image Symbol Table
     g_flow_speed                             0x2000005d   Data           1  main.o(.data)
     g_flow_delay                             0x2000005e   Data           2  main.o(.data)
     g_flow_counter                           0x20000060   Data           2  main.o(.data)
+    g_msg_timeout                            0x20000062   Data           2  main.o(.data)
     g_edit_state                             0x2000008d   Data           1  main.o(.data)
     g_edit_field                             0x2000008e   Data           1  main.o(.data)
     g_edit_timeout                           0x20000090   Data           2  main.o(.data)
@@ -1859,9 +1861,9 @@ Memory Map of the image
 
   Image Entry point : 0x000002f5
 
-  Load Region LR_1 (Base: 0x00000000, Size: 0x00004ca8, Max: 0xffffffff, ABSOLUTE)
+  Load Region LR_1 (Base: 0x00000000, Size: 0x00004d4c, Max: 0xffffffff, ABSOLUTE)
 
-    Execution Region ER_RO (Base: 0x00000000, Size: 0x00004be4, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Base: 0x00000000, Size: 0x00004c88, Max: 0xffffffff, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -1979,145 +1981,145 @@ Memory Map of the image
     0x000013b8   0x00000038   Code   RO           25    i.Cmd_GET_FORMAT    main.o
     0x000013f0   0x00000038   Code   RO           26    i.Cmd_GET_TIME      main.o
     0x00001428   0x0000002c   Code   RO           27    i.Cmd_PING          main.o
-    0x00001454   0x00000054   Code   RO           28    i.Cmd_RST           main.o
-    0x000014a8   0x00000110   Code   RO           29    i.Cmd_SET_ALARM     main.o
-    0x000015b8   0x0000005c   Code   RO           30    i.Cmd_SET_BEEP      main.o
-    0x00001614   0x00000138   Code   RO           31    i.Cmd_SET_DATE      main.o
-    0x0000174c   0x000000f8   Code   RO           32    i.Cmd_SET_DISPLAY   main.o
-    0x00001844   0x00000070   Code   RO           33    i.Cmd_SET_FORMAT    main.o
-    0x000018b4   0x0000005c   Code   RO           34    i.Cmd_SET_KEY       main.o
-    0x00001910   0x0000005c   Code   RO           35    i.Cmd_SET_LED       main.o
-    0x0000196c   0x00000088   Code   RO           36    i.Cmd_SET_MODE      main.o
-    0x000019f4   0x0000004c   Code   RO           37    i.Cmd_SET_MSG       main.o
-    0x00001a40   0x000000f4   Code   RO           38    i.Cmd_SET_TIME      main.o
-    0x00001b34   0x00000144   Code   RO           40    i.Display_FillFromBuffer  main.o
-    0x00001c78   0x0000007c   Code   RO           41    i.Display_FlowAdvance  main.o
-    0x00001cf4   0x00000064   Code   RO           42    i.Display_GetSegCode  main.o
-    0x00001d58   0x00000094   Code   RO           43    i.Display_Init      main.o
-    0x00001dec   0x00000078   Code   RO           44    i.Display_Scan      main.o
-    0x00001e64   0x00000048   Code   RO           45    i.Display_SetBuffer  main.o
-    0x00001eac   0x0000002c   Code   RO           46    i.Display_SetFormat  main.o
-    0x00001ed8   0x0000001c   Code   RO           47    i.Display_SetMode   main.o
-    0x00001ef4   0x0000000c   Code   RO           48    i.Display_SetNight  main.o
-    0x00001f00   0x000000e8   Code   RO           49    i.Display_UpdateFromClock  main.o
-    0x00001fe8   0x00000040   Code   RO           50    i.Events_1HzHandler  main.o
-    0x00002028   0x000000a4   Code   RO           51    i.Events_Enqueue    main.o
-    0x000020cc   0x00000014   Code   RO           52    i.Events_HasPending  main.o
-    0x000020e0   0x00000058   Code   RO           53    i.Events_Init       main.o
-    0x00002138   0x0000003c   Code   RO           54    i.Events_ReportAlarm  main.o
-    0x00002174   0x00000058   Code   RO           55    i.Events_ReportDisp  main.o
-    0x000021cc   0x00000034   Code   RO           57    i.Events_ReportKey  main.o
-    0x00002200   0x0000002c   Code   RO           58    i.Events_ReportLED  main.o
-    0x0000222c   0x0000003c   Code   RO           59    i.Events_ReportMode  main.o
-    0x00002268   0x000000b8   Code   RO           60    i.Events_SendNext   main.o
-    0x00002320   0x00000028   Code   RO          775    i.GPIODirModeSet    driverlib.lib(gpio.o)
-    0x00002348   0x00000138   Code   RO          787    i.GPIOPadConfigSet  driverlib.lib(gpio.o)
-    0x00002480   0x00000044   Code   RO          788    i.GPIOPinConfigure  driverlib.lib(gpio.o)
-    0x000024c4   0x00000006   Code   RO          789    i.GPIOPinRead       driverlib.lib(gpio.o)
-    0x000024ca   0x0000001c   Code   RO          798    i.GPIOPinTypeGPIOInput  driverlib.lib(gpio.o)
-    0x000024e6   0x0000001c   Code   RO          799    i.GPIOPinTypeGPIOOutput  driverlib.lib(gpio.o)
-    0x00002502   0x0000001c   Code   RO          802    i.GPIOPinTypeI2C    driverlib.lib(gpio.o)
-    0x0000251e   0x0000001c   Code   RO          803    i.GPIOPinTypeI2CSCL  driverlib.lib(gpio.o)
-    0x0000253a   0x0000001c   Code   RO          811    i.GPIOPinTypeUART   driverlib.lib(gpio.o)
-    0x00002556   0x00000006   Code   RO          817    i.GPIOPinWrite      driverlib.lib(gpio.o)
-    0x0000255c   0x0000007c   Code   RO           61    i.I2C0_ReadByte     main.o
-    0x000025d8   0x00000074   Code   RO           62    i.I2C0_WriteByte    main.o
-    0x0000264c   0x0000000c   Code   RO         1112    i.I2CMasterBusy     driverlib.lib(i2c.o)
-    0x00002658   0x00000004   Code   RO         1113    i.I2CMasterControl  driverlib.lib(i2c.o)
-    0x0000265c   0x00000004   Code   RO         1114    i.I2CMasterDataGet  driverlib.lib(i2c.o)
-    0x00002660   0x00000004   Code   RO         1115    i.I2CMasterDataPut  driverlib.lib(i2c.o)
-    0x00002664   0x0000000a   Code   RO         1117    i.I2CMasterEnable   driverlib.lib(i2c.o)
-    0x0000266e   0x00000018   Code   RO         1118    i.I2CMasterErr      driverlib.lib(i2c.o)
-    0x00002686   0x00000002   PAD
-    0x00002688   0x00000054   Code   RO         1120    i.I2CMasterInitExpClk  driverlib.lib(i2c.o)
-    0x000026dc   0x00000008   Code   RO         1130    i.I2CMasterSlaveAddrSet  driverlib.lib(i2c.o)
-    0x000026e4   0x00000064   Code   RO         1439    i.IntEnable         driverlib.lib(interrupt.o)
-    0x00002748   0x0000000e   Code   RO         1442    i.IntMasterEnable   driverlib.lib(interrupt.o)
-    0x00002756   0x00000002   PAD
-    0x00002758   0x00000048   Code   RO           63    i.Keys_CycleFunc    main.o
-    0x000027a0   0x000001b4   Code   RO           64    i.Keys_Dispatch     main.o
-    0x00002954   0x00000034   Code   RO           65    i.Keys_EnterEdit    main.o
-    0x00002988   0x00000024   Code   RO           66    i.Keys_ExitEditNoSave  main.o
-    0x000029ac   0x00000090   Code   RO           67    i.Keys_GetEditDisplay  main.o
-    0x00002a3c   0x0000000c   Code   RO           68    i.Keys_GetEditState  main.o
-    0x00002a48   0x0000005c   Code   RO           69    i.Keys_GetEvent     main.o
-    0x00002aa4   0x000000a4   Code   RO           70    i.Keys_GetFieldMax  main.o
-    0x00002b48   0x00000040   Code   RO           71    i.Keys_GetFieldMin  main.o
-    0x00002b88   0x00000020   Code   RO           72    i.Keys_GetKeyName   main.o
-    0x00002ba8   0x000000c4   Code   RO           73    i.Keys_IncrementField  main.o
-    0x00002c6c   0x00000068   Code   RO           74    i.Keys_Init         main.o
-    0x00002cd4   0x00000060   Code   RO           75    i.Keys_LoadEditTemp  main.o
-    0x00002d34   0x00000048   Code   RO           76    i.Keys_NextField    main.o
-    0x00002d7c   0x00000070   Code   RO           77    i.Keys_ReadRaw      main.o
-    0x00002dec   0x00000058   Code   RO           78    i.Keys_SaveEdit     main.o
-    0x00002e44   0x00000168   Code   RO           79    i.Keys_Scan10ms     main.o
-    0x00002fac   0x00000012   Code   RO           80    i.Keys_Simulate     main.o
-    0x00002fbe   0x00000002   PAD
-    0x00002fc0   0x0000003c   Code   RO           81    i.LED_Heartbeat     main.o
-    0x00002ffc   0x00000030   Code   RO           82    i.LED_Init          main.o
-    0x0000302c   0x00000028   Code   RO           83    i.LED_RXFlash       main.o
-    0x00003054   0x00000030   Code   RO           84    i.LED_Set           main.o
-    0x00003084   0x00000028   Code   RO           85    i.LED_TXFlash       main.o
-    0x000030ac   0x0000005c   Code   RO           86    i.LED_UpdateFlashTimeout  main.o
-    0x00003108   0x00000088   Code   RO           88    i.MatchAbbrev       main.o
-    0x00003190   0x0000003e   Code   RO           89    i.NextToken         main.o
-    0x000031ce   0x00000076   Code   RO           90    i.ParseHex2         main.o
-    0x00003244   0x0000004c   Code   RO           91    i.Protocol_CharReceived  main.o
-    0x00003290   0x0000004c   Code   RO           92    i.Protocol_Init     main.o
-    0x000032dc   0x00000260   Code   RO           93    i.Protocol_ParseLine  main.o
-    0x0000353c   0x000000f4   Code   RO           94    i.Protocol_Process  main.o
-    0x00003630   0x00000094   Code   RO           95    i.Protocol_SendOKData  main.o
-    0x000036c4   0x0000001a   Code   RO           96    i.Protocol_SendResponse  main.o
-    0x000036de   0x00000002   PAD
-    0x000036e0   0x00000034   Code   RO           97    i.S800_GPIO_Init    main.o
-    0x00003714   0x000000b0   Code   RO           98    i.S800_I2C0_Init    main.o
-    0x000037c4   0x0000006c   Code   RO           99    i.S800_UART_Init    main.o
-    0x00003830   0x00000012   Code   RO          100    i.SkipSpaces        main.o
-    0x00003842   0x00000002   PAD
-    0x00003844   0x000002e4   Code   RO         1556    i.SysCtlClockFreqSet  driverlib.lib(sysctl.o)
-    0x00003b28   0x00000028   Code   RO         1588    i.SysCtlPeripheralEnable  driverlib.lib(sysctl.o)
-    0x00003b50   0x0000002c   Code   RO         1592    i.SysCtlPeripheralReady  driverlib.lib(sysctl.o)
-    0x00003b7c   0x0000000e   Code   RO         1903    i.SysTickEnable     driverlib.lib(systick.o)
-    0x00003b8a   0x0000000e   Code   RO         1905    i.SysTickIntEnable  driverlib.lib(systick.o)
-    0x00003b98   0x0000000a   Code   RO         1909    i.SysTickPeriodSet  driverlib.lib(systick.o)
-    0x00003ba2   0x00000002   PAD
-    0x00003ba4   0x00000084   Code   RO          101    i.SysTick_Handler   main.o
-    0x00003c28   0x00000020   Code   RO          722    i.SystemInit        system_tm4c129.o
-    0x00003c48   0x000000e0   Code   RO          102    i.System_Init       main.o
-    0x00003d28   0x00000040   Code   RO          103    i.TIMER0A_Handler   main.o
-    0x00003d68   0x00000060   Code   RO         1969    i.TimerConfigure    driverlib.lib(timer.o)
-    0x00003dc8   0x00000010   Code   RO         1977    i.TimerDisable      driverlib.lib(timer.o)
-    0x00003dd8   0x0000000e   Code   RO         1978    i.TimerEnable       driverlib.lib(timer.o)
-    0x00003de6   0x00000004   Code   RO         1979    i.TimerIntClear     driverlib.lib(timer.o)
-    0x00003dea   0x00000008   Code   RO         1981    i.TimerIntEnable    driverlib.lib(timer.o)
-    0x00003df2   0x00000012   Code   RO         1987    i.TimerLoadSet      driverlib.lib(timer.o)
-    0x00003e04   0x00000038   Code   RO          104    i.UART0_Handler     main.o
-    0x00003e3c   0x00000014   Code   RO          106    i.UART0_SendChar    main.o
-    0x00003e50   0x00000010   Code   RO         2214    i.UARTCharGetNonBlocking  driverlib.lib(uart.o)
-    0x00003e60   0x0000000c   Code   RO         2215    i.UARTCharPut       driverlib.lib(uart.o)
-    0x00003e6c   0x0000000a   Code   RO         2217    i.UARTCharsAvail    driverlib.lib(uart.o)
-    0x00003e76   0x0000006e   Code   RO         2221    i.UARTConfigSetExpClk  driverlib.lib(uart.o)
-    0x00003ee4   0x00000006   Code   RO         2231    i.UARTFIFOLevelSet  driverlib.lib(uart.o)
-    0x00003eea   0x00000004   Code   RO         2234    i.UARTIntClear      driverlib.lib(uart.o)
-    0x00003eee   0x00000008   Code   RO         2236    i.UARTIntEnable     driverlib.lib(uart.o)
-    0x00003ef6   0x0000000a   Code   RO         2238    i.UARTIntStatus     driverlib.lib(uart.o)
-    0x00003f00   0x0000017c   Code   RO          108    i.UpdateEditDisplay  main.o
-    0x0000407c   0x0000000e   Code   RO         2557    i._is_digit         c_w.l(__printf_wp.o)
-    0x0000408a   0x00000002   PAD
-    0x0000408c   0x000003b4   Code   RO          109    i.main              main.o
-    0x00004440   0x0000002c   Code   RO         2633    locale$$code        c_w.l(lc_ctype_c.o)
-    0x0000446c   0x0000000a   Code   RO         2696    x$fpl$fpinit        fz_wm.l(fpinit.o)
-    0x00004476   0x00000030   Data   RO          111    .constdata          main.o
-    0x000044a6   0x00000002   PAD
-    0x000044a8   0x00000228   Data   RO          819    .constdata          driverlib.lib(gpio.o)
-    0x000046d0   0x0000010c   Data   RO         1455    .constdata          driverlib.lib(interrupt.o)
-    0x000047dc   0x00000254   Data   RO         1610    .constdata          driverlib.lib(sysctl.o)
-    0x00004a30   0x00000028   Data   RO         2530    .constdata          c_w.l(_printf_hex_int.o)
-    0x00004a58   0x00000011   Data   RO         2565    .constdata          c_w.l(__printf_flags_ss_wp.o)
-    0x00004a69   0x00000003   PAD
-    0x00004a6c   0x00000048   Data   RO          112    .conststring        main.o
-    0x00004ab4   0x00000020   Data   RO         2771    Region$$Table       anon$$obj.o
-    0x00004ad4   0x00000110   Data   RO         2632    locale$$data        c_w.l(lc_ctype_c.o)
+    0x00001454   0x00000068   Code   RO           28    i.Cmd_RST           main.o
+    0x000014bc   0x00000110   Code   RO           29    i.Cmd_SET_ALARM     main.o
+    0x000015cc   0x0000005c   Code   RO           30    i.Cmd_SET_BEEP      main.o
+    0x00001628   0x00000138   Code   RO           31    i.Cmd_SET_DATE      main.o
+    0x00001760   0x000000f8   Code   RO           32    i.Cmd_SET_DISPLAY   main.o
+    0x00001858   0x00000070   Code   RO           33    i.Cmd_SET_FORMAT    main.o
+    0x000018c8   0x0000005c   Code   RO           34    i.Cmd_SET_KEY       main.o
+    0x00001924   0x0000005c   Code   RO           35    i.Cmd_SET_LED       main.o
+    0x00001980   0x00000088   Code   RO           36    i.Cmd_SET_MODE      main.o
+    0x00001a08   0x00000064   Code   RO           37    i.Cmd_SET_MSG       main.o
+    0x00001a6c   0x000000f4   Code   RO           38    i.Cmd_SET_TIME      main.o
+    0x00001b60   0x00000158   Code   RO           40    i.Display_FillFromBuffer  main.o
+    0x00001cb8   0x0000007c   Code   RO           41    i.Display_FlowAdvance  main.o
+    0x00001d34   0x00000064   Code   RO           42    i.Display_GetSegCode  main.o
+    0x00001d98   0x0000009c   Code   RO           43    i.Display_Init      main.o
+    0x00001e34   0x00000078   Code   RO           44    i.Display_Scan      main.o
+    0x00001eac   0x00000050   Code   RO           45    i.Display_SetBuffer  main.o
+    0x00001efc   0x0000002c   Code   RO           46    i.Display_SetFormat  main.o
+    0x00001f28   0x00000028   Code   RO           47    i.Display_SetMode   main.o
+    0x00001f50   0x0000000c   Code   RO           48    i.Display_SetNight  main.o
+    0x00001f5c   0x000000e8   Code   RO           49    i.Display_UpdateFromClock  main.o
+    0x00002044   0x00000040   Code   RO           50    i.Events_1HzHandler  main.o
+    0x00002084   0x000000a4   Code   RO           51    i.Events_Enqueue    main.o
+    0x00002128   0x00000014   Code   RO           52    i.Events_HasPending  main.o
+    0x0000213c   0x00000058   Code   RO           53    i.Events_Init       main.o
+    0x00002194   0x0000003c   Code   RO           54    i.Events_ReportAlarm  main.o
+    0x000021d0   0x00000058   Code   RO           55    i.Events_ReportDisp  main.o
+    0x00002228   0x00000034   Code   RO           57    i.Events_ReportKey  main.o
+    0x0000225c   0x0000002c   Code   RO           58    i.Events_ReportLED  main.o
+    0x00002288   0x0000003c   Code   RO           59    i.Events_ReportMode  main.o
+    0x000022c4   0x000000b8   Code   RO           60    i.Events_SendNext   main.o
+    0x0000237c   0x00000028   Code   RO          775    i.GPIODirModeSet    driverlib.lib(gpio.o)
+    0x000023a4   0x00000138   Code   RO          787    i.GPIOPadConfigSet  driverlib.lib(gpio.o)
+    0x000024dc   0x00000044   Code   RO          788    i.GPIOPinConfigure  driverlib.lib(gpio.o)
+    0x00002520   0x00000006   Code   RO          789    i.GPIOPinRead       driverlib.lib(gpio.o)
+    0x00002526   0x0000001c   Code   RO          798    i.GPIOPinTypeGPIOInput  driverlib.lib(gpio.o)
+    0x00002542   0x0000001c   Code   RO          799    i.GPIOPinTypeGPIOOutput  driverlib.lib(gpio.o)
+    0x0000255e   0x0000001c   Code   RO          802    i.GPIOPinTypeI2C    driverlib.lib(gpio.o)
+    0x0000257a   0x0000001c   Code   RO          803    i.GPIOPinTypeI2CSCL  driverlib.lib(gpio.o)
+    0x00002596   0x0000001c   Code   RO          811    i.GPIOPinTypeUART   driverlib.lib(gpio.o)
+    0x000025b2   0x00000006   Code   RO          817    i.GPIOPinWrite      driverlib.lib(gpio.o)
+    0x000025b8   0x0000007c   Code   RO           61    i.I2C0_ReadByte     main.o
+    0x00002634   0x00000074   Code   RO           62    i.I2C0_WriteByte    main.o
+    0x000026a8   0x0000000c   Code   RO         1112    i.I2CMasterBusy     driverlib.lib(i2c.o)
+    0x000026b4   0x00000004   Code   RO         1113    i.I2CMasterControl  driverlib.lib(i2c.o)
+    0x000026b8   0x00000004   Code   RO         1114    i.I2CMasterDataGet  driverlib.lib(i2c.o)
+    0x000026bc   0x00000004   Code   RO         1115    i.I2CMasterDataPut  driverlib.lib(i2c.o)
+    0x000026c0   0x0000000a   Code   RO         1117    i.I2CMasterEnable   driverlib.lib(i2c.o)
+    0x000026ca   0x00000018   Code   RO         1118    i.I2CMasterErr      driverlib.lib(i2c.o)
+    0x000026e2   0x00000002   PAD
+    0x000026e4   0x00000054   Code   RO         1120    i.I2CMasterInitExpClk  driverlib.lib(i2c.o)
+    0x00002738   0x00000008   Code   RO         1130    i.I2CMasterSlaveAddrSet  driverlib.lib(i2c.o)
+    0x00002740   0x00000064   Code   RO         1439    i.IntEnable         driverlib.lib(interrupt.o)
+    0x000027a4   0x0000000e   Code   RO         1442    i.IntMasterEnable   driverlib.lib(interrupt.o)
+    0x000027b2   0x00000002   PAD
+    0x000027b4   0x00000048   Code   RO           63    i.Keys_CycleFunc    main.o
+    0x000027fc   0x000001b4   Code   RO           64    i.Keys_Dispatch     main.o
+    0x000029b0   0x00000034   Code   RO           65    i.Keys_EnterEdit    main.o
+    0x000029e4   0x00000024   Code   RO           66    i.Keys_ExitEditNoSave  main.o
+    0x00002a08   0x00000090   Code   RO           67    i.Keys_GetEditDisplay  main.o
+    0x00002a98   0x0000000c   Code   RO           68    i.Keys_GetEditState  main.o
+    0x00002aa4   0x0000005c   Code   RO           69    i.Keys_GetEvent     main.o
+    0x00002b00   0x000000a4   Code   RO           70    i.Keys_GetFieldMax  main.o
+    0x00002ba4   0x00000040   Code   RO           71    i.Keys_GetFieldMin  main.o
+    0x00002be4   0x00000020   Code   RO           72    i.Keys_GetKeyName   main.o
+    0x00002c04   0x000000c4   Code   RO           73    i.Keys_IncrementField  main.o
+    0x00002cc8   0x00000068   Code   RO           74    i.Keys_Init         main.o
+    0x00002d30   0x00000060   Code   RO           75    i.Keys_LoadEditTemp  main.o
+    0x00002d90   0x00000048   Code   RO           76    i.Keys_NextField    main.o
+    0x00002dd8   0x00000070   Code   RO           77    i.Keys_ReadRaw      main.o
+    0x00002e48   0x00000058   Code   RO           78    i.Keys_SaveEdit     main.o
+    0x00002ea0   0x00000168   Code   RO           79    i.Keys_Scan10ms     main.o
+    0x00003008   0x00000012   Code   RO           80    i.Keys_Simulate     main.o
+    0x0000301a   0x00000002   PAD
+    0x0000301c   0x0000003c   Code   RO           81    i.LED_Heartbeat     main.o
+    0x00003058   0x00000030   Code   RO           82    i.LED_Init          main.o
+    0x00003088   0x00000028   Code   RO           83    i.LED_RXFlash       main.o
+    0x000030b0   0x00000030   Code   RO           84    i.LED_Set           main.o
+    0x000030e0   0x00000028   Code   RO           85    i.LED_TXFlash       main.o
+    0x00003108   0x0000005c   Code   RO           86    i.LED_UpdateFlashTimeout  main.o
+    0x00003164   0x00000088   Code   RO           88    i.MatchAbbrev       main.o
+    0x000031ec   0x0000003e   Code   RO           89    i.NextToken         main.o
+    0x0000322a   0x00000076   Code   RO           90    i.ParseHex2         main.o
+    0x000032a0   0x0000004c   Code   RO           91    i.Protocol_CharReceived  main.o
+    0x000032ec   0x0000004c   Code   RO           92    i.Protocol_Init     main.o
+    0x00003338   0x00000260   Code   RO           93    i.Protocol_ParseLine  main.o
+    0x00003598   0x000000f4   Code   RO           94    i.Protocol_Process  main.o
+    0x0000368c   0x00000094   Code   RO           95    i.Protocol_SendOKData  main.o
+    0x00003720   0x0000001a   Code   RO           96    i.Protocol_SendResponse  main.o
+    0x0000373a   0x00000002   PAD
+    0x0000373c   0x00000034   Code   RO           97    i.S800_GPIO_Init    main.o
+    0x00003770   0x000000b0   Code   RO           98    i.S800_I2C0_Init    main.o
+    0x00003820   0x0000006c   Code   RO           99    i.S800_UART_Init    main.o
+    0x0000388c   0x00000012   Code   RO          100    i.SkipSpaces        main.o
+    0x0000389e   0x00000002   PAD
+    0x000038a0   0x000002e4   Code   RO         1556    i.SysCtlClockFreqSet  driverlib.lib(sysctl.o)
+    0x00003b84   0x00000028   Code   RO         1588    i.SysCtlPeripheralEnable  driverlib.lib(sysctl.o)
+    0x00003bac   0x0000002c   Code   RO         1592    i.SysCtlPeripheralReady  driverlib.lib(sysctl.o)
+    0x00003bd8   0x0000000e   Code   RO         1903    i.SysTickEnable     driverlib.lib(systick.o)
+    0x00003be6   0x0000000e   Code   RO         1905    i.SysTickIntEnable  driverlib.lib(systick.o)
+    0x00003bf4   0x0000000a   Code   RO         1909    i.SysTickPeriodSet  driverlib.lib(systick.o)
+    0x00003bfe   0x00000002   PAD
+    0x00003c00   0x00000084   Code   RO          101    i.SysTick_Handler   main.o
+    0x00003c84   0x00000020   Code   RO          722    i.SystemInit        system_tm4c129.o
+    0x00003ca4   0x000000e0   Code   RO          102    i.System_Init       main.o
+    0x00003d84   0x00000040   Code   RO          103    i.TIMER0A_Handler   main.o
+    0x00003dc4   0x00000060   Code   RO         1969    i.TimerConfigure    driverlib.lib(timer.o)
+    0x00003e24   0x00000010   Code   RO         1977    i.TimerDisable      driverlib.lib(timer.o)
+    0x00003e34   0x0000000e   Code   RO         1978    i.TimerEnable       driverlib.lib(timer.o)
+    0x00003e42   0x00000004   Code   RO         1979    i.TimerIntClear     driverlib.lib(timer.o)
+    0x00003e46   0x00000008   Code   RO         1981    i.TimerIntEnable    driverlib.lib(timer.o)
+    0x00003e4e   0x00000012   Code   RO         1987    i.TimerLoadSet      driverlib.lib(timer.o)
+    0x00003e60   0x00000038   Code   RO          104    i.UART0_Handler     main.o
+    0x00003e98   0x00000014   Code   RO          106    i.UART0_SendChar    main.o
+    0x00003eac   0x00000010   Code   RO         2214    i.UARTCharGetNonBlocking  driverlib.lib(uart.o)
+    0x00003ebc   0x0000000c   Code   RO         2215    i.UARTCharPut       driverlib.lib(uart.o)
+    0x00003ec8   0x0000000a   Code   RO         2217    i.UARTCharsAvail    driverlib.lib(uart.o)
+    0x00003ed2   0x0000006e   Code   RO         2221    i.UARTConfigSetExpClk  driverlib.lib(uart.o)
+    0x00003f40   0x00000006   Code   RO         2231    i.UARTFIFOLevelSet  driverlib.lib(uart.o)
+    0x00003f46   0x00000004   Code   RO         2234    i.UARTIntClear      driverlib.lib(uart.o)
+    0x00003f4a   0x00000008   Code   RO         2236    i.UARTIntEnable     driverlib.lib(uart.o)
+    0x00003f52   0x0000000a   Code   RO         2238    i.UARTIntStatus     driverlib.lib(uart.o)
+    0x00003f5c   0x0000017c   Code   RO          108    i.UpdateEditDisplay  main.o
+    0x000040d8   0x0000000e   Code   RO         2557    i._is_digit         c_w.l(__printf_wp.o)
+    0x000040e6   0x00000002   PAD
+    0x000040e8   0x000003fc   Code   RO          109    i.main              main.o
+    0x000044e4   0x0000002c   Code   RO         2633    locale$$code        c_w.l(lc_ctype_c.o)
+    0x00004510   0x0000000a   Code   RO         2696    x$fpl$fpinit        fz_wm.l(fpinit.o)
+    0x0000451a   0x00000030   Data   RO          111    .constdata          main.o
+    0x0000454a   0x00000002   PAD
+    0x0000454c   0x00000228   Data   RO          819    .constdata          driverlib.lib(gpio.o)
+    0x00004774   0x0000010c   Data   RO         1455    .constdata          driverlib.lib(interrupt.o)
+    0x00004880   0x00000254   Data   RO         1610    .constdata          driverlib.lib(sysctl.o)
+    0x00004ad4   0x00000028   Data   RO         2530    .constdata          c_w.l(_printf_hex_int.o)
+    0x00004afc   0x00000011   Data   RO         2565    .constdata          c_w.l(__printf_flags_ss_wp.o)
+    0x00004b0d   0x00000003   PAD
+    0x00004b10   0x00000048   Data   RO          112    .conststring        main.o
+    0x00004b58   0x00000020   Data   RO         2771    Region$$Table       anon$$obj.o
+    0x00004b78   0x00000110   Data   RO         2632    locale$$data        c_w.l(lc_ctype_c.o)
 
 
     Execution Region ER_RW (Base: 0x20000000, Size: 0x000000c4, Max: 0xffffffff, ABSOLUTE)
@@ -2146,12 +2148,12 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-     12438       2144        120        189       1564      75887   main.o
+     12602       2180        120        189       1564      76017   main.o
        300         22        512          0        512       6096   startup_tm4c129.o
         32         12          0          4          0        835   system_tm4c129.o
 
     ----------------------------------------------------------------------
-     12780       2178        666        196       2076      82818   Object Totals
+     12944       2214        666        196       2076      82948   Object Totals
          0          0         32          0          0          0   (incl. Generated)
         10          0          2          3          0          0   (incl. Padding)
 
@@ -2240,15 +2242,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     17014       2336       2414        196       2172     102084   Grand Totals
-     17014       2336       2414        196       2172     102084   ELF Image Totals
-     17014       2336       2414        196          0          0   ROM Totals
+     17178       2372       2414        196       2172     102214   Grand Totals
+     17178       2372       2414        196       2172     102214   ELF Image Totals
+     17178       2372       2414        196          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                19428 (  18.97kB)
+    Total RO  Size (Code + RO Data)                19592 (  19.13kB)
     Total RW  Size (RW Data + ZI Data)              2368 (   2.31kB)
-    Total ROM Size (Code + RO Data + RW Data)      19624 (  19.16kB)
+    Total ROM Size (Code + RO Data + RW Data)      19788 (  19.32kB)
 
 ==============================================================================
 

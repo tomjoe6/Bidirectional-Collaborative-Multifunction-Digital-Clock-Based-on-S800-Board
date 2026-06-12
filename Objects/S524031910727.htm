@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\Objects\S524031910727.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\Objects\S524031910727.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Wed Jun 10 21:02:19 2026
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Fri Jun 12 21:27:59 2026
 <BR><P>
 <H3>Maximum Stack Usage =        352 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1728,7 +1728,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[f5]"></a>Display_FillFromBuffer</STRONG> (Thumb, 300 bytes, Stack size 48 bytes, main.o(i.Display_FillFromBuffer))
+<P><STRONG><a name="[f5]"></a>Display_FillFromBuffer</STRONG> (Thumb, 320 bytes, Stack size 48 bytes, main.o(i.Display_FillFromBuffer))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = Display_FillFromBuffer &rArr; strlen
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;strlen
@@ -1752,7 +1752,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_Scan
 </UL>
 
-<P><STRONG><a name="[f7]"></a>Display_Init</STRONG> (Thumb, 100 bytes, Stack size 8 bytes, main.o(i.Display_Init))
+<P><STRONG><a name="[f7]"></a>Display_Init</STRONG> (Thumb, 104 bytes, Stack size 8 bytes, main.o(i.Display_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = Display_Init &rArr; I2C0_WriteByte
 </UL>
 <BR>[Calls]<UL><LI><a href="#[bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;I2C0_WriteByte
@@ -1769,7 +1769,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[a2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[f3]"></a>Display_SetBuffer</STRONG> (Thumb, 58 bytes, Stack size 16 bytes, main.o(i.Display_SetBuffer))
+<P><STRONG><a name="[f3]"></a>Display_SetBuffer</STRONG> (Thumb, 62 bytes, Stack size 16 bytes, main.o(i.Display_SetBuffer))
 <BR><BR>[Stack]<UL><LI>Max Depth = 72<LI>Call Chain = Display_SetBuffer &rArr; Display_FillFromBuffer &rArr; strlen
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_FillFromBuffer
@@ -1788,7 +1788,7 @@ Global Symbols
 <LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Cmd_SET_FORMAT
 </UL>
 
-<P><STRONG><a name="[fa]"></a>Display_SetMode</STRONG> (Thumb, 20 bytes, Stack size 8 bytes, main.o(i.Display_SetMode))
+<P><STRONG><a name="[fa]"></a>Display_SetMode</STRONG> (Thumb, 26 bytes, Stack size 8 bytes, main.o(i.Display_SetMode))
 <BR><BR>[Stack]<UL><LI>Max Depth = 200 + Unknown Stack Size
 <LI>Call Chain = Display_SetMode &rArr; Display_UpdateFromClock &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
@@ -2309,7 +2309,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__printf
 </UL>
 
-<P><STRONG><a name="[a2]"></a>main</STRONG> (Thumb, 856 bytes, Stack size 32 bytes, main.o(i.main))
+<P><STRONG><a name="[a2]"></a>main</STRONG> (Thumb, 920 bytes, Stack size 32 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 352 + Unknown Stack Size
 <LI>Call Chain = main &rArr; Protocol_Process &rArr; Protocol_ParseLine &rArr; Cmd_SET_KEY &rArr; Keys_Simulate &rArr; Keys_Dispatch &rArr; Display_SetMode &rArr; Display_UpdateFromClock &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
@@ -2448,7 +2448,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
 </UL>
 
-<P><STRONG><a name="[dc]"></a>Cmd_RST</STRONG> (Thumb, 54 bytes, Stack size 16 bytes, main.o(i.Cmd_RST))
+<P><STRONG><a name="[dc]"></a>Cmd_RST</STRONG> (Thumb, 66 bytes, Stack size 16 bytes, main.o(i.Cmd_RST))
 <BR><BR>[Stack]<UL><LI>Max Depth = 208 + Unknown Stack Size
 <LI>Call Chain = Cmd_RST &rArr; Display_UpdateFromClock &rArr; __2sprintf &rArr; _printf_char_common &rArr; __printf
 </UL>
@@ -2554,7 +2554,7 @@ Local Symbols
 <BR>[Called By]<UL><LI><a href="#[127]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Protocol_ParseLine
 </UL>
 
-<P><STRONG><a name="[f0]"></a>Cmd_SET_MSG</STRONG> (Thumb, 60 bytes, Stack size 16 bytes, main.o(i.Cmd_SET_MSG))
+<P><STRONG><a name="[f0]"></a>Cmd_SET_MSG</STRONG> (Thumb, 78 bytes, Stack size 16 bytes, main.o(i.Cmd_SET_MSG))
 <BR><BR>[Stack]<UL><LI>Max Depth = 88<LI>Call Chain = Cmd_SET_MSG &rArr; Display_SetBuffer &rArr; Display_FillFromBuffer &rArr; strlen
 </UL>
 <BR>[Calls]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Display_SetBuffer
