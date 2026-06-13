@@ -1,0 +1,40 @@
+flowchart LR
+    %% Three-party simplified architecture
+
+    subgraph USER["用户方"]
+        U1["用户\n查看时间/状态"]
+        U2["按键操作\nK1-K8 / USER1 / USER2"]
+        U3["PC操作\n控制 / 查询 / 扩展功能"]
+    end
+
+    subgraph S800["S800 板端"]
+        MCU["TM4C1294 主控\nSysTick调度 / UART协议 / I2C与GPIO驱动"]
+        FW["核心功能\n时钟走时 / 闹钟 / 显示模式 / 按键编辑 / 蜂鸣 / LED状态"]
+        IO["硬件接口\nTCA6424 / PCA9557 / GPIO / Timer0A / USB虚拟串口"]
+        OUT["板端输出\n8位数码管 / 8位LED / 蜂鸣器"]
+    end
+
+    subgraph PC["PC 上位机"]
+        GUI["PyQt5界面\n控制面板 / 数字孪生界面 / 日志"]
+        COMM["通信与协议\nSerialWorker / ProtocolParser / HeartbeatMonitor"]
+        EXT["扩展模块\nNTP对时 / 天气与昼夜模式 / 语音指令"]
+    end
+
+    NET["互联网\nNTP服务器 / 天气API"]
+
+    U1 -->|"查看/使用"| FW
+    U2 -->|"本地按键输入"| IO
+    U3 -.->|"PC端控制查询"| GUI
+
+    IO --> MCU
+    MCU --> FW
+    FW --> OUT
+    MCU <--> IO
+
+    GUI --> COMM
+    COMM --> GUI
+    EXT --> GUI
+    GUI --> EXT
+
+    IO <-->|"USB虚拟串口\nASCII命令/事件"| COMM
+    EXT <-->|"网络请求"| NET

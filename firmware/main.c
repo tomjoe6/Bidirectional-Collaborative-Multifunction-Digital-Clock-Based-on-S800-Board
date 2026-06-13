@@ -21,7 +21,6 @@
 #include "protocol.h"
 #include "sysctl.h"
 #include "systick.h"
-#include "timer.h"
 #include "uart.h"
 #include <stdbool.h>
 #include <stdint.h>
@@ -2071,32 +2070,50 @@ void Buzzer_Init(void)
     g_buzzer_rhythm_counter = 0;
     g_buzzer_ring_duration  = 0;
 
-    SysCtlPeripheralEnable(BUZZER_TIMER_PERIPH);
-    while (!SysCtlPeripheralReady(BUZZER_TIMER_PERIPH));
+    SysCtlPeripheralEnable(BUZZER_PWM_PERIPH);
+    while (!SysCtlPeripheralReady(BUZZER_PWM_PERIPH));
 
-    SysCtlPeripheralEnable(SYSCTL_PERIPH_GPIOF);
-    while (!SysCtlPeripheralReady(SYSCTL_PERIPH_GPIOF));
+    SysCtlPeripheralEnable(BUZZER_GPIO_PERIPH);
+    while (!SysCtlPeripheralReady(BUZZER_GPIO_PERIPH));
+
+    GPIOPinConfigure(BUZZER_PIN_CONFIG);
+    GPIOPinTypePWM(BUZZER_PORT, BUZZER_PIN);
+    GPIOPadConfigSet(BUZZER_PORT, BUZZER_PIN,
+                     GPIO_STRENGTH_8MA, GPIO_PIN_TYPE_STD);
+
+    PWMGenConfigure(BUZZER_PWM_BASE, BUZZER_PWM_GEN,
+                    PWM_GEN_MODE_DOWN | PWM_GEN_MODE_NO_SYNC);
+    PWMGenPeriodSet(BUZZER_PWM_BASE, BUZZER_PWM_GEN, BUZZER_PWM_PERIOD);
+    PWMPulseWidthSet(BUZZER_PWM_BASE, BUZZER_PWM_OUT,
+                     PWMGenPeriodGet(BUZZER_PWM_BASE, BUZZER_PWM_GEN) / 2);
+    PWMGenDisable(BUZZER_PWM_BASE, BUZZER_PWM_GEN);
+    PWMOutputState(BUZZER_PWM_BASE, BUZZER_PWM_OUT_BIT, false);
+
     GPIOPinTypeGPIOOutput(BUZZER_PORT, BUZZER_PIN);
     GPIOPinWrite(BUZZER_PORT, BUZZER_PIN, 0);
-
-    /* 8 kHz, 50% duty: Load=20M/8000=2500 */
-    TimerConfigure(BUZZER_TIMER_BASE, TIMER_CFG_PERIODIC);
-    TimerLoadSet(BUZZER_TIMER_BASE, BUZZER_TIMER, 2500 - 1);
-
-    TimerIntEnable(BUZZER_TIMER_BASE, TIMER_TIMA_TIMEOUT);
-    IntEnable(INT_TIMER0A);
 }
 
 void Buzzer_On(void)
 {
     g_buzzer_on = 1;
-    TimerEnable(BUZZER_TIMER_BASE, BUZZER_TIMER);
+
+    GPIOPinConfigure(BUZZER_PIN_CONFIG);
+    GPIOPinTypePWM(BUZZER_PORT, BUZZER_PIN);
+    GPIOPadConfigSet(BUZZER_PORT, BUZZER_PIN,
+                     GPIO_STRENGTH_8MA, GPIO_PIN_TYPE_STD);
+    PWMGenPeriodSet(BUZZER_PWM_BASE, BUZZER_PWM_GEN, BUZZER_PWM_PERIOD);
+    PWMPulseWidthSet(BUZZER_PWM_BASE, BUZZER_PWM_OUT,
+                     PWMGenPeriodGet(BUZZER_PWM_BASE, BUZZER_PWM_GEN) / 2);
+    PWMGenEnable(BUZZER_PWM_BASE, BUZZER_PWM_GEN);
+    PWMOutputState(BUZZER_PWM_BASE, BUZZER_PWM_OUT_BIT, true);
 }
 
 void Buzzer_Off(void)
 {
     g_buzzer_on = 0;
-    TimerDisable(BUZZER_TIMER_BASE, BUZZER_TIMER);
+    PWMGenDisable(BUZZER_PWM_BASE, BUZZER_PWM_GEN);
+    PWMOutputState(BUZZER_PWM_BASE, BUZZER_PWM_OUT_BIT, false);
+    GPIOPinTypeGPIOOutput(BUZZER_PORT, BUZZER_PIN);
     GPIOPinWrite(BUZZER_PORT, BUZZER_PIN, 0);
 }
 
@@ -2144,14 +2161,6 @@ void Buzzer_StopRing(void)
 
 uint8_t Buzzer_IsRinging(void) { return g_buzzer_ringing; }
 uint8_t Buzzer_IsOn(void)      { return g_buzzer_on; }
-
-void TIMER0A_Handler(void)
-{
-    static uint8_t buzz_toggle = 0;
-    TimerIntClear(BUZZER_TIMER_BASE, TIMER_TIMA_TIMEOUT);
-    buzz_toggle = (uint8_t)(!buzz_toggle);
-    GPIOPinWrite(BUZZER_PORT, BUZZER_PIN, buzz_toggle ? BUZZER_PIN : 0);
-}
 
 /*=========================================================================*/
 /*  Module: led.c                                                        */

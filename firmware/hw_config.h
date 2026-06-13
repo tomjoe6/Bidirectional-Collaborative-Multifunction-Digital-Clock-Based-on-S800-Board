@@ -8,6 +8,7 @@
 #include "gpio.h"
 #include "i2c.h"
 #include "pin_map.h"
+#include "pwm.h"
 #include "sysctl.h"
 #include "systick.h"
 #include "interrupt.h"
@@ -103,14 +104,19 @@
 #define LED_DAYNIGHT            7   /* D7: Day/Night (1=DAY,0=NIGHT)  */
 
 /*=========================================================================
- * Buzzer — PF3 GPIO toggle (verified PWM7 from schematic)
- * We drive PF3 as a plain GPIO, toggled at audio rate by SysTick.
+ * Buzzer — PK5 / M0PWM7 hardware PWM output.
  *=========================================================================*/
-#define BUZZER_PORT             GPIO_PORTF_BASE
-#define BUZZER_PIN              GPIO_PIN_3
-#define BUZZER_TIMER_PERIPH     SYSCTL_PERIPH_TIMER0
-#define BUZZER_TIMER_BASE       TIMER0_BASE
-#define BUZZER_TIMER            TIMER_A
+#define BUZZER_GPIO_PERIPH      SYSCTL_PERIPH_GPIOK
+#define BUZZER_PORT             GPIO_PORTK_BASE
+#define BUZZER_PIN              GPIO_PIN_5
+#define BUZZER_PIN_CONFIG       GPIO_PK5_M0PWM7
+#define BUZZER_PWM_PERIPH       SYSCTL_PERIPH_PWM0
+#define BUZZER_PWM_BASE         PWM0_BASE
+#define BUZZER_PWM_GEN          PWM_GEN_3
+#define BUZZER_PWM_OUT          PWM_OUT_7
+#define BUZZER_PWM_OUT_BIT      PWM_OUT_7_BIT
+#define BUZZER_TONE_HZ          4000U
+#define BUZZER_PWM_PERIOD       (SYSTEM_CLOCK_HZ / BUZZER_TONE_HZ)
 
 /*=========================================================================
  * Display Modes
