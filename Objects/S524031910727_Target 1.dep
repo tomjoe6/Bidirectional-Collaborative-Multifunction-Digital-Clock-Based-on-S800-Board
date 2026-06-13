@@ -1,157 +1,0 @@
-Dependencies for Project 'S524031910727', Target 'Target 1': (DO NOT MODIFY !)
-F (.\firmware\alarm.c)(0x6A2172F4)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork --split_sections -I .\inc -I .\driverlib-IX:\coding\github\Bidirectional-Collaborative-Multifunction-Digital-Clock-Based-on-S800-Board\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C129-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="522" -D_RTE_ -DTM4C1294NCPDT -DPART_TM4C1294NCPDT-o .\objects\alarm.o --omf_browse .\objects\alarm.crf --depend .\objects\alarm.d)
-I (firmware\alarm.h)(0x6A2172EA)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
-I (firmware\clock.h)(0x6A2172D1)
-F (.\firmware\buzzer.c)(0x6A2173B2)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork --split_sections -I .\inc -I .\driverlib-IX:\coding\github\Bidirectional-Collaborative-Multifunction-Digital-Clock-Based-on-S800-Board\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C129-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="522" -D_RTE_ -DTM4C1294NCPDT -DPART_TM4C1294NCPDT-o .\objects\buzzer.o --omf_browse .\objects\buzzer.crf --depend .\objects\buzzer.d)
-I (firmware\buzzer.h)(0x6A2173BF)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
-I (firmware\hw_config.h)(0x6A21752F)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
-I (.\inc\hw_memmap.h)(0x6A0D978C)
-I (.\inc\hw_types.h)(0x6A0D978C)
-I (.\driverlib\gpio.h)(0x6A0D9788)
-I (.\driverlib\i2c.h)(0x6A0D9788)
-I (.\driverlib\pin_map.h)(0x6A0D9788)
-I (.\driverlib\sysctl.h)(0x6A0D9788)
-I (.\driverlib\systick.h)(0x6A0D9788)
-I (.\driverlib\interrupt.h)(0x6A0D9788)
-I (.\driverlib\uart.h)(0x6A0D9788)
-I (.\inc\hw_ints.h)(0x6A0D978C)
-F (.\firmware\clock.c)(0x6A2172E3)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork --split_sections -I .\inc -I .\driverlib-IX:\coding\github\Bidirectional-Collaborative-Multifunction-Digital-Clock-Based-on-S800-Board\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C129-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="522" -D_RTE_ -DTM4C1294NCPDT -DPART_TM4C1294NCPDT-o .\objects\clock.o --omf_browse .\objects\clock.crf --depend .\objects\clock.d)
-I (firmware\clock.h)(0x6A2172D1)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
-F (.\firmware\display.c)(0x6A217541)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork --split_sections -I .\inc -I .\driverlib-IX:\coding\github\Bidirectional-Collaborative-Multifunction-Digital-Clock-Based-on-S800-Board\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C129-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="522" -D_RTE_ -DTM4C1294NCPDT -DPART_TM4C1294NCPDT-o .\objects\display.o --omf_browse .\objects\display.crf --depend .\objects\display.d)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x57F606B8)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x57F606B8)
-I (firmware\display.h)(0x6A217306)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
-I (firmware\clock.h)(0x6A2172D1)
-I (firmware\hw_config.h)(0x6A21752F)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
-I (.\inc\hw_memmap.h)(0x6A0D978C)
-I (.\inc\hw_types.h)(0x6A0D978C)
-I (.\driverlib\gpio.h)(0x6A0D9788)
-I (.\driverlib\i2c.h)(0x6A0D9788)
-I (.\driverlib\pin_map.h)(0x6A0D9788)
-I (.\driverlib\sysctl.h)(0x6A0D9788)
-I (.\driverlib\systick.h)(0x6A0D9788)
-I (.\driverlib\interrupt.h)(0x6A0D9788)
-I (.\driverlib\uart.h)(0x6A0D9788)
-I (.\inc\hw_ints.h)(0x6A0D978C)
-F (.\firmware\events.c)(0x6A2173FF)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork --split_sections -I .\inc -I .\driverlib-IX:\coding\github\Bidirectional-Collaborative-Multifunction-Digital-Clock-Based-on-S800-Board\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C129-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="522" -D_RTE_ -DTM4C1294NCPDT -DPART_TM4C1294NCPDT-o .\objects\events.o --omf_browse .\objects\events.crf --depend .\objects\events.d)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x57F606B8)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x57F606B8)
-I (firmware\events.h)(0x6A2173E4)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
-I (firmware\clock.h)(0x6A2172D1)
-I (firmware\hw_config.h)(0x6A21752F)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
-I (.\inc\hw_memmap.h)(0x6A0D978C)
-I (.\inc\hw_types.h)(0x6A0D978C)
-I (.\driverlib\gpio.h)(0x6A0D9788)
-I (.\driverlib\i2c.h)(0x6A0D9788)
-I (.\driverlib\pin_map.h)(0x6A0D9788)
-I (.\driverlib\sysctl.h)(0x6A0D9788)
-I (.\driverlib\systick.h)(0x6A0D9788)
-I (.\driverlib\interrupt.h)(0x6A0D9788)
-I (.\driverlib\uart.h)(0x6A0D9788)
-I (.\inc\hw_ints.h)(0x6A0D978C)
-I (firmware\keys.h)(0x6A217494)
-F (.\firmware\keys.c)(0x6A217657)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork --split_sections -I .\inc -I .\driverlib-IX:\coding\github\Bidirectional-Collaborative-Multifunction-Digital-Clock-Based-on-S800-Board\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C129-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="522" -D_RTE_ -DTM4C1294NCPDT -DPART_TM4C1294NCPDT-o .\objects\keys.o --omf_browse .\objects\keys.crf --depend .\objects\keys.d)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x57F606B8)
-I (firmware\keys.h)(0x6A217494)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
-I (firmware\hw_config.h)(0x6A21752F)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
-I (.\inc\hw_memmap.h)(0x6A0D978C)
-I (.\inc\hw_types.h)(0x6A0D978C)
-I (.\driverlib\gpio.h)(0x6A0D9788)
-I (.\driverlib\i2c.h)(0x6A0D9788)
-I (.\driverlib\pin_map.h)(0x6A0D9788)
-I (.\driverlib\sysctl.h)(0x6A0D9788)
-I (.\driverlib\systick.h)(0x6A0D9788)
-I (.\driverlib\interrupt.h)(0x6A0D9788)
-I (.\driverlib\uart.h)(0x6A0D9788)
-I (.\inc\hw_ints.h)(0x6A0D978C)
-I (firmware\clock.h)(0x6A2172D1)
-I (firmware\alarm.h)(0x6A2172EA)
-I (firmware\display.h)(0x6A217306)
-F (.\firmware\led.c)(0x6A2173D7)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork --split_sections -I .\inc -I .\driverlib-IX:\coding\github\Bidirectional-Collaborative-Multifunction-Digital-Clock-Based-on-S800-Board\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C129-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="522" -D_RTE_ -DTM4C1294NCPDT -DPART_TM4C1294NCPDT-o .\objects\led.o --omf_browse .\objects\led.crf --depend .\objects\led.d)
-I (firmware\led.h)(0x6A2173C7)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
-I (firmware\hw_config.h)(0x6A21752F)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
-I (.\inc\hw_memmap.h)(0x6A0D978C)
-I (.\inc\hw_types.h)(0x6A0D978C)
-I (.\driverlib\gpio.h)(0x6A0D9788)
-I (.\driverlib\i2c.h)(0x6A0D9788)
-I (.\driverlib\pin_map.h)(0x6A0D9788)
-I (.\driverlib\sysctl.h)(0x6A0D9788)
-I (.\driverlib\systick.h)(0x6A0D9788)
-I (.\driverlib\interrupt.h)(0x6A0D9788)
-I (.\driverlib\uart.h)(0x6A0D9788)
-I (.\inc\hw_ints.h)(0x6A0D978C)
-F (.\firmware\main.c)(0x6A217627)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork --split_sections -I .\inc -I .\driverlib-IX:\coding\github\Bidirectional-Collaborative-Multifunction-Digital-Clock-Based-on-S800-Board\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C129-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="522" -D_RTE_ -DTM4C1294NCPDT -DPART_TM4C1294NCPDT-o .\objects\main.o --omf_browse .\objects\main.crf --depend .\objects\main.d)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x57F606B8)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x57F606B8)
-I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
-I (.\inc\hw_memmap.h)(0x6A0D978C)
-I (.\driverlib\debug.h)(0x6A0D9788)
-I (.\driverlib\gpio.h)(0x6A0D9788)
-I (.\inc\hw_i2c.h)(0x6A0D978C)
-I (.\inc\hw_types.h)(0x6A0D978C)
-I (.\driverlib\i2c.h)(0x6A0D9788)
-I (.\driverlib\pin_map.h)(0x6A0D9788)
-I (.\driverlib\sysctl.h)(0x6A0D9788)
-I (.\driverlib\systick.h)(0x6A0D9788)
-I (.\driverlib\interrupt.h)(0x6A0D9788)
-I (.\driverlib\uart.h)(0x6A0D9788)
-I (.\inc\hw_ints.h)(0x6A0D978C)
-I (firmware\hw_config.h)(0x6A21752F)
-I (firmware\clock.h)(0x6A2172D1)
-I (firmware\alarm.h)(0x6A2172EA)
-I (firmware\display.h)(0x6A217306)
-I (firmware\keys.h)(0x6A217494)
-I (firmware\buzzer.h)(0x6A2173BF)
-I (firmware\led.h)(0x6A2173C7)
-I (firmware\protocol.h)(0x6A217404)
-I (firmware\events.h)(0x6A2173E4)
-F (.\firmware\protocol.c)(0x6A218E53)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork --split_sections -I .\inc -I .\driverlib-IX:\coding\github\Bidirectional-Collaborative-Multifunction-Digital-Clock-Based-on-S800-Board\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C129-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="522" -D_RTE_ -DTM4C1294NCPDT -DPART_TM4C1294NCPDT-o .\objects\protocol.o --omf_browse .\objects\protocol.crf --depend .\objects\protocol.d)
-I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x57F606B8)
-I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x57F606B8)
-I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x57F606B8)
-I (firmware\protocol.h)(0x6A217404)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
-I (firmware\hw_config.h)(0x6A21752F)
-I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x57F606B8)
-I (.\inc\hw_memmap.h)(0x6A0D978C)
-I (.\inc\hw_types.h)(0x6A0D978C)
-I (.\driverlib\gpio.h)(0x6A0D9788)
-I (.\driverlib\i2c.h)(0x6A0D9788)
-I (.\driverlib\pin_map.h)(0x6A0D9788)
-I (.\driverlib\sysctl.h)(0x6A0D9788)
-I (.\driverlib\systick.h)(0x6A0D9788)
-I (.\driverlib\interrupt.h)(0x6A0D9788)
-I (.\driverlib\uart.h)(0x6A0D9788)
-I (.\inc\hw_ints.h)(0x6A0D978C)
-I (firmware\clock.h)(0x6A2172D1)
-I (firmware\alarm.h)(0x6A2172EA)
-I (firmware\display.h)(0x6A217306)
-I (firmware\keys.h)(0x6A217494)
-I (firmware\buzzer.h)(0x6A2173BF)
-I (firmware\led.h)(0x6A2173C7)
-I (firmware\events.h)(0x6A2173E4)
-F (.\driverlib\rvmdk\driverlib.lib)(0x6A0D9788)()
-F (RTE\Device\TM4C1294NCPDT\startup_TM4C129.s)(0x51BFAA8A)(--cpu Cortex-M4.fp --pd "__EVAL SETA 1" -g --apcs=interwork -IX:\coding\github\Bidirectional-Collaborative-Multifunction-Digital-Clock-Based-on-S800-Board\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C129-IC:\Keil_v5\ARM\CMSIS\Include--pd "__UVISION_VERSION SETA 522" --pd "_RTE_ SETA 1" --pd "TM4C1294NCPDT SETA 1"--list .\listings\startup_tm4c129.lst --xref -o .\objects\startup_tm4c129.o --depend .\objects\startup_tm4c129.d)
-F (RTE\Device\TM4C1294NCPDT\system_TM4C129.c)(0x525357C4)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork --split_sections -I .\inc -I .\driverlib-IX:\coding\github\Bidirectional-Collaborative-Multifunction-Digital-Clock-Based-on-S800-Board\RTE\_Target_1-IC:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C129-IC:\Keil_v5\ARM\CMSIS\Include-D__UVISION_VERSION="522" -D_RTE_ -DTM4C1294NCPDT -DPART_TM4C1294NCPDT-o .\objects\system_tm4c129.o --omf_browse .\objects\system_tm4c129.crf --depend .\objects\system_tm4c129.d)
-I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x57F606B8)
-I (C:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C129\TM4C129.h)(0x530E9E96)
-I (C:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C129\TM4C1294NCPDT.h)(0x530E9E96)
-I (C:\Keil_v5\ARM\CMSIS\Include\core_cm4.h)(0x559CDD8A)
-I (C:\Keil_v5\ARM\CMSIS\Include\core_cmInstr.h)(0x559CDD8A)
-I (C:\Keil_v5\ARM\CMSIS\Include\core_cmFunc.h)(0x559CDD8A)
-I (C:\Keil_v5\ARM\CMSIS\Include\core_cm4_simd.h)(0x559CDD8A)
-I (C:\Keil_v5\ARM\PACK\Keil\TM4C_DFP\1.1.0\Device\Include\TM4C129\system_TM4C129.h)(0x51BFAA8A)
