@@ -1165,10 +1165,18 @@ const uint8_t g_seg_table_num[10] = {
 
 const uint8_t g_seg_table_alpha[26] = {
     0x77, 0x7C, 0x39, 0x5E, 0x79, 0x71,   /* A B C D E F */
-    0x3D, 0x76, 0x30, 0x1E, 0x7A, 0x38,   /* G H I J K L */
+    0x3D, 0x76, 0x30, 0x1E, 0x7A, 0x3C,   /* G H I J K L */
     0x55, 0x37, 0x3F, 0x73, 0x67, 0x70,   /* M N O P Q R */
     0x6D, 0x78, 0x3E, 0x7E, 0x6A, 0x36,   /* S T U V W X */
     0x6E, 0x49                              /* Y Z */
+};
+
+const uint8_t g_seg_table_lower[26] = {
+    0x77, 0x7C, 0x58, 0x5E, 0x7B, 0x71,   /* a b c d e f */
+    0x3D, 0x74, 0x10, 0x0E, 0x7A, 0x30,   /* g h i j k l */
+    0x55, 0x54, 0x5C, 0x73, 0x67, 0x50,   /* m n o p q r */
+    0x6D, 0x78, 0x1C, 0x7E, 0x6A, 0x36,   /* s t u v w x */
+    0x6E, 0x49                              /* y z */
 };
 
 /*=========================================================================
@@ -1197,7 +1205,7 @@ uint8_t Display_GetSegCode(char c)
 {
     if (c >= '0' && c <= '9') return g_seg_table_num[c - '0'];
     if (c >= 'A' && c <= 'Z') return g_seg_table_alpha[c - 'A'];
-    if (c >= 'a' && c <= 'z') return g_seg_table_alpha[c - 'a'];
+    if (c >= 'a' && c <= 'z') return g_seg_table_lower[c - 'a'];
     if (c == '.') return 0x00;  /* DP handled by FillFromBuffer g_dp_mask */
     if (c == '-') return 0x40;
     if (c == '_') return 0x08;
@@ -2543,71 +2551,140 @@ static void Cmd_RST(void)
     Protocol_SendResponse("OK\r\n");
 }
 
+static uint8_t ParseDecU16(const char *str, uint16_t *val)
+{
+    uint32_t parsed;
+    char *endptr;
+
+    if (str == NULL || *str == '\0') {
+        return 0;
+    }
+
+    parsed = strtoul(str, &endptr, 10);
+    if (*endptr != '\0' || parsed > 65535UL) {
+        return 0;
+    }
+
+    *val = (uint16_t)parsed;
+    return 1;
+}
+
+static uint8_t CollectTokens(char *params, char **tokens, uint8_t max_tokens,
+                             uint8_t *count)
+{
+    char *rest;
+    char *token;
+
+    rest = params;
+    *count = 0;
+    while ((token = NextToken(&rest)) != NULL) {
+        if (*count >= max_tokens) {
+            return 0;
+        }
+        tokens[*count] = token;
+        (*count)++;
+    }
+    return 1;
+}
+
 /*=========================================================================
  * Handle *SET:DATE command.
  * Parameters: YEAR <yy> / MONTH <mm> / DATE <dd> (one or more fields).
  *=========================================================================*/
 static void Cmd_SET_DATE(char *params)
 {
-    char *token;
-    char *rest;
-    uint8_t val;
+    char *tokens[12];
+    uint8_t count;
+    uint8_t i;
     ClockTime temp_time;
     uint8_t has_update;
+    uint8_t ok;
 
     /* Start with current clock values */
     temp_time  = g_clock;
     has_update = 0;
+    ok = 0;
 
-    rest = params;
-    while ((token = NextToken(&rest)) != NULL) {
-        /* Get the parameter name */
-        /* Get the value token */
-        char *val_str = NextToken(&rest);
-        if (val_str == NULL) {
-            Protocol_SendResponse("ERROR\r\n");
-            return;
-        }
-
-        val = (uint8_t)atoi(val_str);
-
-        if (MatchAbbrev(token, "YEAR")) {
-            /* Valid range: 0-99 */
-            if (val > 99) {
-                Protocol_SendResponse("ERROR\r\n");
-                return;
-            }
-            temp_time.year = val;
-            has_update = 1;
-        } else if (MatchAbbrev(token, "MONTH")) {
-            if (val < 1 || val > 12) {
-                Protocol_SendResponse("ERROR\r\n");
-                return;
-            }
-            temp_time.month = val;
-            has_update = 1;
-        } else if (MatchAbbrev(token, "DATE")) {
-            if (val < 1 || val > 31) {
-                Protocol_SendResponse("ERROR\r\n");
-                return;
-            }
-            temp_time.day = val;
-            has_update = 1;
-        } else {
-            /* Unknown parameter name */
-            Protocol_SendResponse("ERROR\r\n");
-            return;
-        }
+    if (!CollectTokens(params, tokens, 12, &count) || count == 0 ||
+        (count & 1)) {
+        Protocol_SendResponse("ERROR\r\n");
+        return;
     }
 
-    if (has_update) {
-        /* Validate day against month */
-        if (temp_time.day > Clock_DaysInMonth(temp_time.year, temp_time.month)) {
-            temp_time.day = Clock_DaysInMonth(temp_time.year, temp_time.month);
+    {
+        uint8_t style;
+
+        for (style = 0; style < 2 && !ok; style++) {
+        ClockTime trial_time;
+        uint8_t trial_update;
+
+        trial_time = g_clock;
+        trial_update = 0;
+
+        for (i = 0; i < count / 2; i++) {
+            char *name;
+            char *value_str;
+            uint16_t val;
+
+            if (style == 0) {
+                name = tokens[i * 2];
+                value_str = tokens[i * 2 + 1];
+            } else {
+                name = tokens[i];
+                value_str = tokens[count / 2 + i];
+            }
+
+            if (!ParseDecU16(value_str, &val)) {
+                break;
+            }
+
+            if (MatchAbbrev(name, "YEAR")) {
+                if (val >= 2000 && val <= 2099) {
+                    val = (uint16_t)(val - 2000);
+                }
+                if (val > 99) {
+                    break;
+                }
+                trial_time.year = (uint8_t)val;
+                trial_update = 1;
+            } else if (MatchAbbrev(name, "MONTH")) {
+                if (val < 1 || val > 12) {
+                    break;
+                }
+                trial_time.month = (uint8_t)val;
+                trial_update = 1;
+            } else if (MatchAbbrev(name, "DATE")) {
+                if (val < 1 || val > 31) {
+                    break;
+                }
+                trial_time.day = (uint8_t)val;
+                trial_update = 1;
+            } else {
+                break;
+            }
         }
-        g_clock = temp_time;
-        g_ntp_state = NTP_STATE_SYNCED;
-        g_ntp_last_sync = g_uptime_seconds;
+
+        if (i == count / 2 && trial_update) {
+            temp_time = trial_time;
+            has_update = 1;
+            ok = 1;
+        }
+    }
+    }
+
+    if (!ok) {
+        Protocol_SendResponse("ERROR\r\n");
+        return;
+    }
+
+    /* Validate day against month */
+    if (temp_time.day > Clock_DaysInMonth(temp_time.year, temp_time.month)) {
+        temp_time.day = Clock_DaysInMonth(temp_time.year, temp_time.month);
+    }
+    g_clock = temp_time;
+    g_ntp_state = NTP_STATE_SYNCED;
+    g_ntp_last_sync = g_uptime_seconds;
+    if (has_update) {
         Protocol_SendResponse("OK\r\n");
     } else {
         Protocol_SendResponse("ERROR\r\n");
@@ -2620,51 +2697,83 @@ static void Cmd_SET_DATE(char *params)
  *=========================================================================*/
 static void Cmd_SET_TIME(char *params)
 {
-    char *token;
-    char *rest;
-    uint8_t val;
+    char *tokens[12];
+    uint8_t count;
+    uint8_t i;
+    ClockTime temp_time;
     uint8_t has_update;
+    uint8_t ok;
 
+    temp_time = g_clock;
     has_update = 0;
+    ok = 0;
 
-    rest = params;
-    while ((token = NextToken(&rest)) != NULL) {
-        char *val_str = NextToken(&rest);
-        if (val_str == NULL) {
-            Protocol_SendResponse("ERROR\r\n");
-            return;
-        }
-
-        val = (uint8_t)atoi(val_str);
-
-        if (MatchAbbrev(token, "HOUR")) {
-            if (val > 23) {
-                Protocol_SendResponse("ERROR\r\n");
-                return;
-            }
-            g_clock.hour = val;
-            has_update = 1;
-        } else if (MatchAbbrev(token, "MINute")) {
-            if (val > 59) {
-                Protocol_SendResponse("ERROR\r\n");
-                return;
-            }
-            g_clock.minute = val;
-            has_update = 1;
-        } else if (MatchAbbrev(token, "SECond")) {
-            if (val > 59) {
-                Protocol_SendResponse("ERROR\r\n");
-                return;
-            }
-            g_clock.second = val;
-            has_update = 1;
-        } else {
-            Protocol_SendResponse("ERROR\r\n");
-            return;
-        }
+    if (!CollectTokens(params, tokens, 12, &count) || count == 0 ||
+        (count & 1)) {
+        Protocol_SendResponse("ERROR\r\n");
+        return;
     }
 
-    if (has_update) {
+    {
+        uint8_t style;
+
+        for (style = 0; style < 2 && !ok; style++) {
+        ClockTime trial_time;
+        uint8_t trial_update;
+
+        trial_time = g_clock;
+        trial_update = 0;
+
+        for (i = 0; i < count / 2; i++) {
+            char *name;
+            char *value_str;
+            uint16_t val;
+
+            if (style == 0) {
+                name = tokens[i * 2];
+                value_str = tokens[i * 2 + 1];
+            } else {
+                name = tokens[i];
+                value_str = tokens[count / 2 + i];
+            }
+
+            if (!ParseDecU16(value_str, &val)) {
+                break;
+            }
+
+            if (MatchAbbrev(name, "HOUR")) {
+                if (val > 23) {
+                    break;
+                }
+                trial_time.hour = (uint8_t)val;
+                trial_update = 1;
+            } else if (MatchAbbrev(name, "MINute")) {
+                if (val > 59) {
+                    break;
+                }
+                trial_time.minute = (uint8_t)val;
+                trial_update = 1;
+            } else if (MatchAbbrev(name, "SECond")) {
+                if (val > 59) {
+                    break;
+                }
+                trial_time.second = (uint8_t)val;
+                trial_update = 1;
+            } else {
+                break;
+            }
+        }
+
+        if (i == count / 2 && trial_update) {
+            temp_time = trial_time;
+            has_update = 1;
+            ok = 1;
+        }
+    }
+    }
+
+    if (ok && has_update) {
+        g_clock = temp_time;
         g_ntp_state = NTP_STATE_SYNCED;
         g_ntp_last_sync = g_uptime_seconds;
         Protocol_SendResponse("OK\r\n");
@@ -2679,70 +2788,112 @@ static void Cmd_SET_TIME(char *params)
  *=========================================================================*/
 static void Cmd_SET_ALARM(char *params)
 {
-    char *token;
-    char *rest;
-    uint8_t val;
-    uint8_t has_update;
+    char *tokens[12];
+    uint8_t count;
+    uint8_t i;
+    uint8_t hour;
+    uint8_t minute;
+    uint8_t second;
+    uint8_t ok;
 
-    has_update = 0;
-
-    rest = params;
-    while ((token = NextToken(&rest)) != NULL) {
-        /* Check for OFF keyword */
-        if (MatchAbbrev(token, "OFF")) {
-            g_alarm.enabled = 0;
-            g_alarm.ringing = 0;
-            Buzzer_StopRing();
-            Protocol_SendResponse("OK\r\n");
-            return;
-        }
-
-        {
-            char *val_str = NextToken(&rest);
-            if (val_str == NULL) {
-                Protocol_SendResponse("ERROR\r\n");
-                return;
-            }
-
-            val = (uint8_t)atoi(val_str);
-
-            if (MatchAbbrev(token, "HOUR")) {
-                if (val > 23) {
-                    Protocol_SendResponse("ERROR\r\n");
-                    return;
-                }
-                g_alarm.hour = val;
-                g_alarm.enabled = 1;
-                has_update = 1;
-            } else if (MatchAbbrev(token, "MINute")) {
-                if (val > 59) {
-                    Protocol_SendResponse("ERROR\r\n");
-                    return;
-                }
-                g_alarm.minute = val;
-                g_alarm.enabled = 1;
-                has_update = 1;
-            } else if (MatchAbbrev(token, "SECond")) {
-                if (val > 59) {
-                    Protocol_SendResponse("ERROR\r\n");
-                    return;
-                }
-                g_alarm.second = val;
-                g_alarm.enabled = 1;
-                has_update = 1;
-            } else {
-                Protocol_SendResponse("ERROR\r\n");
-                return;
-            }
-        }
-    }
-
-    if (has_update) {
-        g_alarm.ringing = 0;
-        Protocol_SendResponse("OK\r\n");
-    } else {
+    if (!CollectTokens(params, tokens, 12, &count) || count == 0) {
         Protocol_SendResponse("ERROR\r\n");
+        return;
     }
+
+    if (count == 1 && MatchAbbrev(tokens[0], "OFF")) {
+        g_alarm.enabled = 0;
+        g_alarm.ringing = 0;
+        Buzzer_StopRing();
+        Protocol_SendResponse("OK\r\n");
+        return;
+    }
+
+    if (count & 1) {
+        Protocol_SendResponse("ERROR\r\n");
+        return;
+    }
+
+    hour = g_alarm.hour;
+    minute = g_alarm.minute;
+    second = g_alarm.second;
+    ok = 0;
+
+    {
+        uint8_t style;
+
+        for (style = 0; style < 2 && !ok; style++) {
+            uint8_t trial_hour;
+            uint8_t trial_minute;
+            uint8_t trial_second;
+            uint8_t trial_update;
+
+            trial_hour = g_alarm.hour;
+            trial_minute = g_alarm.minute;
+            trial_second = g_alarm.second;
+            trial_update = 0;
+
+            for (i = 0; i < count / 2; i++) {
+                char *name;
+                char *value_str;
+                uint16_t val;
+
+                if (style == 0) {
+                    name = tokens[i * 2];
+                    value_str = tokens[i * 2 + 1];
+                } else {
+                    name = tokens[i];
+                    value_str = tokens[count / 2 + i];
+                }
+
+                if (!ParseDecU16(value_str, &val)) {
+                    break;
+                }
+
+                if (MatchAbbrev(name, "HOUR")) {
+                    if (val > 23) {
+                        break;
+                    }
+                    trial_hour = (uint8_t)val;
+                    trial_update = 1;
+                } else if (MatchAbbrev(name, "MINute")) {
+                    if (val > 59) {
+                        break;
+                    }
+                    trial_minute = (uint8_t)val;
+                    trial_update = 1;
+                } else if (MatchAbbrev(name, "SECond")) {
+                    if (val > 59) {
+                        break;
+                    }
+                    trial_second = (uint8_t)val;
+                    trial_update = 1;
+                } else {
+                    break;
+                }
+            }
+
+            if (i == count / 2 && trial_update) {
+                hour = trial_hour;
+                minute = trial_minute;
+                second = trial_second;
+                ok = 1;
+            }
+        }
+    }
+
+    if (!ok) {
+        Protocol_SendResponse("ERROR\r\n");
+        return;
+    }
+
+    g_alarm.hour = hour;
+    g_alarm.minute = minute;
+    g_alarm.second = second;
+    g_alarm.enabled = 1;
+    g_alarm.ringing = 0;
+    Buzzer_StopRing();
+    Protocol_SendResponse("OK\r\n");
 }
 
 /*=========================================================================
@@ -3101,6 +3252,15 @@ static void Protocol_ParseLine(char *line)
             }
             subcmd_str = subcmd_str + 1;  /* skip ':' */
             params     = p;
+        }
+
+        if (*subcmd_str == '\0') {
+            subcmd_str = NextToken(&p);
+            if (subcmd_str == NULL) {
+                Protocol_SendResponse("ERROR\r\n");
+                return;
+            }
+            params = p;
         }
 
         /* Now cmd_str is clean ("SET" or "GET"), test it */

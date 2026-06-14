@@ -35,6 +35,7 @@ extern uint16_t g_msg_timeout;                   /* short MSG auto-return */
  *=========================================================================*/
 extern const uint8_t g_seg_table_num[10];
 extern const uint8_t g_seg_table_alpha[26];
+extern const uint8_t g_seg_table_lower[26];
 
 /*=========================================================================
  * Function Declarations
