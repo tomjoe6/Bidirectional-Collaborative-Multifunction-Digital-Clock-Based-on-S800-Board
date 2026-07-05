@@ -271,6 +271,19 @@ class ControlPanel(QWidget):
         gen_layout.addStretch()
         set_layout.addLayout(gen_layout)
 
+        # Manual command row
+        manual_layout = QHBoxLayout()
+        manual_layout.addWidget(QLabel("手动命令:"))
+        self.txt_manual_cmd = QLineEdit()
+        self.txt_manual_cmd.setPlaceholderText("*PING / *GET:TIME / *SET:MSG Hello")
+        self.txt_manual_cmd.returnPressed.connect(self._on_manual_command)
+        manual_layout.addWidget(self.txt_manual_cmd)
+
+        self.btn_manual_send = QPushButton("发送")
+        self.btn_manual_send.clicked.connect(self._on_manual_command)
+        manual_layout.addWidget(self.btn_manual_send)
+        set_layout.addLayout(manual_layout)
+
         main_layout.addWidget(self.grp_set)
 
         # --- Group 2: 演示 (Demo) ---
@@ -428,6 +441,12 @@ class ControlPanel(QWidget):
 
     def _on_ping(self) -> None:
         self._emit_cmd(self._fmt("PING"))
+
+    def _on_manual_command(self) -> None:
+        cmd = self.txt_manual_cmd.text().strip()
+        if not cmd:
+            return
+        self.send_command.emit(cmd + "\r\n")
 
     def _on_abbrev_demo(self) -> None:
         """Send abbreviated commands demonstrating MIN->MINute, SEC->SECond tolerance."""

@@ -335,7 +335,7 @@
               <MiscControls></MiscControls>
               <Define>PART_TM4C1294NCPDT</Define>
               <Undefine></Undefine>
-              <IncludePath>.\inc;.\driverlib</IncludePath>
+              <IncludePath>.\firmware;.\inc;.\driverlib</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>

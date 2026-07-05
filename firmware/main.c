@@ -18,6 +18,7 @@
 #include "keys.h"
 #include "led.h"
 #include "pin_map.h"
+#include "pwm.h"
 #include "protocol.h"
 #include "sysctl.h"
 #include "systick.h"
@@ -27,6 +28,20 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+#ifndef BUZZER_GPIO_PERIPH
+#define BUZZER_GPIO_PERIPH      SYSCTL_PERIPH_GPIOK
+#define BUZZER_PORT             GPIO_PORTK_BASE
+#define BUZZER_PIN              GPIO_PIN_5
+#define BUZZER_PIN_CONFIG       GPIO_PK5_M0PWM7
+#define BUZZER_PWM_PERIPH       SYSCTL_PERIPH_PWM0
+#define BUZZER_PWM_BASE         PWM0_BASE
+#define BUZZER_PWM_GEN          PWM_GEN_3
+#define BUZZER_PWM_OUT          PWM_OUT_7
+#define BUZZER_PWM_OUT_BIT      PWM_OUT_7_BIT
+#define BUZZER_TONE_HZ          4000U
+#define BUZZER_PWM_PERIOD       (SYSTEM_CLOCK_HZ / BUZZER_TONE_HZ)
+#endif
 
 /*=========================================================================*/
 /*  S800 Smart Clock — All custom code in single main.c                     */
